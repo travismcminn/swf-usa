@@ -37,11 +37,6 @@ a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
 /* Layout */
 .grid-2{display:grid;grid-template-columns:1.2fr 1fr;gap:32px}
 @media (max-width:900px){.grid-2{grid-template-columns:1fr}}
-.hero{background:
-  radial-gradient(1200px 400px at 10% -10%, rgba(236,28,36,.10), transparent 60%),
-  linear-gradient(#fff, #fff 60%, var(--bg));
-  border-bottom:1px solid var(--line)}
-.img-frame{border:1px solid var(--line);border-radius:16px;overflow:hidden}
 
 /* =================== HEADER (refreshed) =================== */
 .site-header{
@@ -81,18 +76,13 @@ a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
 .mobile-btn{ display:none; border:1px solid var(--line); background:#fff; border-radius:12px; }
 @media (max-width:900px){ .nav{ display:none } .mobile-btn{ display:inline-flex } }
 
-.mobile-panel{
-  border-top:1px solid var(--line);
-  background:#fff; overflow:hidden;
-}
+.mobile-panel{ border-top:1px solid var(--line); background:#fff; overflow:hidden; }
 .mobile-grid{ display:grid; gap:10px; padding:12px 0; }
 .m-link{ padding:.7rem 0; font-weight:700; }
 .m-cta{ justify-content:center; }
 
 /* Improve focus styles for a11y */
-a:focus-visible, button:focus-visible{
-  outline:2px solid var(--swf-red); outline-offset:2px;
-}
+a:focus-visible, button:focus-visible{ outline:2px solid var(--swf-red); outline-offset:2px; }
 
 /* Footer */
 footer{margin-top:56px;background:#fff;border-top:1px solid var(--line)}
@@ -122,35 +112,24 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 @media (max-width:1000px){.fin-grid{grid-template-columns:1fr}}
 .fin-card{position:relative;border:1px solid var(--line);background:var(--surface);border-radius:18px;box-shadow:0 10px 30px rgba(2,6,23,.06);overflow:hidden}
 .fin-body{padding:18px}
-
-.fin-hero{
-  display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:2px 0 10px;
-  padding:10px;border:1px solid #ffd5ea;background:#fff5f7;border-radius:14px;
-}
+.fin-hero{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:2px 0 10px;padding:10px;border:1px solid #ffd5ea;background:#fff5f7;border-radius:14px}
 .fin-hero img{height:26px;width:auto;display:block}
 .fin-hero .tag{font-weight:800;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;background:#ffe4e8;color:#8a1838;border:1px solid #ffd5ea;border-radius:999px;padding:.25rem .6rem}
-
 .fin-trust{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 6px}
 .fin-badge{display:inline-flex;align-items:center;gap:.45rem;border:1px solid var(--line);background:#fff;border-radius:999px;padding:.4rem .7rem;font-weight:700;font-size:.85rem}
 .fin-badge svg{width:16px;height:16px;flex:0 0 auto}
-
 .fin-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0}
 @media (max-width:800px){.fin-steps{grid-template-columns:1fr}}
 .step{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff}
 .step h4{margin:0 0 6px;font-size:16px}
 .step p{margin:0;color:var(--muted);font-size:14px}
-
 .fin-note{font-size:.9rem;color:var(--muted);margin-top:6px}
 .fin-disclaimer{font-size:.8rem;color:var(--muted);margin-top:10px}
-
-/* Embedded JotForm container */
 .embed-wrap{border-left:1px solid var(--line);background:#fff;border-radius:18px;overflow:hidden}
 @media (max-width:1000px){.embed-wrap{border-left:none;border-top:1px solid var(--line)}}
 .embed-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line);background:#fff}
 .embed-head h3{margin:0;font-size:18px}
 .embed-body{padding:0}
-
-/* Charlie contact card */
 .contact-card{display:flex;gap:14px;align-items:center;border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px;margin-top:14px}
 .contact-card img{width:64px;height:64px;border-radius:50%;object-fit:cover}
 .contact-card .meta{display:grid;gap:4px}
@@ -171,36 +150,9 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 @media (max-width: 640px){.gallery-row{grid-template-columns:repeat(2,1fr)}}
 .gallery-row .thumb{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;height:120px;display:flex;align-items:center;justify-content:center}
 .gallery-row img{width:100%;height:100%;object-fit:cover}
-.spec-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
-.spec-table th,.spec-table td{border:1px solid var(--line);padding:8px;text-align:left;background:#fff}
-.spec-table th{background:#f9fafb}
 .video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
 @media (max-width: 900px){.video-grid{grid-template-columns:1fr}}
 .video-grid iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:12px;background:#000}
-
-/* ===== Value-selling helpers (KX) ===== */
-.icon-list{display:grid;gap:10px;margin:10px 0}
-.icon-item{display:flex;gap:10px;align-items:flex-start}
-.icon-item .ic{flex:0 0 auto;width:22px;height:22px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:800}
-.ic-red{background:#fff5f5;color:var(--swf-red)}
-.ic-slate{background:#f1f5f9;color:#0f172a}
-.kx-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:16px}
-@media (max-width: 900px){.kx-grid{grid-template-columns:1fr}}
-.note{font-size:.9rem;color:var(--muted)}
-.checklist{display:grid;gap:8px;margin:8px 0}
-.checklist .row{display:flex;gap:8px;align-items:flex-start}
-.check{font-weight:900}
-.callout{border:1px dashed var(--line);border-radius:14px;padding:12px;background:#fff}
-
-/* ===== Tabs (inside details) ===== */
-.tabs{margin-top:12px}
-.tablist{display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:6px}
-.tab{appearance:none;border:1px solid var(--line);background:#fff;padding:.5rem .8rem;border-radius:10px;font-weight:700;cursor:pointer}
-.tab[aria-selected="true"]{background:var(--swf-red);color:#fff;border-color:var(--swf-red)}
-.tabpanel{display:none;padding-top:12px}
-.tabpanel.active{display:block}
-
-/* Specs sub-table layout */
 .specs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 @media (max-width: 1000px){.specs-grid{grid-template-columns:1fr}}
 .spec-card table{width:100%;border-collapse:collapse;font-size:14px}
@@ -210,29 +162,14 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 /* Download cards + modal */
 .dl-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 @media (max-width:1000px){.dl-cards{grid-template-columns:1fr}}
-.dl-card{
-  border:1px solid var(--line);background:#fff;border-radius:14px;overflow:hidden;
-  display:flex;gap:12px;align-items:center;padding:12px;cursor:pointer;
-  box-shadow:0 6px 18px rgba(2,6,23,.06);transition:transform .12s ease;
-}
+.dl-card{border:1px solid var(--line);background:#fff;border-radius:14px;overflow:hidden;display:flex;gap:12px;align-items:center;padding:12px;cursor:pointer;box-shadow:0 6px 18px rgba(2,6,23,.06);transition:transform .12s ease}
 .dl-card:hover{transform:translateY(-2px)}
-.dl-card .pdf-ic{
-  width:36px;height:44px;border:1px solid var(--line);border-radius:6px;
-  display:grid;place-items:center;font-weight:800;background:#fff5f5;color:var(--swf-red)
-}
+.dl-card .pdf-ic{width:36px;height:44px;border:1px solid var(--line);border-radius:6px;display:grid;place-items:center;font-weight:800;background:#fff5f5;color:var(--swf-red)}
 .dl-card h5{margin:0;font-size:15px}
 .dl-card p{margin:2px 0 0;color:var(--muted);font-size:13px}
-
-/* Modal */
-.modal-backdrop{
-  position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(2px);
-  display:none;z-index:1000;
-}
+.modal-backdrop{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(2px);display:none;z-index:1000}
 .modal-backdrop.open{display:block}
-.modal{
-  position:fixed;inset:4% 6%;background:#fff;border-radius:16px;overflow:hidden;
-  display:none;z-index:1001;border:1px solid var(--line);box-shadow:0 25px 80px rgba(2,6,23,.25)
-}
+.modal{position:fixed;inset:4% 6%;background:#fff;border-radius:16px;overflow:hidden;display:none;z-index:1001;border:1px solid var(--line);box-shadow:0 25px 80px rgba(2,6,23,.25)}
 @media (max-width:900px){.modal{inset:6% 4%}}
 .modal.open{display:flex;flex-direction:column}
 .modal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border-bottom:1px solid var(--line);background:#fff}
@@ -243,17 +180,67 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 
 /* What's Included card */
 .included { margin-top:12px }
-.included .items {
-  display:grid; grid-template-columns:1fr 1fr; gap:8px 14px; margin-top:6px;
-}
+.included .items { display:grid; grid-template-columns:1fr 1fr; gap:8px 14px; margin-top:6px }
 @media (max-width:700px){ .included .items{ grid-template-columns:1fr } }
 .included .item { display:flex; align-items:flex-start; gap:8px }
-.included .dot {
-  flex:0 0 auto; width:20px; height:20px; border-radius:50%;
-  display:flex; align-items:center; justify-content:center;
-  border:1px solid var(--line); background:#fff5f5; color:var(--swf-red); font-weight:800;
-}
+.included .dot { flex:0 0 auto; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:1px solid var(--line); background:#fff5f5; color:var(--swf-red); font-weight:800 }
 .included small { color:var(--muted); display:block; margin-top:6px }
+
+/* ===== Polished HERO (with watermark + plaque) ===== */
+.hero--pro{
+  position: relative;
+  padding: 64px 0 56px;
+  background:
+    radial-gradient(1200px 420px at 8% -10%, rgba(236,28,36,.10), rgba(236,28,36,0) 60%),
+    linear-gradient(#fff 0%, #fff 58%, var(--bg) 100%);
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+.hero--pro:before{
+  content:""; position:absolute; inset:0;
+  background-image: linear-gradient(rgba(2,6,23,.035) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(2,6,23,.035) 1px, transparent 1px);
+  background-size: 20px 20px;
+  mask-image: radial-gradient(70% 50% at 10% 0%, #000 30%, transparent 70%);
+  pointer-events:none;
+}
+.hero__wm{
+  position:absolute; inset:0 50% 0 0; /* left half */
+  background: url("https://cdn.shopify.com/s/files/1/1236/6284/files/swfnobg.png?v=1759258611") no-repeat;
+  background-size: 560px auto;
+  background-position: -60px -40px;
+  opacity:.045; mix-blend-mode:multiply; pointer-events:none;
+}
+.hero__stage{
+  position: relative; border-radius: 22px; overflow: hidden;
+  background: #fff; border:1px solid var(--line);
+  box-shadow: 0 20px 50px rgba(2,6,23,.08);
+}
+.hero__stage:after{
+  content:""; position:absolute; left:10%; right:10%; bottom:-24px; height:60px;
+  background: radial-gradient(40% 80% at 50% 0%, rgba(236,28,36,.18), transparent 70%);
+  filter: blur(18px); z-index:0;
+}
+.brand-plaque{
+  position:absolute; top:12px; right:12px; z-index:2;
+  display:flex; align-items:center; gap:8px;
+  background:#fff; border:1px solid var(--line); border-radius:999px;
+  padding:.35rem .6rem; box-shadow:0 8px 18px rgba(2,6,23,.08);
+}
+.brand-plaque img{ height:18px; width:auto; display:block; }
+.brand-plaque span{ font-size:.78rem; font-weight:800; letter-spacing:.04em; color:var(--muted); text-transform:uppercase; }
+
+.hero__media{ position:relative; z-index:1; }
+.hero__media img{ width:100%; height:auto; display:block; object-fit:contain; background:#fff; }
+.hero__chips{ display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 4px; }
+.chip{ display:inline-flex; align-items:center; gap:.45rem; border:1px solid var(--line); background:#fff; border-radius:999px; padding:.4rem .7rem; font-weight:700; font-size:.85rem }
+.chip svg{ width:16px; height:16px; flex:0 0 auto }
+.hero__ctas{ display:flex; gap:12px; flex-wrap:wrap; margin-top:18px; }
+.btn i{ font-style:normal; opacity:.7; }
+@media (max-width:900px){
+  .hero--pro{ padding-top:48px }
+  .hero__wm{ background-size:360px auto; background-position:-50px -30px; opacity:.055 }
+}
 </style>
 </head>
 <body>
@@ -290,36 +277,64 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 </header>
 
 <main>
-  <!-- Hero -->
-  <section class="section hero">
+  <!-- =================== HERO =================== -->
+  <section class="section hero--pro">
+    <div class="hero__wm" aria-hidden="true"></div>
     <div class="container grid-2">
       <div>
         <div class="badge badge-flagship" style="margin-bottom:8px">Embroidery • Built for Hats</div>
-        <h1 class="h1">SWF Embroidery Machines</h1>
-        <p class="p-muted" style="margin-top:12px;max-width:62ch">
+        <h1 class="h1">SWF Embroidery<br>Machines</h1>
+
+        <div class="hero__chips" aria-label="Key benefits">
+          <span class="chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="2" d="M3 12l9-6 9 6-9 6-9-6zM3 12v5l9 6 9-6v-5"/></svg>
+            Built for hats
+          </span>
+          <span class="chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/></svg>
+            1–8 heads
+          </span>
+          <span class="chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="2" d="M4 4h16v16H4zM8 8h8v8H8z"/></svg>
+            U.S. dealer network
+          </span>
+        </div>
+
+        <p class="p-muted" style="margin-top:10px;max-width:62ch">
           Explore the KX, KE, ES, MAS—and the Sunny 7-needle—reliable stitch quality, speed, and a cap system engineered for structured hats. Connect with authorized dealers, get support, and explore financing.
         </p>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:18px">
+
+        <div class="hero__ctas">
           <a class="btn btn-primary" href="#series">See Machines</a>
-          <a class="btn btn-outline" href="#locator">Find a Dealer</a>
-          <a class="btn btn-outline" href="#financing">Financing</a>
+          <a class="btn btn-outline" href="#locator"><i>📍</i> Find a Dealer</a>
+          <a class="btn btn-outline" href="#financing"><i>💳</i> Financing</a>
         </div>
       </div>
-      <div class="img-frame">
-        <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/kx_series.png?v=1759259733" alt="SWF KX Series" />
+
+      <div class="hero__stage">
+        <div class="brand-plaque" aria-hidden="true">
+          <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/swfnobg.png?v=1759258611" alt="">
+          <span>Official U.S. Site</span>
+        </div>
+        <div class="hero__media">
+          <picture>
+            <source srcset="https://cdn.shopify.com/s/files/1/0878/0608/3384/files/KX_6_head.png?v=1759270180" type="image/png">
+            <img src="https://cdn.shopify.com/s/files/1/0878/0608/3384/files/KX_6_head.png?v=1759270180"
+                 alt="SWF KX 6-Head embroidery machine" loading="eager" width="1100" height="700">
+          </picture>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- SERIES (Horizontal Cards) -->
+  <!-- =================== SERIES =================== -->
   <section id="series" class="section">
     <div class="container">
       <h2 class="h2" style="margin-bottom:8px">Choose Your Series</h2>
       <p class="p-muted" style="max-width:60ch">Pick the family that fits your volume and workflow. Specs vary by model—talk to a dealer for details.</p>
 
       <div class="hcards">
-
-        <!-- KX — Flagship -->
+        <!-- KX -->
         <article class="hcard" id="kx">
           <div class="media">
             <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/kx_series.png?v=1759259733" alt="KX Series">
@@ -345,7 +360,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
               <a class="btn btn-outline" href="#financing">Financing Options</a>
             </div>
 
-            <!-- KX DETAILS PANEL -->
+            <!-- KX DETAILS -->
             <div id="kx-details" class="series-details" role="region" aria-label="KX Series details">
               <div class="tabs" data-tabs id="kx-tabs">
                 <div class="tablist" role="tablist" aria-label="KX tabs">
@@ -357,54 +372,21 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 
                 <!-- OVERVIEW -->
                 <div class="tabpanel active" role="tabpanel" id="kx-overview" aria-labelledby="tab-kx-overview" tabindex="0">
-                  <div class="kx-grid">
-                    <!-- LEFT: Value case -->
+                  <div class="specs kx-grid">
                     <div class="spec-card">
                       <h4>Why shops choose <strong>KX</strong> (the flagship)</h4>
                       <div class="icon-list">
-                        <div class="icon-item">
-                          <div class="ic ic-red">✓</div>
-                          <div>
-                            <strong>Built for hats—really.</strong>
-                            <div class="note">Redesigned cap + slim cylinder arm = clean stitching on structured hats at speed. Less flagging, fewer do-overs.</div>
-                          </div>
-                        </div>
-                        <div class="icon-item">
-                          <div class="ic ic-red">✓</div>
-                          <div>
-                            <strong>Speed without compromise.</strong>
-                            <div class="note">SAP smart presser foot + STS smart tension = consistent quality across materials at high speed.</div>
-                          </div>
-                        </div>
-                        <div class="icon-item">
-                          <div class="ic ic-red">✓</div>
-                          <div>
-                            <strong>Real uptime.</strong>
-                            <div class="note">Fast changeovers, SWNS wireless job send, and rugged chassis reduce unplanned stops.</div>
-                          </div>
-                        </div>
-                        <div class="icon-item">
-                          <div class="ic ic-red">✓</div>
-                          <div>
-                            <strong>Lower cost per order.</strong>
-                            <div class="note">Quality-at-speed means fewer rejects, fewer reruns, more revenue hours per shift.</div>
-                          </div>
-                        </div>
-                        <div class="icon-item">
-                          <div class="ic ic-red">✓</div>
-                          <div>
-                            <strong>Scales with you.</strong>
-                            <div class="note">Start single-head, add multi-head (4/6/8), or step into the <em>KX-T1502D</em> dual-function to run two jobs at once.</div>
-                          </div>
-                        </div>
+                        <div class="icon-item"><div class="ic ic-red">✓</div><div><strong>Built for hats—really.</strong><div class="note">Redesigned cap + slim cylinder arm = clean stitching on structured hats at speed. Less flagging, fewer do-overs.</div></div></div>
+                        <div class="icon-item"><div class="ic ic-red">✓</div><div><strong>Speed without compromise.</strong><div class="note">SAP smart presser foot + STS smart tension = consistent quality across materials at high speed.</div></div></div>
+                        <div class="icon-item"><div class="ic ic-red">✓</div><div><strong>Real uptime.</strong><div class="note">Fast changeovers, SWNS wireless job send, and rugged chassis reduce unplanned stops.</div></div></div>
+                        <div class="icon-item"><div class="ic ic-red">✓</div><div><strong>Lower cost per order.</strong><div class="note">Quality-at-speed means fewer rejects, fewer reruns, more revenue hours per shift.</div></div></div>
+                        <div class="icon-item"><div class="ic ic-red">✓</div><div><strong>Scales with you.</strong><div class="note">Start single-head, add multi-head (4/6/8), or step into the <em>KX-T1502D</em> dual-function to run two jobs at once.</div></div></div>
                       </div>
-
                       <div class="checklist">
                         <div class="row"><span class="check">▣</span><span><strong>Caps, polos, hoodies, bags</strong>—confident stitching on mixed fabric stacks</span></div>
                         <div class="row"><span class="check">▣</span><span><strong>Fast operator onboarding</strong>—15″ touch LCD, clear workflows</span></div>
                         <div class="row"><span class="check">▣</span><span><strong>Dealer-backed install & training</strong> + U.S. warranty support</span></div>
                       </div>
-
                       <div class="cta-row" style="margin-top:10px">
                         <a class="btn btn-primary" href="#financing">Financing Options</a>
                         <a class="btn btn-outline" href="#locator">Find a Dealer</a>
@@ -412,7 +394,6 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
                       </div>
                     </div>
 
-                    <!-- RIGHT: At-a-glance + What's Included -->
                     <div class="spec-card">
                       <h4>At-a-glance</h4>
                       <ul class="spec-list">
@@ -421,13 +402,11 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
                         <li><strong>Operator wins:</strong> fewer tweaks, faster changeovers, wireless job send</li>
                         <li><strong>Growth path:</strong> add heads or stations—same controls, same workflow</li>
                       </ul>
-                      <div class="callout" style="margin-top:10px">
+                      <div class="spec-card callout" style="margin-top:10px">
                         <strong>When KX shines</strong>
                         <div class="note">• Cap work is growing • Need quality at 1k+ spm • Want to queue designs over Wi-Fi</div>
                       </div>
-
-                      <!-- What's Included -->
-                      <div class="included callout" aria-label="Included with KX">
+                      <div class="included">
                         <strong>Included with every KX</strong>
                         <div class="items">
                           <div class="item"><span class="dot">✓</span><div>High-speed cap frame set</div></div>
@@ -437,18 +416,16 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
                           <div class="item"><span class="dot">✓</span><div>Dealer install & operator training</div></div>
                           <div class="item"><span class="dot">✓</span><div>U.S. warranty & lifetime technical support</div></div>
                         </div>
-                        <small>Packages can vary by dealer and model. Your dealer will confirm exact contents.</small>
+                        <small>Packages vary by dealer/model. Your dealer will confirm exact contents.</small>
                       </div>
                     </div>
                   </div>
 
-                  <!-- Visuals -->
                   <div class="gallery-row" aria-label="KX gallery">
                     <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/KX_single.jpg?v=1759260196" alt="KX Single Head"></div>
                     <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/KX_T1502D.png?v=1759260378" alt="KX-T1502D Dual-Function"></div>
                     <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/kx_series.png?v=1759259733" alt="KX Series lineup"></div>
                   </div>
-
                   <p class="note" style="margin-top:8px">Specs vary by configuration. No public pricing—<em>call for pricing</em> via an authorized dealer.</p>
                 </div>
 
@@ -512,24 +489,15 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
                     <div class="dl-cards">
                       <button class="dl-card js-open-pdf" data-pdf="https://cdn.shopify.com/s/files/1/0878/0608/3384/files/KX_Single_EN_5.pdf?v=1759267471" data-title="KX Single — Brochure (PDF)">
                         <div class="pdf-ic">PDF</div>
-                        <div>
-                          <h5>KX Single — Brochure</h5>
-                          <p>Specs, features & accessories</p>
-                        </div>
+                        <div><h5>KX Single — Brochure</h5><p>Specs, features & accessories</p></div>
                       </button>
                       <button class="dl-card js-open-pdf" data-pdf="https://cdn.shopify.com/s/files/1/0878/0608/3384/files/KX_Tubular_EN_5.pdf?v=1759267471" data-title="KX Multi-Head — Brochure (PDF)">
                         <div class="pdf-ic">PDF</div>
-                        <div>
-                          <h5>KX Multi-Head — Brochure</h5>
-                          <p>4 / 6 / 8 head lineup</p>
-                        </div>
+                        <div><h5>KX Multi-Head — Brochure</h5><p>4 / 6 / 8 head lineup</p></div>
                       </button>
                       <button class="dl-card js-open-pdf" data-pdf="https://cdn.shopify.com/s/files/1/0878/0608/3384/files/KX_Dual_EN_6.pdf?v=1759267470" data-title="KX Dual 2-Head — Brochure (PDF)">
                         <div class="pdf-ic">PDF</div>
-                        <div>
-                          <h5>KX Dual 2-Head — Brochure</h5>
-                          <p>Dual-function T1502D details</p>
-                        </div>
+                        <div><h5>KX Dual 2-Head — Brochure</h5><p>Dual-function T1502D details</p></div>
                       </button>
                     </div>
                     <p class="note" style="margin-top:8px">Brochures open in a pop-up viewer. You can download from the viewer if needed.</p>
@@ -537,11 +505,11 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
                 </div>
               </div>
             </div>
-            <!-- /KX DETAILS PANEL -->
+            <!-- /KX DETAILS -->
           </div>
         </article>
 
-        <!-- KE — Economy -->
+        <!-- KE -->
         <article class="hcard" id="ke">
           <div class="media">
             <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/Ke_Series.jpg?v=1759259733" alt="KE Series">
@@ -553,9 +521,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
               <span class="heads">Heads: 4, 6, 8</span>
             </div>
             <h3 class="h3">KE Series</h3>
-            <p class="p-muted" style="margin:8px 0 10px">
-              Production multi-heads for dependable throughput and consistent results with a low cost per head.
-            </p>
+            <p class="p-muted" style="margin:8px 0 10px">Production multi-heads for dependable throughput and consistent results with a low cost per head.</p>
             <div class="mini-gallery">
               <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/Ke_Series.jpg?v=1759259733" alt="KE Multi-Head"></div>
             </div>
@@ -578,9 +544,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
               <span class="heads">Heads: Single-head (Full Size & Compact)</span>
             </div>
             <h3 class="h3">ES Series</h3>
-            <p class="p-muted" style="margin:8px 0 10px">
-              Compact footprint, pro-grade stitch quality—perfect for small to mid-volume shops getting into SWF.
-            </p>
+            <p class="p-muted" style="margin:8px 0 10px">Compact footprint, pro-grade stitch quality—perfect for small to mid-volume shops getting into SWF.</p>
             <div class="mini-gallery">
               <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/es_compact_ce76207c-a665-4f6f-8335-a67fc84e26c4.jpg?v=1759260197" alt="ES Compact"></div>
               <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/es_full_size.jpg?v=1759260197" alt="ES Full Size"></div>
@@ -604,9 +568,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
               <span class="heads">Heads: Single-head (Home/Hobby & Compact)</span>
             </div>
             <h3 class="h3">MAS Series</h3>
-            <p class="p-muted" style="margin:8px 0 10px">
-              Modular automation built to scale output with consistent, repeatable quality across runs.
-            </p>
+            <p class="p-muted" style="margin:8px 0 10px">Modular automation built to scale output with consistent, repeatable quality across runs.</p>
             <div class="mini-gallery">
               <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/MAS-12.jpg?v=1759260197" alt="MAS-12"></div>
               <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/es_compact_ce76207c-a665-4f6f-8335-a67fc84e26c4.jpg?v=1759260197" alt="MAS-15"></div>
@@ -630,9 +592,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
               <span class="heads">Heads: Single-head • 7-needle</span>
             </div>
             <h3 class="h3">Sunny — 7-Needle Single Head</h3>
-            <p class="p-muted" style="margin:8px 0 10px">
-              Compact 7-needle embroidery—ideal as an entry solution or complementary station for patches, names, and small runs.
-            </p>
+            <p class="p-muted" style="margin:8px 0 10px">Compact 7-needle embroidery—ideal as an entry solution or complementary station for patches, names, and small runs.</p>
             <div class="mini-gallery">
               <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/Sunny_6.jpg?v=1759260197" alt="Sunny"></div>
             </div>
@@ -662,59 +622,26 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
   <section id="financing" class="section">
     <div class="container">
       <h2 class="h2">Financing — SWF × BYLD Finance</h2>
-
       <div class="fin-card">
         <div class="fin-grid">
-          <!-- Left -->
           <div class="fin-body">
             <div class="fin-hero">
               <span class="tag">Financing Partner</span>
               <img src="https://cdn.shopify.com/s/files/1/0878/0608/3384/files/byld_finance_logo.png?v=1746030247" alt="BYLD Finance">
             </div>
-
-            <p class="p-muted" style="margin:0 0 8px">
-              Upgrade faster and keep cash on hand. One simple application, a soft credit pull to explore options, and flexible structures that fit your workflow.
-            </p>
-
+            <p class="p-muted" style="margin:0 0 8px">Upgrade faster and keep cash on hand. One simple application, a soft credit pull to explore options, and flexible structures that fit your workflow.</p>
             <div class="fin-trust" aria-label="Benefits">
-              <span class="fin-badge">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="2" d="M20 6L9 17l-5-5"/></svg>
-                Soft credit pull
-              </span>
-              <span class="fin-badge">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="2" d="M5 12h14M12 5l7 7-7 7"/></svg>
-                Fast decisions
-              </span>
-              <span class="fin-badge">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="2" d="M12 8v8m-4-4h8"/></svg>
-                $0 down options*
-              </span>
-              <span class="fin-badge">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="2" d="M3 7h18M3 12h18M3 17h18"/></svg>
-                Bundle multiple machines
-              </span>
-              <span class="fin-badge">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="2" d="M8 12l2 2 6-6"/></svg>
-                No payments for 90 days†
-              </span>
+              <span class="fin-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="2" d="M20 6L9 17l-5-5"/></svg>Soft credit pull</span>
+              <span class="fin-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="2" d="M5 12h14M12 5l7 7-7 7"/></svg>Fast decisions</span>
+              <span class="fin-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="2" d="M12 8v8m-4-4h8"/></svg>$0 down options*</span>
+              <span class="fin-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="2" d="M3 7h18M3 12h18M3 17h18"/></svg>Bundle multiple machines</span>
+              <span class="fin-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="2" d="M8 12l2 2 6-6"/></svg>No payments for 90 days†</span>
             </div>
-
             <div class="fin-steps" aria-label="How it works">
-              <div class="step">
-                <h4>1) Apply</h4>
-                <p>Submit the short application to preview terms without impacting your credit score.</p>
-              </div>
-              <div class="step">
-                <h4>2) Choose terms</h4>
-                <p>Pick the monthly payment and length that match your cash flow.</p>
-              </div>
-              <div class="step">
-                <h4>3) Fund equipment</h4>
-                <p>Get your SWF machines installed with a plan that scales as you grow.</p>
-              </div>
+              <div class="step"><h4>1) Apply</h4><p>Submit the short application to preview terms without impacting your credit score.</p></div>
+              <div class="step"><h4>2) Choose terms</h4><p>Pick the monthly payment and length that match your cash flow.</p></div>
+              <div class="step"><h4>3) Fund equipment</h4><p>Get your SWF machines installed with a plan that scales as you grow.</p></div>
             </div>
-
-            <!-- Charlie contact card -->
             <div class="contact-card">
               <img src="https://cdn.shopify.com/s/files/1/0878/0608/3384/files/charlie_newest_headshot.png?v=1749240989" alt="Charlie McMinn">
               <div class="meta">
@@ -726,12 +653,10 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
                 </div>
               </div>
             </div>
-
             <p class="fin-note">Prefer to chat first? We’ll help you pick terms that match your production plan.</p>
             <p class="fin-disclaimer">*Subject to credit approval. †Available to qualified customers. Terms & conditions apply.</p>
           </div>
 
-          <!-- Right: Embedded BYLD application -->
           <aside class="embed-wrap">
             <div class="embed-head">
               <h3>Apply with BYLD Finance</h3>
@@ -820,27 +745,26 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
   </div>
 </footer>
 
-<!-- PDF Modal (global, reused) -->
+<!-- PDF Modal -->
 <div class="modal-backdrop" id="pdfBackdrop" hidden></div>
 <div class="modal" id="pdfModal" role="dialog" aria-modal="true" aria-labelledby="pdfTitle" hidden>
   <div class="modal-head">
     <h3 id="pdfTitle">Brochure</h3>
     <button class="modal-close" id="pdfClose" aria-label="Close PDF viewer">✕</button>
   </div>
-  <div class="modal-body">
-    <iframe id="pdfFrame" title="Brochure PDF"></iframe>
-  </div>
+  <div class="modal-body"><iframe id="pdfFrame" title="Brochure PDF"></iframe></div>
 </div>
 
 <script>
 /* Year */
 document.getElementById('y').textContent = new Date().getFullYear();
 
-/* Header shadow on scroll + active link tracking + mobile toggle */
+/* Header behavior */
 const header = document.getElementById('siteHeader');
 const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 6);
 onScroll(); window.addEventListener('scroll', onScroll);
 
+/* Mobile toggle */
 const menuBtn = document.getElementById('menuBtn');
 const mobileMenu = document.getElementById('mobileMenu');
 menuBtn?.addEventListener('click', () => {
@@ -849,81 +773,63 @@ menuBtn?.addEventListener('click', () => {
   else { mobileMenu.removeAttribute('hidden'); menuBtn.setAttribute('aria-expanded','true'); }
 });
 
+/* Active nav link */
 const links = [...document.querySelectorAll('.nav-link')];
 const targets = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
-
 const io = new IntersectionObserver((entries)=>{
   const visible = entries.filter(e => e.isIntersecting).sort((a,b)=> a.boundingClientRect.top - b.boundingClientRect.top)[0];
   if(!visible) return;
   const id = '#'+visible.target.id;
   links.forEach(l => l.setAttribute('aria-current', l.getAttribute('href')===id ? 'true':'false'));
 },{ rootMargin:'-40% 0px -55% 0px', threshold:[0,1] });
-
 targets.forEach(sec => io.observe(sec));
 links.forEach(a=>{
   a.addEventListener('click', e=>{
-    const id = a.getAttribute('href');
-    const sec = document.querySelector(id);
-    if(!sec) return;
-    e.preventDefault();
-    sec.scrollIntoView({behavior:'smooth', block:'start'});
-    history.replaceState(null,'', id);
+    const id = a.getAttribute('href'); const sec = document.querySelector(id);
+    if(!sec) return; e.preventDefault(); sec.scrollIntoView({behavior:'smooth', block:'start'}); history.replaceState(null,'', id);
   });
 });
 
-/* Series inline details toggler with deep-link support */
+/* Series details toggler + deep links (KX) */
 (function(){
   const buttons = document.querySelectorAll('.js-view-series');
-  const panels = { '#kx':'#kx-details' /* other series panels can be added when built */ };
-
+  const panels = { '#kx':'#kx-details' };
   function closeAll(){
-    document.querySelectorAll('.series-details.open').forEach(el=>{
-      el.classList.remove('open'); el.setAttribute('aria-hidden','true');
-    });
+    document.querySelectorAll('.series-details.open').forEach(el=>{ el.classList.remove('open'); el.setAttribute('aria-hidden','true'); });
     buttons.forEach(b=>b.setAttribute('aria-expanded','false'));
   }
   function openFor(hash, scroll=true){
-    const sel = panels[hash]; if(!sel) return;
-    const panel = document.querySelector(sel);
-    const btn = Array.from(buttons).find(b=>b.getAttribute('href')===hash);
-    if(!panel) return;
-    closeAll();
-    panel.classList.add('open'); panel.setAttribute('aria-hidden','false');
-    if(btn) btn.setAttribute('aria-expanded','true');
+    const sel = panels[hash]; if(!sel) return; const panel = document.querySelector(sel);
+    const btn = Array.from(buttons).find(b=>b.getAttribute('href')===hash); if(!panel) return;
+    closeAll(); panel.classList.add('open'); panel.setAttribute('aria-hidden','false'); if(btn) btn.setAttribute('aria-expanded','true');
     if(scroll){ panel.closest('.hcard')?.scrollIntoView({behavior:'smooth', block:'start'}); }
   }
   buttons.forEach(btn=>{
     btn.setAttribute('aria-expanded','false');
     btn.addEventListener('click', (e)=>{
-      const hash = btn.getAttribute('href');
-      const sel = panels[hash]; if(!sel) return;
-      e.preventDefault();
-      const panel = document.querySelector(sel);
+      const hash = btn.getAttribute('href'); if(!panels[hash]) return;
+      e.preventDefault(); const panel = document.querySelector(panels[hash]);
       if(panel?.classList.contains('open')){ closeAll(); history.replaceState(null,'',' '); }
       else { openFor(hash); history.replaceState(null,'', hash); }
     });
   });
-
   if(location.hash){
     const first = '#' + location.hash.replace('#','').split('/')[0];
     if(panels[first]){ openFor(first, false); document.getElementById('series')?.scrollIntoView({behavior:'smooth', block:'start'}); }
   }
 })();
 
-/* Tabs controller */
+/* Tabs */
 (function(){
   function initTabs(root){
     const tabs = Array.from(root.querySelectorAll('[role="tab"]'));
     function activate(i, setHash=true){
       tabs.forEach((t,idx)=>{
-        const selected = idx===i;
-        t.setAttribute('aria-selected', selected ? 'true':'false');
-        const panel = root.querySelector('#'+t.getAttribute('aria-controls'));
-        panel.classList.toggle('active', selected);
+        const selected = idx===i; t.setAttribute('aria-selected', selected ? 'true':'false');
+        const panel = root.querySelector('#'+t.getAttribute('aria-controls')); panel.classList.toggle('active', selected);
       });
       if(setHash){
-        const id = tabs[i].id.replace('tab-','');
-        const series = root.closest('.series-details')?.id.replace('-details','');
+        const id = tabs[i].id.replace('tab-',''); const series = root.closest('.series-details')?.id.replace('-details','');
         if(series){ history.replaceState(null,'', `#${series}/${id.split('-')[1]}`); }
       }
     }
@@ -943,8 +849,6 @@ links.forEach(a=>{
     }
   }
   document.querySelectorAll('.tabs[data-tabs]').forEach(initTabs);
-
-  // Jump helper to KX downloads
   document.querySelectorAll('.js-jump-kx-dl').forEach(a=>{
     a.addEventListener('click', (e)=>{
       e.preventDefault();
@@ -954,7 +858,7 @@ links.forEach(a=>{
   });
 })();
 
-/* PDF Modal Controller */
+/* PDF Modal */
 (function(){
   const openBtns = document.querySelectorAll('.js-open-pdf');
   const backdrop = document.getElementById('pdfBackdrop');
@@ -970,8 +874,7 @@ links.forEach(a=>{
     frame.src = url;
     backdrop.hidden = false; modal.hidden = false;
     backdrop.classList.add('open'); modal.classList.add('open');
-    closeBtn.focus();
-    document.documentElement.style.overflow = 'hidden';
+    closeBtn.focus(); document.documentElement.style.overflow = 'hidden';
   }
   function closeModal(){
     frame.src = 'about:blank';
@@ -984,12 +887,9 @@ links.forEach(a=>{
   openBtns.forEach(btn=>{
     btn.addEventListener('click', (e)=>{
       e.preventDefault();
-      const url = btn.getAttribute('data-pdf');
-      const title = btn.getAttribute('data-title');
-      if(url) openModal(url, title);
+      openModal(btn.getAttribute('data-pdf'), btn.getAttribute('data-title'));
     });
   });
-
   backdrop.addEventListener('click', closeModal);
   closeBtn.addEventListener('click', closeModal);
   window.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && !modal.hidden){ closeModal(); } });
@@ -997,6 +897,7 @@ links.forEach(a=>{
 </script>
 </body>
 </html>
+
 
 
 
