@@ -106,7 +106,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 @media (max-width:1000px){.embed-wrap{border-left:none;border-top:1px solid var(--line)}}
 .embed-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line);background:#fff}
 .embed-head h3{margin:0;font-size:18px}
-.embed-body{padding:0} /* JotForm injects its own iframe */
+.embed-body{padding:0}
 
 /* Charlie contact card */
 .contact-card{display:flex;gap:14px;align-items:center;border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px;margin-top:14px}
@@ -149,6 +149,54 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 .checklist .row{display:flex;gap:8px;align-items:flex-start}
 .check{font-weight:900}
 .callout{border:1px dashed var(--line);border-radius:14px;padding:12px;background:#fff}
+
+/* ===== Tabs (inside details) ===== */
+.tabs{margin-top:12px}
+.tablist{display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:6px}
+.tab{appearance:none;border:1px solid var(--line);background:#fff;padding:.5rem .8rem;border-radius:10px;font-weight:700;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--swf-red);color:#fff;border-color:var(--swf-red)}
+.tabpanel{display:none;padding-top:12px}
+.tabpanel.active{display:block}
+
+/* Specs sub-table layout */
+.specs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media (max-width: 1000px){.specs-grid{grid-template-columns:1fr}}
+.spec-card table{width:100%;border-collapse:collapse;font-size:14px}
+.spec-card th,.spec-card td{border:1px solid var(--line);padding:8px;background:#fff;text-align:left}
+.spec-card th{background:#f9fafb;width:38%}
+
+/* Download cards + modal */
+.dl-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media (max-width:1000px){.dl-cards{grid-template-columns:1fr}}
+.dl-card{
+  border:1px solid var(--line);background:#fff;border-radius:14px;overflow:hidden;
+  display:flex;gap:12px;align-items:center;padding:12px;cursor:pointer;
+  box-shadow:0 6px 18px rgba(2,6,23,.06);transition:transform .12s ease;
+}
+.dl-card:hover{transform:translateY(-2px)}
+.dl-card .pdf-ic{
+  width:36px;height:44px;border:1px solid var(--line);border-radius:6px;
+  display:grid;place-items:center;font-weight:800;background:#fff5f5;color:var(--swf-red)
+}
+.dl-card h5{margin:0;font-size:15px}
+.dl-card p{margin:2px 0 0;color:var(--muted);font-size:13px}
+
+.modal-backdrop{
+  position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(2px);
+  display:none;z-index:1000;
+}
+.modal-backdrop.open{display:block}
+.modal{
+  position:fixed;inset:4% 6%;background:#fff;border-radius:16px;overflow:hidden;
+  display:none;z-index:1001;border:1px solid var(--line);box-shadow:0 25px 80px rgba(2,6,23,.25)
+}
+@media (max-width:900px){.modal{inset:6% 4%}}
+.modal.open{display:flex;flex-direction:column}
+.modal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border-bottom:1px solid var(--line);background:#fff}
+.modal-head h3{margin:0;font-size:16px}
+.modal-close{appearance:none;border:1px solid var(--line);background:#fff;border-radius:10px;padding:.4rem .65rem;font-weight:800;cursor:pointer}
+.modal-body{flex:1;min-height:320px;background:#000}
+.modal-body iframe{width:100%;height:100%;border:0;background:#000}
 </style>
 </head>
 <body>
@@ -235,94 +283,191 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
               <a class="btn btn-outline" href="#financing">Financing Options</a>
             </div>
 
-            <!-- KX DETAILS PANEL (value-selling) -->
+            <!-- KX DETAILS PANEL (Tabs: Overview / Specs / Videos / Downloads) -->
             <div id="kx-details" class="series-details" role="region" aria-label="KX Series details">
-              <div class="kx-grid">
-                <!-- LEFT: Value case -->
-                <div class="spec-card">
-                  <h4>Why shops choose <strong>KX</strong> (the flagship)</h4>
-                  <div class="icon-list">
-                    <div class="icon-item">
-                      <div class="ic ic-red">✓</div>
-                      <div>
-                        <strong>Built for hats—really.</strong>
-                        <div class="note">Redesigned cap + slim cylinder arm = clean stitching on structured hats at speed. Less flagging, fewer do-overs.</div>
+              <div class="tabs" data-tabs id="kx-tabs">
+                <div class="tablist" role="tablist" aria-label="KX tabs">
+                  <button class="tab" role="tab" aria-selected="true" aria-controls="kx-overview" id="tab-kx-overview">Overview</button>
+                  <button class="tab" role="tab" aria-selected="false" aria-controls="kx-specs" id="tab-kx-specs">Specs</button>
+                  <button class="tab" role="tab" aria-selected="false" aria-controls="kx-videos" id="tab-kx-videos">Videos</button>
+                  <button class="tab" role="tab" aria-selected="false" aria-controls="kx-downloads" id="tab-kx-downloads">Downloads</button>
+                </div>
+
+                <!-- OVERVIEW -->
+                <div class="tabpanel active" role="tabpanel" id="kx-overview" aria-labelledby="tab-kx-overview" tabindex="0">
+                  <div class="kx-grid">
+                    <!-- LEFT: Value case -->
+                    <div class="spec-card">
+                      <h4>Why shops choose <strong>KX</strong> (the flagship)</h4>
+                      <div class="icon-list">
+                        <div class="icon-item">
+                          <div class="ic ic-red">✓</div>
+                          <div>
+                            <strong>Built for hats—really.</strong>
+                            <div class="note">Redesigned cap + slim cylinder arm = clean stitching on structured hats at speed. Less flagging, fewer do-overs.</div>
+                          </div>
+                        </div>
+                        <div class="icon-item">
+                          <div class="ic ic-red">✓</div>
+                          <div>
+                            <strong>Speed without compromise.</strong>
+                            <div class="note">SAP smart presser foot + STS smart tension = consistent quality across materials at high speed.</div>
+                          </div>
+                        </div>
+                        <div class="icon-item">
+                          <div class="ic ic-red">✓</div>
+                          <div>
+                            <strong>Real uptime.</strong>
+                            <div class="note">Fast changeovers, SWNS wireless job send, and rugged chassis reduce unplanned stops.</div>
+                          </div>
+                        </div>
+                        <div class="icon-item">
+                          <div class="ic ic-red">✓</div>
+                          <div>
+                            <strong>Lower cost per order.</strong>
+                            <div class="note">Quality-at-speed means fewer rejects, fewer reruns, more revenue hours per shift.</div>
+                          </div>
+                        </div>
+                        <div class="icon-item">
+                          <div class="ic ic-red">✓</div>
+                          <div>
+                            <strong>Scales with you.</strong>
+                            <div class="note">Start single-head, add multi-head (4/6/8), or step into the <em>KX-T1502D</em> dual-function to run two jobs at once.</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="checklist">
+                        <div class="row"><span class="check">▣</span><span><strong>Caps, polos, hoodies, bags</strong>—confident stitching on mixed fabric stacks</span></div>
+                        <div class="row"><span class="check">▣</span><span><strong>Fast operator onboarding</strong>—15″ touch LCD, clear workflows</span></div>
+                        <div class="row"><span class="check">▣</span><span><strong>Dealer-backed install & training</strong> + U.S. warranty support</span></div>
+                      </div>
+
+                      <div class="cta-row" style="margin-top:10px">
+                        <a class="btn btn-primary" href="#financing">Financing Options</a>
+                        <a class="btn btn-outline" href="#locator">Find a Dealer</a>
+                        <a class="btn btn-outline" href="#contact">Talk to SWF</a>
                       </div>
                     </div>
-                    <div class="icon-item">
-                      <div class="ic ic-red">✓</div>
-                      <div>
-                        <strong>Speed without compromise.</strong>
-                        <div class="note">High-speed runs with smart presser foot (SAP) and smart tension (STS) that keep quality consistent across materials.</div>
-                      </div>
-                    </div>
-                    <div class="icon-item">
-                      <div class="ic ic-red">✓</div>
-                      <div>
-                        <strong>Real uptime.</strong>
-                        <div class="note">Fast changeovers, wireless job send (SWNS), and a rugged chassis reduce unplanned stops and hand-holding.</div>
-                      </div>
-                    </div>
-                    <div class="icon-item">
-                      <div class="ic ic-red">✓</div>
-                      <div>
-                        <strong>Lower cost per order.</strong>
-                        <div class="note">Quality-at-speed means fewer rejects, fewer reruns, and more revenue hours per shift.</div>
-                      </div>
-                    </div>
-                    <div class="icon-item">
-                      <div class="ic ic-red">✓</div>
-                      <div>
-                        <strong>Scales with you.</strong>
-                        <div class="note">Start single-head, add multi-head (4/6/8), or step into the <em>KX-T1502D</em> dual-function to run two jobs at once.</div>
+
+                    <!-- RIGHT: At-a-glance -->
+                    <div class="spec-card">
+                      <h4>At-a-glance</h4>
+                      <ul class="spec-list">
+                        <li><strong>Heads:</strong> 1–8 (incl. dual-function 2-head)</li>
+                        <li><strong>Use case:</strong> hats-first shops, quick-turn orders, daily production</li>
+                        <li><strong>Operator wins:</strong> fewer tweaks, faster changeovers, wireless job send</li>
+                        <li><strong>Growth path:</strong> add heads or stations—same controls, same workflow</li>
+                      </ul>
+                      <div class="callout" style="margin-top:10px">
+                        <strong>When KX shines</strong>
+                        <div class="note">• Cap work is growing • Need quality at 1k+ spm • Want to queue designs over Wi-Fi</div>
                       </div>
                     </div>
                   </div>
 
-                  <div class="checklist">
-                    <div class="row"><span class="check">▣</span><span><strong>Caps, polos, hoodies, bags</strong>—confident stitching on mixed fabric stacks</span></div>
-                    <div class="row"><span class="check">▣</span><span><strong>Fast operator onboarding</strong>—15″ touch LCD, clear workflows</span></div>
-                    <div class="row"><span class="check">▣</span><span><strong>Dealer-backed install & training</strong> + U.S. warranty support</span></div>
+                  <!-- Visuals -->
+                  <div class="gallery-row" aria-label="KX gallery" style="margin-top:12px">
+                    <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/KX_single.jpg?v=1759260196" alt="KX Single Head"></div>
+                    <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/KX_T1502D.png?v=1759260378" alt="KX-T1502D Dual-Function"></div>
+                    <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/kx_series.png?v=1759259733" alt="KX Series lineup"></div>
                   </div>
 
-                  <div class="cta-row" style="margin-top:10px">
-                    <a class="btn btn-primary" href="#financing">Financing Options</a>
-                    <a class="btn btn-outline" href="#locator">Find a Dealer</a>
-                    <a class="btn btn-outline" href="#contact">Talk to SWF</a>
+                  <p class="note" style="margin-top:8px">Specs vary by configuration. No public pricing—<em>call for pricing</em> via an authorized dealer.</p>
+                </div>
+
+                <!-- SPECS -->
+                <div class="tabpanel" role="tabpanel" id="kx-specs" aria-labelledby="tab-kx-specs" tabindex="0">
+                  <div class="specs-grid">
+                    <!-- Single-head -->
+                    <div class="spec-card">
+                      <h4>KX Single-Head</h4>
+                      <table>
+                        <tr><th>Max Speed</th><td>1,200 spm (flat), 1,000 spm (cap)</td></tr>
+                        <tr><th>Embroidery Field</th><td>Up to 520 × 360 mm</td></tr>
+                        <tr><th>Needles</th><td>15</td></tr>
+                        <tr><th>Memory</th><td>Up to 40,000,000 stitches</td></tr>
+                        <tr><th>Control</th><td>15″ touch LCD (advanced job controls)</td></tr>
+                        <tr><th>Automation</th><td>SAP presser foot, STS smart tension, SWNS wireless</td></tr>
+                        <tr><th>Cap System</th><td>High-speed cap frame; quick/easy change</td></tr>
+                        <tr><th>Power</th><td>100–240V, 50/60Hz</td></tr>
+                      </table>
+                    </div>
+
+                    <!-- Dual-function 2-head -->
+                    <div class="spec-card">
+                      <h4>KX-T1502D (Dual-Function 2-Head)</h4>
+                      <table>
+                        <tr><th>Max Speed</th><td>1,200 spm (flat), 1,000 spm (cap)</td></tr>
+                        <tr><th>Embroidery Field</th><td>Up to 520 × 360 mm</td></tr>
+                        <tr><th>Needles</th><td>15 × 2 heads</td></tr>
+                        <tr><th>Operation</th><td>Run two different items/patterns simultaneously</td></tr>
+                        <tr><th>Control</th><td>15″ touch LCD; wireless networking</td></tr>
+                        <tr><th>Automation</th><td>SAP, STS; quick cap changes</td></tr>
+                        <tr><th>Power</th><td>100–240V, 50/60Hz</td></tr>
+                      </table>
+                    </div>
+
+                    <!-- Multi-head (4–8) -->
+                    <div class="spec-card">
+                      <h4>KX Multi-Head (4 / 6 / 8)</h4>
+                      <table>
+                        <tr><th>Heads</th><td>4, 6, or 8</td></tr>
+                        <tr><th>Needles</th><td>15 per head</td></tr>
+                        <tr><th>Max Speed</th><td>Up to 1,200 spm (flat)</td></tr>
+                        <tr><th>Embroidery Field</th><td>Large tubular area (model-dependent)</td></tr>
+                        <tr><th>Control</th><td>15″ touch LCD; SWNS wireless (job queue/send)</td></tr>
+                        <tr><th>Cap System</th><td>High-speed cap frames; fast changeovers</td></tr>
+                        <tr><th>Power</th><td>Per model; consult dealer</td></tr>
+                      </table>
+                    </div>
+                  </div>
+
+                  <p class="note" style="margin-top:8px">Exact specs vary by model/package. Your dealer will confirm the correct configuration.</p>
+                </div>
+
+                <!-- VIDEOS -->
+                <div class="tabpanel" role="tabpanel" id="kx-videos" aria-labelledby="tab-kx-videos" tabindex="0">
+                  <div class="video-grid">
+                    <iframe title="KX Single Head" src="https://www.youtube.com/embed/JGvx7qR-Z8c" allowfullscreen loading="lazy"></iframe>
+                    <iframe title="KX Multi Head (4–8)" src="https://www.youtube.com/embed/qaDz0VXBX3M" allowfullscreen loading="lazy"></iframe>
+                    <iframe title="KX Dual 2-Head (T1502D)" src="https://www.youtube.com/embed/lMtjbxIf4pw" allowfullscreen loading="lazy"></iframe>
                   </div>
                 </div>
 
-                <!-- RIGHT: At-a-glance -->
-                <div class="spec-card">
-                  <h4>At-a-glance</h4>
-                  <ul class="spec-list">
-                    <li><strong>Heads:</strong> 1–8 (incl. dual-function 2-head)</li>
-                    <li><strong>Use case:</strong> hats-first shops, quick-turn orders, daily production</li>
-                    <li><strong>Operator wins:</strong> fewer tweaks, faster changeovers, wireless job send</li>
-                    <li><strong>Growth path:</strong> add heads or add stations without relearning a new platform</li>
-                  </ul>
-                  <div class="callout" style="margin-top:10px">
-                    <strong>When KX shines</strong>
-                    <div class="note">• Your cap work is growing • You need quality at 1k+ spm • You want to bundle jobs and queue designs over Wi-Fi</div>
+                <!-- DOWNLOADS (with modal open) -->
+                <div class="tabpanel" role="tabpanel" id="kx-downloads" aria-labelledby="tab-kx-downloads" tabindex="0">
+                  <div class="spec-card">
+                    <h4>Brochures & PDFs</h4>
+                    <div class="dl-cards">
+                      <button class="dl-card js-open-pdf" data-pdf="https://cdn.shopify.com/s/files/1/0878/0608/3384/files/KX_Single_EN_5.pdf?v=1759267471" data-title="KX Single — Brochure (PDF)">
+                        <div class="pdf-ic">PDF</div>
+                        <div>
+                          <h5>KX Single — Brochure</h5>
+                          <p>Specs, features & accessories</p>
+                        </div>
+                      </button>
+
+                      <button class="dl-card js-open-pdf" data-pdf="https://cdn.shopify.com/s/files/1/0878/0608/3384/files/KX_Tubular_EN_5.pdf?v=1759267471" data-title="KX Multi-Head — Brochure (PDF)">
+                        <div class="pdf-ic">PDF</div>
+                        <div>
+                          <h5>KX Multi-Head — Brochure</h5>
+                          <p>4 / 6 / 8 head lineup</p>
+                        </div>
+                      </button>
+
+                      <button class="dl-card js-open-pdf" data-pdf="https://cdn.shopify.com/s/files/1/0878/0608/3384/files/KX_Dual_EN_6.pdf?v=1759267470" data-title="KX Dual 2-Head — Brochure (PDF)">
+                        <div class="pdf-ic">PDF</div>
+                        <div>
+                          <h5>KX Dual 2-Head — Brochure</h5>
+                          <p>Dual-function T1502D details</p>
+                        </div>
+                      </button>
+                    </div>
+                    <p class="note" style="margin-top:8px">Brochures open in a pop-up viewer. You can download from the viewer if needed.</p>
                   </div>
                 </div>
               </div>
-
-              <!-- Visuals -->
-              <div class="gallery-row" aria-label="KX gallery">
-                <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/KX_single.jpg?v=1759260196" alt="KX Single Head"></div>
-                <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/KX_T1502D.png?v=1759260378" alt="KX-T1502D Dual-Function"></div>
-                <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/kx_series.png?v=1759259733" alt="KX Series lineup"></div>
-              </div>
-
-              <!-- Videos -->
-              <div class="video-grid" aria-label="KX videos" style="margin-top:12px">
-                <iframe title="KX Single Head" src="https://www.youtube.com/embed/JGvx7qR-Z8c" allowfullscreen loading="lazy"></iframe>
-                <iframe title="KX Multi Head (4–8)" src="https://www.youtube.com/embed/qaDz0VXBX3M" allowfullscreen loading="lazy"></iframe>
-                <iframe title="KX Dual 2-Head (T1502D)" src="https://www.youtube.com/embed/lMtjbxIf4pw" allowfullscreen loading="lazy"></iframe>
-              </div>
-
-              <p class="note" style="margin-top:8px">Specs vary by configuration. No public pricing—<em>call for pricing</em> via an authorized dealer.</p>
             </div>
             <!-- /KX DETAILS PANEL -->
           </div>
@@ -406,7 +551,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
           </div>
         </article>
 
-        <!-- Sunny 7-needle Single Head -->
+        <!-- Sunny -->
         <article class="hcard" id="sunny">
           <div class="media">
             <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/Sunny_6.jpg?v=1759260197" alt="Sunny 7-needle Single Head">
@@ -435,7 +580,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
     </div>
   </section>
 
-  <!-- WHY SWF (pillars) -->
+  <!-- WHY SWF -->
   <section class="section" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
     <div class="container" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
       <div class="hcard" style="grid-template-columns:1fr"><div class="body"><h3 class="h3">Built for Hats</h3><p class="p-muted">Cap system engineered for structured hats with smooth stitch quality at speed.</p></div></div>
@@ -445,14 +590,14 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
     </div>
   </section>
 
-  <!-- FINANCING (embedded BYLD + Charlie) -->
+  <!-- FINANCING -->
   <section id="financing" class="section">
     <div class="container">
       <h2 class="h2">Financing — SWF × BYLD Finance</h2>
 
       <div class="fin-card">
         <div class="fin-grid">
-          <!-- Left: Sales copy, trust, steps, Charlie contact -->
+          <!-- Left -->
           <div class="fin-body">
             <div class="fin-hero">
               <span class="tag">Financing Partner</span>
@@ -525,7 +670,6 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
               <a class="btn btn-primary" href="https://form.jotform.com/251746356514157" target="_blank" rel="noopener">Open in new tab</a>
             </div>
             <div class="embed-body">
-              <!-- BYLD JotForm embed -->
               <script type="text/javascript" src="https://form.jotform.com/jsform/251746356514157"></script>
             </div>
           </aside>
@@ -543,7 +687,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
           <div class="body">
             <h3 class="h3">Manuals & Downloads</h3>
             <ul class="clean">
-              <li><a style="color:var(--swf-red)" href="#">KX Series brochure (PDF)</a></li>
+              <li><a style="color:var(--swf-red)" href="#kx/downloads" class="js-jump-kx-dl">KX Series brochures</a></li>
               <li><a style="color:var(--swf-red)" href="#">KE Series brochure (PDF)</a></li>
               <li><a style="color:var(--swf-red)" href="#">Cap frame guide (PDF)</a></li>
             </ul>
@@ -576,7 +720,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
     </div>
   </section>
 
-  <!-- Contact placeholder (for anchor) -->
+  <!-- Contact -->
   <section id="contact" class="section">
     <div class="container">
       <h2 class="h2">Contact</h2>
@@ -607,6 +751,18 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
     © <span id="y"></span> SWF USA
   </div>
 </footer>
+
+<!-- PDF Modal (global, reused) -->
+<div class="modal-backdrop" id="pdfBackdrop" hidden></div>
+<div class="modal" id="pdfModal" role="dialog" aria-modal="true" aria-labelledby="pdfTitle" hidden>
+  <div class="modal-head">
+    <h3 id="pdfTitle">Brochure</h3>
+    <button class="modal-close" id="pdfClose" aria-label="Close PDF viewer">✕</button>
+  </div>
+  <div class="modal-body">
+    <iframe id="pdfFrame" title="Brochure PDF"></iframe>
+  </div>
+</div>
 
 <script>
 /* header year + mobile menu */
@@ -665,14 +821,118 @@ document.getElementById('menuBtn')?.addEventListener('click', () => {
       }
     });
   });
-  if(location.hash && panels[location.hash]){
-    openFor(location.hash, false);
-    document.getElementById('series')?.scrollIntoView({behavior:'smooth', block:'start'});
+
+  // Deep-link: support #kx and #kx/specs
+  if(location.hash){
+    const first = '#' + location.hash.replace('#','').split('/')[0];
+    if(panels[first]){
+      openFor(first, false);
+      document.getElementById('series')?.scrollIntoView({behavior:'smooth', block:'start'});
+    }
   }
+})();
+
+/* Tabs controller (works for any .tabs[data-tabs]) */
+(function(){
+  function initTabs(root){
+    const tablist = root.querySelector('.tablist');
+    const tabs = Array.from(root.querySelectorAll('[role="tab"]'));
+    const panels = Array.from(root.querySelectorAll('[role="tabpanel"]'));
+
+    function activate(i, setHash=true){
+      tabs.forEach((t,idx)=>{
+        const selected = idx===i;
+        t.setAttribute('aria-selected', selected ? 'true':'false');
+        const panel = root.querySelector('#'+t.getAttribute('aria-controls'));
+        panel.classList.toggle('active', selected);
+      });
+      if(setHash){
+        const id = tabs[i].id.replace('tab-',''); // e.g., kx-specs
+        const series = root.closest('.series-details')?.id.replace('-details',''); // e.g., kx
+        if(series){ history.replaceState(null,'', `#${series}/${id.split('-')[1]}`); }
+      }
+    }
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', ()=>activate(i));
+      tab.addEventListener('keydown', (e)=>{
+        const cur = tabs.findIndex(t=>t.getAttribute('aria-selected')==='true');
+        if(e.key==='ArrowRight'){ e.preventDefault(); activate((cur+1)%tabs.length); }
+        if(e.key==='ArrowLeft'){ e.preventDefault(); activate((cur-1+tabs.length)%tabs.length); }
+      });
+    });
+
+    // Deep-link support: #kx/specs etc.
+    const h = location.hash;
+    if(h && h.includes('/')){
+      const [, tabId] = h.split('/');
+      const idx = tabs.findIndex(t => t.id.endsWith(tabId));
+      if(idx>=0) activate(idx, /*setHash*/false);
+    }
+  }
+
+  document.querySelectorAll('.tabs[data-tabs]').forEach(initTabs);
+
+  // Helper: from "Manuals & Downloads" link jump straight to KX downloads tab
+  document.querySelectorAll('.js-jump-kx-dl').forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      e.preventDefault();
+      // open KX accordion
+      history.replaceState(null,'', '#kx');
+      const kxBtn = document.querySelector('.js-view-series[href="#kx"]');
+      kxBtn?.click();
+      // then switch to Downloads tab
+      const downloadsTab = document.getElementById('tab-kx-downloads');
+      setTimeout(()=> downloadsTab?.click(), 150);
+    });
+  });
+})();
+
+/* PDF Modal Controller */
+(function(){
+  const openBtns = document.querySelectorAll('.js-open-pdf');
+  const backdrop = document.getElementById('pdfBackdrop');
+  const modal = document.getElementById('pdfModal');
+  const frame = document.getElementById('pdfFrame');
+  const titleEl = document.getElementById('pdfTitle');
+  const closeBtn = document.getElementById('pdfClose');
+  let lastFocus = null;
+
+  function openModal(url, title){
+    lastFocus = document.activeElement;
+    titleEl.textContent = title || 'Brochure';
+    frame.src = url;
+    backdrop.hidden = false; modal.hidden = false;
+    backdrop.classList.add('open'); modal.classList.add('open');
+    closeBtn.focus();
+    document.documentElement.style.overflow = 'hidden';
+  }
+
+  function closeModal(){
+    frame.src = 'about:blank';
+    backdrop.classList.remove('open'); modal.classList.remove('open');
+    backdrop.hidden = true; modal.hidden = true;
+    document.documentElement.style.overflow = '';
+    if(lastFocus) lastFocus.focus();
+  }
+
+  openBtns.forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const url = btn.getAttribute('data-pdf');
+      const title = btn.getAttribute('data-title');
+      if(url) openModal(url, title);
+    });
+  });
+
+  backdrop.addEventListener('click', closeModal);
+  closeBtn.addEventListener('click', closeModal);
+  window.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && !modal.hidden){ closeModal(); } });
 })();
 </script>
 </body>
 </html>
+
 
 
 
