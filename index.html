@@ -118,62 +118,37 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 .contact-actions .btn{padding:.6rem .9rem;border-radius:12px;font-weight:700;font-size:.9rem}
 
 /* ===== Series details (accordion panels) ===== */
-.series-details {
-  display: none;
-  border-top: 1px dashed var(--line);
-  margin-top: 12px;
-  padding-top: 12px;
-}
-.series-details.open { display: block; }
+.series-details{display:none;border-top:1px dashed var(--line);margin-top:12px;padding-top:12px}
+.series-details.open{display:block}
+.series-details .specs{display:grid;grid-template-columns:1.2fr 1fr;gap:16px}
+@media (max-width: 900px){ .series-details .specs{grid-template-columns:1fr} }
+.spec-card{border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px}
+.spec-card h4{margin:0 0 6px;font-size:16px}
+.spec-list{margin:.25rem 0 0 1.1rem;color:var(--muted);line-height:1.55}
+.gallery-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+@media (max-width: 640px){.gallery-row{grid-template-columns:repeat(2,1fr)}}
+.gallery-row .thumb{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;height:120px;display:flex;align-items:center;justify-content:center}
+.gallery-row img{width:100%;height:100%;object-fit:cover}
+.spec-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
+.spec-table th,.spec-table td{border:1px solid var(--line);padding:8px;text-align:left;background:#fff}
+.spec-table th{background:#f9fafb}
+.video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+@media (max-width: 900px){.video-grid{grid-template-columns:1fr}}
+.video-grid iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:12px;background:#000}
 
-.series-details .specs {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 16px;
-}
-@media (max-width: 900px){ .series-details .specs { grid-template-columns: 1fr; } }
-
-.spec-card {
-  border:1px solid var(--line);
-  background:#fff;
-  border-radius:14px;
-  padding:12px;
-}
-.spec-card h4 { margin:0 0 6px; font-size:16px; }
-.spec-list { margin:.25rem 0 0 1.1rem; color:var(--muted); line-height:1.55; }
-
-.gallery-row {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-  margin-top:10px;
-}
-@media (max-width: 640px){ .gallery-row{ grid-template-columns:repeat(2,1fr); } }
-.gallery-row .thumb{
-  border:1px solid var(--line);
-  border-radius:12px;
-  overflow:hidden;
-  background:#fff;
-  height:120px;
-  display:flex; align-items:center; justify-content:center;
-}
-.gallery-row img{ width:100%; height:100%; object-fit:cover; }
-
-.spec-table{
-  width:100%; border-collapse:collapse; margin-top:10px; font-size:14px;
-}
-.spec-table th, .spec-table td{
-  border:1px solid var(--line); padding:8px; text-align:left; background:#fff;
-}
-.spec-table th{ background:#f9fafb; }
-
-.video-grid{
-  display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:12px;
-}
-@media (max-width: 900px){ .video-grid{ grid-template-columns:1fr; } }
-.video-grid iframe{
-  width:100%; aspect-ratio:16/9; border:0; border-radius:12px; background:#000;
-}
+/* ===== Value-selling helpers (KX) ===== */
+.icon-list{display:grid;gap:10px;margin:10px 0}
+.icon-item{display:flex;gap:10px;align-items:flex-start}
+.icon-item .ic{flex:0 0 auto;width:22px;height:22px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:800}
+.ic-red{background:#fff5f5;color:var(--swf-red)}
+.ic-slate{background:#f1f5f9;color:#0f172a}
+.kx-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:16px}
+@media (max-width: 900px){.kx-grid{grid-template-columns:1fr}}
+.note{font-size:.9rem;color:var(--muted)}
+.checklist{display:grid;gap:8px;margin:8px 0}
+.checklist .row{display:flex;gap:8px;align-items:flex-start}
+.check{font-weight:900}
+.callout{border:1px dashed var(--line);border-radius:14px;padding:12px;background:#fff}
 </style>
 </head>
 <body>
@@ -260,22 +235,56 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
               <a class="btn btn-outline" href="#financing">Financing Options</a>
             </div>
 
-            <!-- KX DETAILS PANEL -->
+            <!-- KX DETAILS PANEL (value-selling) -->
             <div id="kx-details" class="series-details" role="region" aria-label="KX Series details">
-              <div class="specs">
+              <div class="kx-grid">
+                <!-- LEFT: Value case -->
                 <div class="spec-card">
-                  <h4>Why KX (Flagship)</h4>
-                  <ul class="spec-list">
-                    <li><strong>Speed</strong>: up to 1,200 spm (normal), 1,000 spm (cap) for single & dual.</li>
-                    <li><strong>Embroidery field</strong>: up to 520 × 360 mm on single/dual; expansive multi-head fields on KX Tubular.</li>
-                    <li><strong>15″ Touch LCD</strong> with advanced control features.</li>
-                    <li><strong>SAP (Smart Action Presser Foot)</strong> auto-adjusts for fabric thickness.</li>
-                    <li><strong>STS Smart Tension</strong> for consistent stitch quality at speed.</li>
-                    <li><strong>SWNS wireless</strong> networking for design distribution.</li>
-                    <li><strong>Slim cylinder arm</strong> for better cap/brim clearance.</li>
-                    <li><strong>Quick/ easy cap change</strong> system for high-speed cap runs.</li>
-                    <li><strong>Dual-Function KX-T1502D</strong>: run two different items/patterns simultaneously.</li>
-                  </ul>
+                  <h4>Why shops choose <strong>KX</strong> (the flagship)</h4>
+                  <div class="icon-list">
+                    <div class="icon-item">
+                      <div class="ic ic-red">✓</div>
+                      <div>
+                        <strong>Built for hats—really.</strong>
+                        <div class="note">Redesigned cap + slim cylinder arm = clean stitching on structured hats at speed. Less flagging, fewer do-overs.</div>
+                      </div>
+                    </div>
+                    <div class="icon-item">
+                      <div class="ic ic-red">✓</div>
+                      <div>
+                        <strong>Speed without compromise.</strong>
+                        <div class="note">High-speed runs with smart presser foot (SAP) and smart tension (STS) that keep quality consistent across materials.</div>
+                      </div>
+                    </div>
+                    <div class="icon-item">
+                      <div class="ic ic-red">✓</div>
+                      <div>
+                        <strong>Real uptime.</strong>
+                        <div class="note">Fast changeovers, wireless job send (SWNS), and a rugged chassis reduce unplanned stops and hand-holding.</div>
+                      </div>
+                    </div>
+                    <div class="icon-item">
+                      <div class="ic ic-red">✓</div>
+                      <div>
+                        <strong>Lower cost per order.</strong>
+                        <div class="note">Quality-at-speed means fewer rejects, fewer reruns, and more revenue hours per shift.</div>
+                      </div>
+                    </div>
+                    <div class="icon-item">
+                      <div class="ic ic-red">✓</div>
+                      <div>
+                        <strong>Scales with you.</strong>
+                        <div class="note">Start single-head, add multi-head (4/6/8), or step into the <em>KX-T1502D</em> dual-function to run two jobs at once.</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="checklist">
+                    <div class="row"><span class="check">▣</span><span><strong>Caps, polos, hoodies, bags</strong>—confident stitching on mixed fabric stacks</span></div>
+                    <div class="row"><span class="check">▣</span><span><strong>Fast operator onboarding</strong>—15″ touch LCD, clear workflows</span></div>
+                    <div class="row"><span class="check">▣</span><span><strong>Dealer-backed install & training</strong> + U.S. warranty support</span></div>
+                  </div>
+
                   <div class="cta-row" style="margin-top:10px">
                     <a class="btn btn-primary" href="#financing">Financing Options</a>
                     <a class="btn btn-outline" href="#locator">Find a Dealer</a>
@@ -283,18 +292,19 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
                   </div>
                 </div>
 
+                <!-- RIGHT: At-a-glance -->
                 <div class="spec-card">
-                  <h4>Core Specs</h4>
-                  <table class="spec-table" aria-label="KX key specifications">
-                    <tr><th>Max Speed</th><td>1,200 spm (normal), 1,000 spm (cap)</td></tr>
-                    <tr><th>Embroidery Field</th><td>Up to 520 × 360 mm (single/dual); multi-head fields vary by model</td></tr>
-                    <tr><th>Memory</th><td>Up to 40,000,000 stitches (single & dual)</td></tr>
-                    <tr><th>Control</th><td>15″ full touch LCD (advanced job controls)</td></tr>
-                    <tr><th>Automation</th><td>SAP presser foot, STS smart tension, SWNS wireless</td></tr>
-                    <tr><th>Cap System</th><td>Redesigned; quick/ easy change; high-speed caps</td></tr>
-                    <tr><th>Heads</th><td>1–8 (including dual-function 2-head)</td></tr>
-                  </table>
-                  <p class="p-muted" style="margin:.5rem 0 0"><em>Model availability and specs vary by configuration—talk to an authorized dealer.</em></p>
+                  <h4>At-a-glance</h4>
+                  <ul class="spec-list">
+                    <li><strong>Heads:</strong> 1–8 (incl. dual-function 2-head)</li>
+                    <li><strong>Use case:</strong> hats-first shops, quick-turn orders, daily production</li>
+                    <li><strong>Operator wins:</strong> fewer tweaks, faster changeovers, wireless job send</li>
+                    <li><strong>Growth path:</strong> add heads or add stations without relearning a new platform</li>
+                  </ul>
+                  <div class="callout" style="margin-top:10px">
+                    <strong>When KX shines</strong>
+                    <div class="note">• Your cap work is growing • You need quality at 1k+ spm • You want to bundle jobs and queue designs over Wi-Fi</div>
+                  </div>
                 </div>
               </div>
 
@@ -306,11 +316,13 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
               </div>
 
               <!-- Videos -->
-              <div class="video-grid" aria-label="KX videos">
+              <div class="video-grid" aria-label="KX videos" style="margin-top:12px">
                 <iframe title="KX Single Head" src="https://www.youtube.com/embed/JGvx7qR-Z8c" allowfullscreen loading="lazy"></iframe>
                 <iframe title="KX Multi Head (4–8)" src="https://www.youtube.com/embed/qaDz0VXBX3M" allowfullscreen loading="lazy"></iframe>
                 <iframe title="KX Dual 2-Head (T1502D)" src="https://www.youtube.com/embed/lMtjbxIf4pw" allowfullscreen loading="lazy"></iframe>
               </div>
+
+              <p class="note" style="margin-top:8px">Specs vary by configuration. No public pricing—<em>call for pricing</em> via an authorized dealer.</p>
             </div>
             <!-- /KX DETAILS PANEL -->
           </div>
@@ -461,7 +473,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
                 Fast decisions
               </span>
               <span class="fin-badge">
-                <svg viewBox="0 0 24 24  " fill="none" stroke="currentColor"><path stroke-width="2" d="M12 8v8m-4-4h8"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="2" d="M12 8v8m-4-4h8"/></svg>
                 $0 down options*
               </span>
               <span class="fin-badge">
@@ -661,6 +673,7 @@ document.getElementById('menuBtn')?.addEventListener('click', () => {
 </script>
 </body>
 </html>
+
 
 
 
