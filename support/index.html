@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Support — Manuals, Downloads, Warranty</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
+</head>
+<body style="font-family:Montserrat,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)">
+<header class="sticky top-0 z-40" style="backdrop-filter:saturate(180%) blur(6px);background:rgba(255,255,255,.9);border-bottom:1px solid #e5e7eb">
+  <div class="max-w-7xl" style="margin:0 auto;padding:.75rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem">
+    <a href="/" style="display:flex;align-items:center;gap:.75rem"><img src="/assets/logo-swf.svg" alt="SWF" style="height:32px"></a>
+    <nav class="nav hidden-md" style="display:flex;gap:1.1rem">
+      <a class="nav-link" href="/machines/">Machines</a>
+      <a class="nav-link" href="/support/">Support</a>
+      <a class="nav-link" href="/dealers/">Dealer Locator</a>
+      <a class="nav-link" href="/financing/">Financing</a>
+      <a class="nav-link" href="/portal/">Dealer Portal</a>
+      <a class="nav-link" href="/contact/">Contact</a>
+    </nav>
+    <button id="mobileMenuBtn" class="btn btn-outline" aria-label="Menu">Menu</button>
+  </div>
+  <div id="mobileMenu" class="hidden" style="border-top:1px solid #e5e7eb">
+    <div style="padding:1rem;display:grid;gap:.5rem">
+      <a href="/machines/">Machines</a>
+      <a href="/support/">Support</a>
+      <a href="/dealers/">Dealer Locator</a>
+      <a href="/financing/">Financing</a>
+      <a href="/portal/">Dealer Portal</a>
+      <a href="/contact/">Contact</a>
+    </div>
+  </div>
+</header>
+<main>
+
+<section style="padding:2rem 1rem">
+  <div class="max-w-7xl" style="margin:0 auto">
+    <h1 style="font-size:2rem;font-weight:800">Support</h1>
+    <p style="color:var(--muted);max-width:60ch;margin-top:.5rem">Manuals, downloads, videos, and warranty information. For service or parts, contact your dealer or email our support team with your serial number and model.</p>
+
+    <div class="grid-cards" style="margin-top:1rem">
+      <div class="card" style="padding:1rem">
+        <h3 style="font-weight:700">Manuals & Downloads</h3>
+        <ul style="margin:.5rem 0 0 1rem;color:var(--muted)">
+          <li><a href="#" style="text-decoration:underline">KX Series Brochure (PDF)</a></li>
+          <li><a href="#" style="text-decoration:underline">KE Series Brochure (PDF)</a></li>
+          <li><a href="#" style="text-decoration:underline">Cap Frame Guide (PDF)</a></li>
+        </ul>
+      </div>
+      <div class="card" style="padding:1rem">
+        <h3 style="font-weight:700">Training & Videos</h3>
+        <ul style="margin:.5rem 0 0 1rem;color:var(--muted)">
+          <li><a href="#" style="text-decoration:underline">KE Series overview</a></li>
+          <li><a href="#" style="text-decoration:underline">KX Dual‑Function demo</a></li>
+        </ul>
+      </div>
+      <div class="card" style="padding:1rem">
+        <h3 style="font-weight:700">Open a Support Ticket</h3>
+        <p style="color:var(--muted)">Email <a href="mailto:support@swf-usa.com" style="text-decoration:underline">support@swf-usa.com</a> with serial number, model, description, and a short video if possible.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<footer style="margin-top:3rem;background:#fff;border-top:1px solid #e5e7eb">
+  <div class="max-w-7xl" style="margin:0 auto;padding:2rem 1rem;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.25rem">
+    <div><img src="/assets/logo-swf.svg" alt="SWF" style="height:32px;margin-bottom:.5rem"><p style="font-size:.9rem;color:var(--muted)">Official U.S. site for SWF embroidery equipment and support.</p></div>
+    <div><h4 style="font-weight:700;margin-bottom:.5rem">Explore</h4><div style="display:grid;gap:.35rem;font-size:.92rem">
+      <a class="footer-link" href="/machines/">Machines</a>
+      <a class="footer-link" href="/support/">Support</a>
+      <a class="footer-link" href="/dealers/">Dealer Locator</a>
+      <a class="footer-link" href="/financing/">Financing</a>
+    </div></div>
+    <div><h4 style="font-weight:700;margin-bottom:.5rem">Company</h4><div style="display:grid;gap:.35rem;font-size:.92rem">
+      <a class="footer-link" href="/contact/">Contact</a>
+      <a class="footer-link" href="#">Privacy</a>
+    </div></div>
+    <div><h4 style="font-weight:700;margin-bottom:.5rem">Get Support</h4>
+      <p style="font-size:.92rem;color:var(--muted)">Questions about machines, parts, or service</p>
+      <a class="btn btn-primary" href="/support/" style="margin-top:.5rem">Visit Support</a>
+    </div>
+  </div>
+  <div style="border-top:1px solid #e5e7eb;padding:1rem;text-align:center;font-size:.8rem;color:#6b7280">© <span id="y"></span> SWF USA</div>
+</footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+<script src="/js/main.js"></script>
+</body></html>
