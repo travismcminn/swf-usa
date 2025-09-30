@@ -38,7 +38,7 @@ a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
 .grid-2{display:grid;grid-template-columns:1.2fr 1fr;gap:32px}
 @media (max-width:900px){.grid-2{grid-template-columns:1fr}}
 
-/* =================== HEADER (refreshed) =================== */
+/* =================== HEADER =================== */
 .site-header{
   position:sticky; top:0; z-index:40;
   background:rgba(255,255,255,.86);
@@ -80,9 +80,6 @@ a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
 .mobile-grid{ display:grid; gap:10px; padding:12px 0; }
 .m-link{ padding:.7rem 0; font-weight:700; }
 .m-cta{ justify-content:center; }
-
-/* Improve focus styles for a11y */
-a:focus-visible, button:focus-visible{ outline:2px solid var(--swf-red); outline-offset:2px; }
 
 /* Footer */
 footer{margin-top:56px;background:#fff;border-top:1px solid var(--line)}
@@ -185,6 +182,23 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 .included .item { display:flex; align-items:flex-start; gap:8px }
 .included .dot { flex:0 0 auto; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:1px solid var(--line); background:#fff5f5; color:var(--swf-red); font-weight:800 }
 .included small { color:var(--muted); display:block; margin-top:6px }
+
+/* ===== Tabs (style + behavior) ===== */
+.tablist{
+  display:flex; gap:8px; align-items:flex-end;
+  margin:0 0 12px; border-bottom:1px solid var(--line); flex-wrap:wrap;
+}
+.tab{
+  appearance:none; border:1px solid var(--line); border-bottom:2px solid transparent;
+  background:#fff; color:var(--ink);
+  padding:.55rem .9rem; border-radius:10px 10px 0 0; font-weight:800; cursor:pointer;
+}
+.tab[aria-selected="true"]{
+  color:var(--swf-red); border-color:#ffd5da #ffd5da var(--swf-red);
+  background:#fff5f6; position:relative; top:1px;
+}
+.tabpanel{ display:none !important; }
+.tabpanel.active{ display:block !important; }
 
 /* ===== Polished HERO (with watermark + plaque) ===== */
 .hero--pro{
@@ -364,9 +378,9 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
             <div id="kx-details" class="series-details" role="region" aria-label="KX Series details">
               <div class="tabs" data-tabs id="kx-tabs">
                 <div class="tablist" role="tablist" aria-label="KX tabs">
-                  <button class="tab" role="tab" aria-selected="true" aria-controls="kx-overview" id="tab-kx-overview">Overview</button>
-                  <button class="tab" role="tab" aria-selected="false" aria-controls="kx-specs" id="tab-kx-specs">Specs</button>
-                  <button class="tab" role="tab" aria-selected="false" aria-controls="kx-videos" id="tab-kx-videos">Videos</button>
+                  <button class="tab" role="tab" aria-selected="true" aria-controls="kx-overview"  id="tab-kx-overview">Overview</button>
+                  <button class="tab" role="tab" aria-selected="false" aria-controls="kx-specs"     id="tab-kx-specs">Specs</button>
+                  <button class="tab" role="tab" aria-selected="false" aria-controls="kx-videos"    id="tab-kx-videos">Videos</button>
                   <button class="tab" role="tab" aria-selected="false" aria-controls="kx-downloads" id="tab-kx-downloads">Downloads</button>
                 </div>
 
@@ -819,17 +833,22 @@ links.forEach(a=>{
   }
 })();
 
-/* Tabs */
+/* Tabs (hardened) */
 (function(){
   function initTabs(root){
     const tabs = Array.from(root.querySelectorAll('[role="tab"]'));
+    if (!tabs.length) return;
     function activate(i, setHash=true){
       tabs.forEach((t,idx)=>{
-        const selected = idx===i; t.setAttribute('aria-selected', selected ? 'true':'false');
-        const panel = root.querySelector('#'+t.getAttribute('aria-controls')); panel.classList.toggle('active', selected);
+        const selected = idx===i;
+        t.setAttribute('aria-selected', selected ? 'true':'false');
+        const panelId = t.getAttribute('aria-controls');
+        const panel = panelId && root.querySelector('#'+panelId);
+        if(panel){ panel.classList.toggle('active', selected); }
       });
       if(setHash){
-        const id = tabs[i].id.replace('tab-',''); const series = root.closest('.series-details')?.id.replace('-details','');
+        const id = tabs[i].id.replace('tab-','');
+        const series = root.closest('.series-details')?.id.replace('-details','');
         if(series){ history.replaceState(null,'', `#${series}/${id.split('-')[1]}`); }
       }
     }
@@ -838,17 +857,20 @@ links.forEach(a=>{
       tab.addEventListener('keydown', (e)=>{
         const cur = tabs.findIndex(t=>t.getAttribute('aria-selected')==='true');
         if(e.key==='ArrowRight'){ e.preventDefault(); activate((cur+1)%tabs.length); }
-        if(e.key==='ArrowLeft'){ e.preventDefault(); activate((cur-1+tabs.length)%tabs.length); }
+        if(e.key==='ArrowLeft'){  e.preventDefault(); activate((cur-1+tabs.length)%tabs.length); }
       });
     });
     const h = location.hash;
     if(h && h.includes('/')){
       const [, tabId] = h.split('/');
       const idx = tabs.findIndex(t => t.id.endsWith(tabId));
-      if(idx>=0) activate(idx, false);
+      if(idx>=0){ activate(idx, false); return; }
     }
+    activate(0, false);
   }
   document.querySelectorAll('.tabs[data-tabs]').forEach(initTabs);
+
+  // quick jump link from Support to KX downloads
   document.querySelectorAll('.js-jump-kx-dl').forEach(a=>{
     a.addEventListener('click', (e)=>{
       e.preventDefault();
@@ -897,6 +919,7 @@ links.forEach(a=>{
 </script>
 </body>
 </html>
+
 
 
 
