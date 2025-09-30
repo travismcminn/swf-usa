@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page Not Found — SWF USA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="min-h-screen flex flex-col bg-gray-50 text-gray-900" style="font-family: Montserrat, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;">
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-gray-200">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3">
+      <img src="/assets/logo.svg" alt="SWF USA" class="h-8 w-auto">
+      <span class="sr-only">SWF USA</span>
+    </a>
+    <nav class="hidden md:flex gap-6">
+      <a class="nav-link" href="/machines/">Machines</a>
+      <a class="nav-link" href="/support/">Support</a>
+      <a class="nav-link" href="/dealers/">Dealer Locator</a>
+      <a class="nav-link" href="/portal/">Dealer Portal</a>
+      <a class="nav-link" href="/contact/">Contact</a>
+    </nav>
+    <button id="mobileMenuBtn" class="md:hidden inline-flex items-center px-3 py-2 border rounded-lg">Menu</button>
+  </div>
+  <div id="mobileMenu" class="md:hidden hidden border-t border-gray-200">
+    <div class="px-4 py-3 flex flex-col gap-3">
+      <a href="/machines/">Machines</a>
+      <a href="/support/">Support</a>
+      <a href="/dealers/">Dealer Locator</a>
+      <a href="/portal/">Dealer Portal</a>
+      <a href="/contact/">Contact</a>
+    </div>
+  </div>
+</header>
+
+<main class="flex-1">
+  <section class="max-w-3xl mx-auto px-4 py-24 text-center">
+    <h1 class="text-4xl font-bold">404</h1>
+    <p class="mt-2 text-gray-700">We could not find that page.</p>
+    <a href="/" class="inline-flex mt-6 px-4 py-2 rounded-xl bg-gray-900 text-white">Back to Home</a>
+  </section>
+</main>
+<footer class="mt-16 bg-white border-t border-gray-200">
+  <div class="max-w-7xl mx-auto px-4 py-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+    <div>
+      <img src="/assets/logo.svg" alt="SWF USA" class="h-8 w-auto mb-3">
+      <p class="text-sm text-gray-600">Official U.S. site for SWF embroidery equipment and support.</p>
+    </div>
+    <div>
+      <h3 class="font-semibold mb-3">Explore</h3>
+      <ul class="space-y-2 text-sm">
+        <li><a class="footer-link" href="/machines/">Machines</a></li>
+        <li><a class="footer-link" href="/support/">Support</a></li>
+        <li><a class="footer-link" href="/dealers/">Dealer Locator</a></li>
+        <li><a class="footer-link" href="/portal/">Dealer Portal</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="font-semibold mb-3">Company</h3>
+      <ul class="space-y-2 text-sm">
+        <li><a class="footer-link" href="/contact/">Contact</a></li>
+        <li><a class="footer-link" href="#">Privacy</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="font-semibold mb-3">Get Support</h3>
+      <p class="text-sm text-gray-600">Questions about machines, parts, or service</p>
+      <a href="/support/" class="inline-flex mt-3 px-4 py-2 rounded-xl bg-gray-900 text-white">Visit Support</a>
+    </div>
+  </div>
+  <div class="border-t border-gray-200 py-4 text-center text-xs text-gray-500">© <span id="y"></span> SWF USA</div>
+</footer>
+<script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+<script src="/js/main.js"></script>
+</body></html>
