@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Stitch It International",
+    "address": "123 Main St",
+    "city": "Patton",
+    "state": "MO",
+    "zip": "63662",
+    "phone": "800-555-1234",
+    "email": "sales@stitchitintl.com",
+    "website": "https://stitchitintl.com"
+  },
+  {
+    "name": "Embroidery Hub",
+    "address": "456 Market Ave",
+    "city": "Dallas",
+    "state": "TX",
+    "zip": "75201",
+    "phone": "214-555-9876",
+    "email": "info@embroideryhub.com",
+    "website": "https://example.com"
+  }
+]
