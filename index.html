@@ -197,6 +197,20 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 .modal-close{appearance:none;border:1px solid var(--line);background:#fff;border-radius:10px;padding:.4rem .65rem;font-weight:800;cursor:pointer}
 .modal-body{flex:1;min-height:320px;background:#000}
 .modal-body iframe{width:100%;height:100%;border:0;background:#000}
+
+/* What's Included card */
+.included { margin-top:12px }
+.included .items {
+  display:grid; grid-template-columns:1fr 1fr; gap:8px 14px; margin-top:6px;
+}
+@media (max-width:700px){ .included .items{ grid-template-columns:1fr } }
+.included .item { display:flex; align-items:flex-start; gap:8px }
+.included .dot {
+  flex:0 0 auto; width:20px; height:20px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  border:1px solid var(--line); background:#fff5f5; color:var(--swf-red); font-weight:800;
+}
+.included small { color:var(--muted); display:block; margin-top:6px }
 </style>
 </head>
 <body>
@@ -350,7 +364,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
                       </div>
                     </div>
 
-                    <!-- RIGHT: At-a-glance -->
+                    <!-- RIGHT: At-a-glance + What's Included -->
                     <div class="spec-card">
                       <h4>At-a-glance</h4>
                       <ul class="spec-list">
@@ -362,6 +376,20 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
                       <div class="callout" style="margin-top:10px">
                         <strong>When KX shines</strong>
                         <div class="note">• Cap work is growing • Need quality at 1k+ spm • Want to queue designs over Wi-Fi</div>
+                      </div>
+
+                      <!-- What's Included -->
+                      <div class="included callout" aria-label="Included with KX">
+                        <strong>Included with every KX</strong>
+                        <div class="items">
+                          <div class="item"><span class="dot">✓</span><div>High-speed cap frame set</div></div>
+                          <div class="item"><span class="dot">✓</span><div>Tubular hoops (assorted sizes)</div></div>
+                          <div class="item"><span class="dot">✓</span><div>15″ touch LCD controller</div></div>
+                          <div class="item"><span class="dot">✓</span><div>SWNS wireless job send (network ready)</div></div>
+                          <div class="item"><span class="dot">✓</span><div>Dealer install & operator training</div></div>
+                          <div class="item"><span class="dot">✓</span><div>U.S. warranty & lifetime technical support</div></div>
+                        </div>
+                        <small>Packages can vary by dealer and model. Your dealer will confirm exact contents.</small>
                       </div>
                     </div>
                   </div>
@@ -835,9 +863,7 @@ document.getElementById('menuBtn')?.addEventListener('click', () => {
 /* Tabs controller (works for any .tabs[data-tabs]) */
 (function(){
   function initTabs(root){
-    const tablist = root.querySelector('.tablist');
     const tabs = Array.from(root.querySelectorAll('[role="tab"]'));
-    const panels = Array.from(root.querySelectorAll('[role="tabpanel"]'));
 
     function activate(i, setHash=true){
       tabs.forEach((t,idx)=>{
@@ -932,6 +958,7 @@ document.getElementById('menuBtn')?.addEventListener('click', () => {
 </script>
 </body>
 </html>
+
 
 
 
