@@ -1,95 +1,386 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>SWF USA — Official U.S. Site for SWF Embroidery</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<style>
+:root{
+  /* Brand */
+  --swf-red:#EC1C24;      /* primary brand red */
+  --swf-red-cta:#E01A22;  /* darker for WCAG AA with white text */
+  /* UI */
+  --ink:#0f172a; --muted:#64748b; --line:#e2e8f0; --bg:#f8fafc; --surface:#ffffff;
+}
+*{box-sizing:border-box} html,body{margin:0}
+body{font-family:Montserrat,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
+.container{max-width:1200px;margin:0 auto;padding:0 16px}
+
+/* Buttons & chips */
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.2rem;border-radius:14px;font-weight:700}
+.btn-primary{background:var(--swf-red-cta);color:#fff}
+.btn-outline{background:#fff;border:1px solid var(--line)}
+.pill{display:inline-block;border:1px solid #ffd5ea;background:#fff3f8;color:#8a1838;border-radius:999px;padding:.35rem .7rem;font-weight:700;font-size:.85rem}
+.badge{display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .6rem;border-radius:999px;font-weight:800;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase}
+.badge-flagship{background:#ffe4e8;color:#8a1838;border:1px solid #ffd5ea}
+.badge-economy{background:#eef2ff;color:#3730a3;border:1px solid #e0e7ff}
+
+/* Headings & text */
+.h1{font-size:clamp(34px,4.2vw,54px);font-weight:800;letter-spacing:-.02em;margin:10px 0 0}
+.h2{font-size:30px;font-weight:800;margin:0}
+.h3{font-size:20px;font-weight:700;margin:0 0 6px}
+.p-muted{color:var(--muted)}
+.section{padding:56px 0}
+
+/* Layout */
+.grid-2{display:grid;grid-template-columns:1.2fr 1fr;gap:32px}
+@media (max-width:900px){.grid-2{grid-template-columns:1fr}}
+.hero{background:
+  radial-gradient(1200px 400px at 10% -10%, rgba(236,28,36,.10), transparent 60%),
+  linear-gradient(#fff, #fff 60%, var(--bg));
+  border-bottom:1px solid var(--line)}
+.img-frame{border:1px solid var(--line);border-radius:16px;overflow:hidden}
+
+/* Header */
+header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.9);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--line)}
+.nav{display:flex;gap:18px;align-items:center}
+.nav a{position:relative}
+.nav a:after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:2px;background:currentColor;transition:width .18s ease}
+.nav a:hover:after{width:100%}
+.mobile-btn{display:none}
+@media (max-width:900px){.nav{display:none}.mobile-btn{display:inline-flex}}
+
+/* Footer */
+footer{margin-top:56px;background:#fff;border-top:1px solid var(--line)}
+footer .cols{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+@media (max-width:900px){footer .cols{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){footer .cols{grid-template-columns:1fr}}
+ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
+
+/* Horizontal cards */
+.hcards{display:grid;gap:16px;margin-top:16px}
+.hcard{display:grid;grid-template-columns:360px 1fr;gap:18px;align-items:stretch;border:1px solid var(--line);background:var(--surface);border-radius:18px;box-shadow:0 10px 30px rgba(2,6,23,.06);overflow:hidden}
+.hcard .media{min-height:220px;background:#fff}
+.hcard .body{padding:16px}
+.hcard .meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 10px}
+.hcard .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+.hcard .heads{font-weight:700;color:#0f172a}
+@media (max-width:900px){.hcard{grid-template-columns:1fr}.hcard .media{max-height:340px}}
+
+/* Mini gallery in cards */
+.mini-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+.mini-gallery .thumb{border:1px solid var(--line);border-radius:10px;overflow:hidden;height:70px;display:flex;align-items:center;justify-content:center;background:#fff}
+.mini-gallery img{height:100%;width:auto;object-fit:cover}
+@media (max-width:640px){.mini-gallery{grid-template-columns:repeat(2,1fr)}}
+</style>
 </head>
-<body style="font-family:Montserrat,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)">
-<header class="sticky top-0 z-40" style="backdrop-filter:saturate(180%) blur(6px);background:rgba(255,255,255,.9);border-bottom:1px solid #e5e7eb">
-  <div class="max-w-7xl" style="margin:0 auto;padding:.75rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem">
-    <a href="/" style="display:flex;align-items:center;gap:.75rem"><img src="/assets/logo-swf.svg" alt="SWF" style="height:32px"></a>
-    <nav class="nav hidden-md" style="display:flex;gap:1.1rem">
-      <a class="nav-link" href="/machines/">Machines</a>
-      <a class="nav-link" href="/support/">Support</a>
-      <a class="nav-link" href="/dealers/">Dealer Locator</a>
-      <a class="nav-link" href="/financing/">Financing</a>
-      <a class="nav-link" href="/portal/">Dealer Portal</a>
-      <a class="nav-link" href="/contact/">Contact</a>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;padding:12px 0">
+    <a href="#" style="display:flex;align-items:center;gap:10px">
+      <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/swfnobg.png?v=1759258611" alt="SWF logo" style="height:34px" />
+    </a>
+    <nav class="nav">
+      <a href="#series">Machines</a>
+      <a href="#financing">Financing</a>
+      <a href="#support">Support</a>
+      <a href="#locator">Dealer Locator</a>
+      <a href="#contact">Contact</a>
     </nav>
-    <button id="mobileMenuBtn" class="btn btn-outline" aria-label="Menu">Menu</button>
+    <button id="menuBtn" class="btn btn-outline mobile-btn">Menu</button>
   </div>
-  <div id="mobileMenu" class="hidden" style="border-top:1px solid #e5e7eb">
-    <div style="padding:1rem;display:grid;gap:.5rem">
-      <a href="/machines/">Machines</a>
-      <a href="/support/">Support</a>
-      <a href="/dealers/">Dealer Locator</a>
-      <a href="/financing/">Financing</a>
-      <a href="/portal/">Dealer Portal</a>
-      <a href="/contact/">Contact</a>
+  <div id="mobileMenu" style="display:none;border-top:1px solid var(--line)">
+    <div class="container" style="display:grid;gap:10px;padding:12px 0">
+      <a href="#series">Machines</a>
+      <a href="#financing">Financing</a>
+      <a href="#support">Support</a>
+      <a href="#locator">Dealer Locator</a>
+      <a href="#contact">Contact</a>
     </div>
   </div>
 </header>
-<main>
 
-<section class="hero" style="padding:3.5rem 1rem;background:linear-gradient(180deg,#fff, #fff 60%, #f8f9fb);border-bottom:1px solid #e5e7eb">
-  <div class="max-w-7xl" style="margin:0 auto;display:grid;grid-template-columns:1.1fr 1fr;gap:2rem;align-items:center">
-    <div>
-      <div class="kicker">Built for hats · Backed in the USA</div>
-      <h1 class="hero-title" style="font-size:clamp(2rem,4vw,3rem);font-weight:800;margin:.5rem 0 0">SWF Embroidery Machines</h1>
-      <p style="font-size:1.05rem;color:var(--muted);margin-top:1rem">Explore the KX and KE Series—known for reliability, speed, and a re‑engineered cap system that makes structured hats effortless. Connect with authorized dealers, get support, and explore financing.</p>
-      <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.25rem">
-        <a class="btn btn-primary" href="/machines/">See Machines</a>
-        <a class="btn btn-outline" href="/dealers/">Find a Dealer</a>
-        <a class="btn btn-outline" href="/financing/">Financing</a>
+<main>
+  <!-- Hero -->
+  <section class="section hero">
+    <div class="container grid-2">
+      <div>
+        <div class="badge badge-flagship" style="margin-bottom:8px">Embroidery • Built for Hats</div>
+        <h1 class="h1">SWF Embroidery Machines</h1>
+        <p class="p-muted" style="margin-top:12px;max-width:62ch">
+          Explore the KX, KE, ES, MAS—and the Sunny 7-needle—reliable stitch quality, speed, and a cap system engineered for structured hats. Connect with authorized dealers, get support, and explore financing.
+        </p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:18px">
+          <a class="btn btn-primary" href="#series">See Machines</a>
+          <a class="btn btn-outline" href="#locator">Find a Dealer</a>
+          <a class="btn btn-outline" href="#financing">Financing</a>
+        </div>
+      </div>
+      <div class="img-frame">
+        <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/kx_series.png?v=1759259733" alt="SWF KX Series" />
       </div>
     </div>
-    <div class="img-frame"><img src="/assets/hero-kx.jpg" alt="SWF KX Series" style="width:100%;height:auto;display:block"></div>
-  </div>
-</section>
+  </section>
 
-<section style="padding:2rem 1rem;background:#fff;border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb">
-  <div class="max-w-7xl" style="margin:0 auto">
-    <h2 style="font-size:1.5rem;font-weight:700">Flagship Series</h2>
-    <div class="grid-cards" style="margin-top:1rem">
-      <a class="card" href="/machines/#kx" style="padding:1rem">
-        <div class="tag">KX Series</div>
-        <p style="color:var(--muted);margin-top:.5rem">High performance with redesigned cap system and dual‑function option.</p>
-        <div class="callout" style="margin-top:.75rem">Call for Pricing</div>
-      </a>
-      <a class="card" href="/machines/#ke" style="padding:1rem">
-        <div class="tag">KE Series</div>
-        <p style="color:var(--muted);margin-top:.5rem">Reliable multi‑heads for production throughput and value.</p>
-        <div class="callout" style="margin-top:.75rem">Call for Pricing</div>
-      </a>
-      <a class="card" href="/support/" style="padding:1rem">
-        <div class="tag">Support & Resources</div>
-        <p style="color:var(--muted);margin-top:.5rem">Manuals, downloads, videos, warranty, and U.S. service.</p>
-        <div class="callout" style="margin-top:.75rem">7‑Year Warranty</div>
-      </a>
+  <!-- SERIES (Horizontal Cards) -->
+  <section id="series" class="section">
+    <div class="container">
+      <h2 class="h2" style="margin-bottom:8px">Choose Your Series</h2>
+      <p class="p-muted" style="max-width:60ch">Pick the family that fits your volume and workflow. Specs vary by model—talk to a dealer for details.</p>
+
+      <div class="hcards">
+
+        <!-- KX — Flagship -->
+        <article class="hcard">
+          <div class="media">
+            <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/kx_series.png?v=1759259733" alt="KX Series">
+          </div>
+          <div class="body">
+            <div class="meta">
+              <span class="badge badge-flagship">Flagship Series</span>
+              <span class="pill">Call for Pricing</span>
+              <span class="heads">Heads: 1–8</span>
+            </div>
+            <h3 class="h3">KX Series</h3>
+            <p class="p-muted" style="margin:8px 0 10px">
+              High-performance single and two-head options with a redesigned cap system engineered
+              for structured hats. Fast changeover and rugged chassis for daily production.
+            </p>
+            <!-- mini thumbs -->
+            <div class="mini-gallery">
+              <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/KX_single.jpg?v=1759260196" alt="KX Single Head"></div>
+              <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/KX_T1502D.png?v=1759260378" alt="KX-T1502D Dual-Function"></div>
+            </div>
+            <div class="cta-row" style="margin-top:12px">
+              <a class="btn btn-primary" href="/machines/kx/">View KX</a>
+              <a class="btn btn-outline" href="#financing">Financing Options</a>
+            </div>
+            <p class="p-muted" style="margin-top:8px;font-size:.92rem">Includes <strong>KX-T1502D</strong> dual-function model.</p>
+          </div>
+        </article>
+
+        <!-- KE — Economy (no Dual mention) -->
+        <article class="hcard">
+          <div class="media">
+            <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/Ke_Series.jpg?v=1759259733" alt="KE Series">
+          </div>
+          <div class="body">
+            <div class="meta">
+              <span class="badge badge-economy">Economy Series</span>
+              <span class="pill">Call for Pricing</span>
+              <span class="heads">Heads: 4, 6, 8</span>
+            </div>
+            <h3 class="h3">KE Series</h3>
+            <p class="p-muted" style="margin:8px 0 10px">
+              Production multi-heads for dependable throughput and consistent results with a low cost per head.
+            </p>
+            <div class="mini-gallery">
+              <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/Ke_Series.jpg?v=1759259733" alt="KE Multi-Head"></div>
+            </div>
+            <div class="cta-row">
+              <a class="btn btn-primary" href="/machines/ke/">View KE</a>
+              <a class="btn btn-outline" href="#locator">Find a Dealer</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- ES -->
+        <article class="hcard">
+          <div class="media">
+            <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/es_full_size.jpg?v=1759260197" alt="ES Series">
+          </div>
+          <div class="body">
+            <div class="meta">
+              <span class="pill">Call for Pricing</span>
+              <span class="heads">Heads: Single-head (Full Size & Compact)</span>
+            </div>
+            <h3 class="h3">ES Series</h3>
+            <p class="p-muted" style="margin:8px 0 10px">
+              Compact footprint, pro-grade stitch quality—perfect for small to mid-volume shops getting into SWF.
+            </p>
+            <div class="mini-gallery">
+              <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/es_compact_ce76207c-a665-4f6f-8335-a67fc84e26c4.jpg?v=1759260197" alt="ES Compact"></div>
+              <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/es_full_size.jpg?v=1759260197" alt="ES Full Size"></div>
+            </div>
+            <div class="cta-row">
+              <a class="btn btn-primary" href="/machines/es/">View ES</a>
+              <a class="btn btn-outline" href="#financing">Financing Options</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- MAS -->
+        <article class="hcard">
+          <div class="media">
+            <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/MAS-12.jpg?v=1759260197" alt="MAS Series">
+          </div>
+          <div class="body">
+            <div class="meta">
+              <span class="pill">Call for Pricing</span>
+              <span class="heads">Heads: Single-head (Home/Hobby & Compact)</span>
+            </div>
+            <h3 class="h3">MAS Series</h3>
+            <p class="p-muted" style="margin:8px 0 10px">
+              Modular automation built to scale output with consistent, repeatable quality across runs.
+            </p>
+            <div class="mini-gallery">
+              <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/MAS-12.jpg?v=1759260197" alt="MAS-12"></div>
+              <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/es_compact_ce76207c-a665-4f6f-8335-a67fc84e26c4.jpg?v=1759260197" alt="MAS-15"></div>
+            </div>
+            <div class="cta-row">
+              <a class="btn btn-primary" href="/machines/mas/">View MAS</a>
+              <a class="btn btn-outline" href="#locator">Find a Dealer</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Sunny 7-needle Single Head -->
+        <article class="hcard">
+          <div class="media">
+            <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/Sunny_6.jpg?v=1759260197" alt="Sunny 7-needle Single Head">
+          </div>
+          <div class="body">
+            <div class="meta">
+              <span class="pill">Call for Pricing</span>
+              <span class="heads">Heads: Single-head • 7-needle</span>
+            </div>
+            <h3 class="h3">Sunny — 7-Needle Single Head</h3>
+            <p class="p-muted" style="margin:8px 0 10px">
+              Compact 7-needle embroidery—ideal as an entry solution or complementary station for patches, names, and small runs.
+            </p>
+            <div class="mini-gallery">
+              <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/Sunny_6.jpg?v=1759260197" alt="Sunny"></div>
+            </div>
+            <div class="cta-row">
+              <a class="btn btn-primary" href="/machines/sunny/">View Sunny</a>
+              <a class="btn btn-outline" href="#financing">Financing Options</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+
+  <!-- WHY SWF (pillars) -->
+  <section class="section" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+    <div class="container" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+      <div class="hcard" style="grid-template-columns:1fr"><div class="body"><h3 class="h3">Built for Hats</h3><p class="p-muted">Cap system engineered for structured hats with smooth stitch quality at speed.</p></div></div>
+      <div class="hcard" style="grid-template-columns:1fr"><div class="body"><h3 class="h3">U.S. Dealer Network</h3><p class="p-muted">Local install, training, and service from authorized SWF dealers.</p></div></div>
+      <div class="hcard" style="grid-template-columns:1fr"><div class="body"><h3 class="h3">7-Year Warranty</h3><p class="p-muted">Industry-leading coverage backed in the United States.</p></div></div>
+      <div class="hcard" style="grid-template-columns:1fr"><div class="body"><h3 class="h3">Lifetime Support</h3><p class="p-muted">Manuals, training content, and real humans when you need them.</p></div></div>
+    </div>
+  </section>
+
+  <!-- FINANCING -->
+  <section id="financing" class="section">
+    <div class="container">
+      <h2 class="h2">Financing — SWF × BYLD Finance</h2>
+      <div class="hcard" style="grid-template-columns:1fr">
+        <div class="body">
+          <p class="p-muted" style="margin:0 0 8px">One simple application, soft credit pull to explore options, and structures that fit your cash flow.</p>
+          <ul class="clean">
+            <li>Multiple machines on one approval</li>
+            <li>Competitive rates and terms</li>
+            <li>No payments for 90 days available for qualified customers</li>
+          </ul>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="https://byldfinance.com/pages/apply-now?utm_source=swf-usa&utm_medium=site&utm_campaign=financing" target="_blank" rel="noopener">Apply Now with BYLD Finance</a>
+            <a class="btn btn-outline" href="#contact">Talk to a specialist</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUPPORT -->
+  <section id="support" class="section" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+    <div class="container">
+      <h2 class="h2">Support & Resources</h2>
+      <div class="hcards">
+        <div class="hcard" style="grid-template-columns:1fr">
+          <div class="body">
+            <h3 class="h3">Manuals & Downloads</h3>
+            <ul class="clean">
+              <li><a style="color:var(--swf-red)" href="#">KX Series brochure (PDF)</a></li>
+              <li><a style="color:var(--swf-red)" href="#">KE Series brochure (PDF)</a></li>
+              <li><a style="color:var(--swf-red)" href="#">Cap frame guide (PDF)</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="hcard" style="grid-template-columns:1fr">
+          <div class="body">
+            <h3 class="h3">Training & Videos</h3>
+            <ul class="clean">
+              <li><a style="color:var(--swf-red)" href="#">KE Series overview</a></li>
+              <li><a style="color:var(--swf-red)" href="#">KX setup & changeover</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="hcard" style="grid-template-columns:1fr">
+          <div class="body">
+            <h3 class="h3">Open a Support Ticket</h3>
+            <p class="p-muted">Email <a style="color:var(--swf-red)" href="mailto:support@swf-usa.com">support@swf-usa.com</a> with serial number, model, description, and a short video if possible.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEALER LOCATOR CTA -->
+  <section id="locator" class="section" style="padding:40px 0">
+    <div class="container" style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+      <a class="btn btn-primary" href="/dealers/">Find a Dealer</a>
+      <a class="btn btn-outline" href="#contact">Contact Us</a>
+    </div>
+  </section>
+
+  <!-- Contact placeholder (for anchor) -->
+  <section id="contact" class="section">
+    <div class="container">
+      <h2 class="h2">Contact</h2>
+      <p class="p-muted">Email <a style="color:var(--swf-red)" href="mailto:contact@swf-usa.com">contact@swf-usa.com</a></p>
+    </div>
+  </section>
 </main>
-<footer style="margin-top:3rem;background:#fff;border-top:1px solid #e5e7eb">
-  <div class="max-w-7xl" style="margin:0 auto;padding:2rem 1rem;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.25rem">
-    <div><img src="/assets/logo-swf.svg" alt="SWF" style="height:32px;margin-bottom:.5rem"><p style="font-size:.9rem;color:var(--muted)">Official U.S. site for SWF embroidery equipment and support.</p></div>
-    <div><h4 style="font-weight:700;margin-bottom:.5rem">Explore</h4><div style="display:grid;gap:.35rem;font-size:.92rem">
-      <a class="footer-link" href="/machines/">Machines</a>
-      <a class="footer-link" href="/support/">Support</a>
-      <a class="footer-link" href="/dealers/">Dealer Locator</a>
-      <a class="footer-link" href="/financing/">Financing</a>
+
+<!-- Footer -->
+<footer>
+  <div class="container cols" style="padding:22px 0">
+    <div>
+      <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/swfnobg.png?v=1759258611" alt="SWF" style="height:30px;margin-bottom:8px" />
+      <p class="p-muted" style="margin:0">Official U.S. site for SWF embroidery equipment and support.</p>
+    </div>
+    <div><h4 class="h3" style="margin:0 0 6px;font-size:16px">Explore</h4><div style="display:grid;gap:6px;font-size:15px">
+      <a href="#series">Machines</a><a href="#financing">Financing</a><a href="#support">Support</a><a href="#locator">Dealer Locator</a>
     </div></div>
-    <div><h4 style="font-weight:700;margin-bottom:.5rem">Company</h4><div style="display:grid;gap:.35rem;font-size:.92rem">
-      <a class="footer-link" href="/contact/">Contact</a>
-      <a class="footer-link" href="#">Privacy</a>
+    <div><h4 class="h3" style="margin:0 0 6px;font-size:16px">Company</h4><div style="display:grid;gap:6px;font-size:15px">
+      <a href="#contact">Contact</a><a href="#">Privacy</a>
     </div></div>
-    <div><h4 style="font-weight:700;margin-bottom:.5rem">Get Support</h4>
-      <p style="font-size:.92rem;color:var(--muted)">Questions about machines, parts, or service</p>
-      <a class="btn btn-primary" href="/support/" style="margin-top:.5rem">Visit Support</a>
+    <div><h4 class="h3" style="margin:0 0 6px;font-size:16px">Get Support</h4>
+      <p class="p-muted" style="margin:0 0 8px">Questions about machines, parts, or service</p>
+      <a class="btn btn-primary" href="#support">Visit Support</a>
     </div>
   </div>
+  <div style="border-top:1px solid var(--line);text-align:center;padding:12px 0;font-size:13px;color:#64748b">
+    © <span id="y"></span> SWF USA
+  </div>
+</footer>
+
+<script>
+document.getElementById('y').textContent = new Date().getFullYear();
+document.getElementById('menuBtn')?.addEventListener('click', () => {
+  const mm = document.getElementById('mobileMenu');
+  mm.style.display = (mm.style.display === 'none' || !mm.style.display) ? 'block' : 'none';
+});
+</script>
+</body>
+</html>
+
   <div style="border-top:1px solid #e5e7eb;padding:1rem;text-align:center;font-size:.8rem;color:#6b7280">© <span id="y"></span> SWF USA</div>
 </footer>
 <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
