@@ -116,6 +116,64 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 .contact-card .meta p{margin:0;color:var(--muted);font-size:14px}
 .contact-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
 .contact-actions .btn{padding:.6rem .9rem;border-radius:12px;font-weight:700;font-size:.9rem}
+
+/* ===== Series details (accordion panels) ===== */
+.series-details {
+  display: none;
+  border-top: 1px dashed var(--line);
+  margin-top: 12px;
+  padding-top: 12px;
+}
+.series-details.open { display: block; }
+
+.series-details .specs {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 900px){ .series-details .specs { grid-template-columns: 1fr; } }
+
+.spec-card {
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:14px;
+  padding:12px;
+}
+.spec-card h4 { margin:0 0 6px; font-size:16px; }
+.spec-list { margin:.25rem 0 0 1.1rem; color:var(--muted); line-height:1.55; }
+
+.gallery-row {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:10px;
+}
+@media (max-width: 640px){ .gallery-row{ grid-template-columns:repeat(2,1fr); } }
+.gallery-row .thumb{
+  border:1px solid var(--line);
+  border-radius:12px;
+  overflow:hidden;
+  background:#fff;
+  height:120px;
+  display:flex; align-items:center; justify-content:center;
+}
+.gallery-row img{ width:100%; height:100%; object-fit:cover; }
+
+.spec-table{
+  width:100%; border-collapse:collapse; margin-top:10px; font-size:14px;
+}
+.spec-table th, .spec-table td{
+  border:1px solid var(--line); padding:8px; text-align:left; background:#fff;
+}
+.spec-table th{ background:#f9fafb; }
+
+.video-grid{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:12px;
+}
+@media (max-width: 900px){ .video-grid{ grid-template-columns:1fr; } }
+.video-grid iframe{
+  width:100%; aspect-ratio:16/9; border:0; border-radius:12px; background:#000;
+}
 </style>
 </head>
 <body>
@@ -177,7 +235,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
       <div class="hcards">
 
         <!-- KX — Flagship -->
-        <article class="hcard">
+        <article class="hcard" id="kx">
           <div class="media">
             <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/kx_series.png?v=1759259733" alt="KX Series">
           </div>
@@ -197,16 +255,69 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
               <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/KX_T1502D.png?v=1759260378" alt="KX-T1502D Dual-Function"></div>
             </div>
             <div class="cta-row" style="margin-top:12px">
-              <a class="btn btn-primary" href="/machines/kx/">View KX Series</a>
+              <a class="btn btn-primary js-view-series" href="#kx" data-target="#kx-details">View KX Series</a>
               <a class="btn btn-outline" href="#locator">Find a Dealer</a>
               <a class="btn btn-outline" href="#financing">Financing Options</a>
             </div>
-            <p class="p-muted" style="margin-top:8px;font-size:.92rem">Includes <strong>KX-T1502D</strong> dual-function model.</p>
+
+            <!-- KX DETAILS PANEL -->
+            <div id="kx-details" class="series-details" role="region" aria-label="KX Series details">
+              <div class="specs">
+                <div class="spec-card">
+                  <h4>Why KX (Flagship)</h4>
+                  <ul class="spec-list">
+                    <li><strong>Speed</strong>: up to 1,200 spm (normal), 1,000 spm (cap) for single & dual.</li>
+                    <li><strong>Embroidery field</strong>: up to 520 × 360 mm on single/dual; expansive multi-head fields on KX Tubular.</li>
+                    <li><strong>15″ Touch LCD</strong> with advanced control features.</li>
+                    <li><strong>SAP (Smart Action Presser Foot)</strong> auto-adjusts for fabric thickness.</li>
+                    <li><strong>STS Smart Tension</strong> for consistent stitch quality at speed.</li>
+                    <li><strong>SWNS wireless</strong> networking for design distribution.</li>
+                    <li><strong>Slim cylinder arm</strong> for better cap/brim clearance.</li>
+                    <li><strong>Quick/ easy cap change</strong> system for high-speed cap runs.</li>
+                    <li><strong>Dual-Function KX-T1502D</strong>: run two different items/patterns simultaneously.</li>
+                  </ul>
+                  <div class="cta-row" style="margin-top:10px">
+                    <a class="btn btn-primary" href="#financing">Financing Options</a>
+                    <a class="btn btn-outline" href="#locator">Find a Dealer</a>
+                    <a class="btn btn-outline" href="#contact">Talk to SWF</a>
+                  </div>
+                </div>
+
+                <div class="spec-card">
+                  <h4>Core Specs</h4>
+                  <table class="spec-table" aria-label="KX key specifications">
+                    <tr><th>Max Speed</th><td>1,200 spm (normal), 1,000 spm (cap)</td></tr>
+                    <tr><th>Embroidery Field</th><td>Up to 520 × 360 mm (single/dual); multi-head fields vary by model</td></tr>
+                    <tr><th>Memory</th><td>Up to 40,000,000 stitches (single & dual)</td></tr>
+                    <tr><th>Control</th><td>15″ full touch LCD (advanced job controls)</td></tr>
+                    <tr><th>Automation</th><td>SAP presser foot, STS smart tension, SWNS wireless</td></tr>
+                    <tr><th>Cap System</th><td>Redesigned; quick/ easy change; high-speed caps</td></tr>
+                    <tr><th>Heads</th><td>1–8 (including dual-function 2-head)</td></tr>
+                  </table>
+                  <p class="p-muted" style="margin:.5rem 0 0"><em>Model availability and specs vary by configuration—talk to an authorized dealer.</em></p>
+                </div>
+              </div>
+
+              <!-- Visuals -->
+              <div class="gallery-row" aria-label="KX gallery">
+                <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/KX_single.jpg?v=1759260196" alt="KX Single Head"></div>
+                <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/KX_T1502D.png?v=1759260378" alt="KX-T1502D Dual-Function"></div>
+                <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/kx_series.png?v=1759259733" alt="KX Series lineup"></div>
+              </div>
+
+              <!-- Videos -->
+              <div class="video-grid" aria-label="KX videos">
+                <iframe title="KX Single Head" src="https://www.youtube.com/embed/JGvx7qR-Z8c" allowfullscreen loading="lazy"></iframe>
+                <iframe title="KX Multi Head (4–8)" src="https://www.youtube.com/embed/qaDz0VXBX3M" allowfullscreen loading="lazy"></iframe>
+                <iframe title="KX Dual 2-Head (T1502D)" src="https://www.youtube.com/embed/lMtjbxIf4pw" allowfullscreen loading="lazy"></iframe>
+              </div>
+            </div>
+            <!-- /KX DETAILS PANEL -->
           </div>
         </article>
 
-        <!-- KE — Economy (no Dual mention) -->
-        <article class="hcard">
+        <!-- KE — Economy -->
+        <article class="hcard" id="ke">
           <div class="media">
             <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/Ke_Series.jpg?v=1759259733" alt="KE Series">
           </div>
@@ -224,7 +335,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
               <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/Ke_Series.jpg?v=1759259733" alt="KE Multi-Head"></div>
             </div>
             <div class="cta-row">
-              <a class="btn btn-primary" href="/machines/ke/">View KE Series</a>
+              <a class="btn btn-primary" href="#ke">View KE Series</a>
               <a class="btn btn-outline" href="#locator">Find a Dealer</a>
               <a class="btn btn-outline" href="#financing">Financing Options</a>
             </div>
@@ -232,7 +343,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
         </article>
 
         <!-- ES -->
-        <article class="hcard">
+        <article class="hcard" id="es">
           <div class="media">
             <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/es_full_size.jpg?v=1759260197" alt="ES Series">
           </div>
@@ -250,7 +361,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
               <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/es_full_size.jpg?v=1759260197" alt="ES Full Size"></div>
             </div>
             <div class="cta-row">
-              <a class="btn btn-primary" href="/machines/es/">View ES Series</a>
+              <a class="btn btn-primary" href="#es">View ES Series</a>
               <a class="btn btn-outline" href="#locator">Find a Dealer</a>
               <a class="btn btn-outline" href="#financing">Financing Options</a>
             </div>
@@ -258,7 +369,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
         </article>
 
         <!-- MAS -->
-        <article class="hcard">
+        <article class="hcard" id="mas">
           <div class="media">
             <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/MAS-12.jpg?v=1759260197" alt="MAS Series">
           </div>
@@ -276,7 +387,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
               <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/es_compact_ce76207c-a665-4f6f-8335-a67fc84e26c4.jpg?v=1759260197" alt="MAS-15"></div>
             </div>
             <div class="cta-row">
-              <a class="btn btn-primary" href="/machines/mas/">View MAS Series</a>
+              <a class="btn btn-primary" href="#mas">View MAS Series</a>
               <a class="btn btn-outline" href="#locator">Find a Dealer</a>
               <a class="btn btn-outline" href="#financing">Financing Options</a>
             </div>
@@ -284,7 +395,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
         </article>
 
         <!-- Sunny 7-needle Single Head -->
-        <article class="hcard">
+        <article class="hcard" id="sunny">
           <div class="media">
             <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/Sunny_6.jpg?v=1759260197" alt="Sunny 7-needle Single Head">
           </div>
@@ -301,7 +412,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
               <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/Sunny_6.jpg?v=1759260197" alt="Sunny"></div>
             </div>
             <div class="cta-row">
-              <a class="btn btn-primary" href="/machines/sunny/">View Sunny Series</a>
+              <a class="btn btn-primary" href="#sunny">View Sunny Series</a>
               <a class="btn btn-outline" href="#locator">Find a Dealer</a>
               <a class="btn btn-outline" href="#financing">Financing Options</a>
             </div>
@@ -350,7 +461,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
                 Fast decisions
               </span>
               <span class="fin-badge">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="2" d="M12 8v8m-4-4h8"/></svg>
+                <svg viewBox="0 0 24 24  " fill="none" stroke="currentColor"><path stroke-width="2" d="M12 8v8m-4-4h8"/></svg>
                 $0 down options*
               </span>
               <span class="fin-badge">
@@ -486,14 +597,71 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 </footer>
 
 <script>
+/* header year + mobile menu */
 document.getElementById('y').textContent = new Date().getFullYear();
 document.getElementById('menuBtn')?.addEventListener('click', () => {
   const mm = document.getElementById('mobileMenu');
   mm.style.display = (mm.style.display === 'none' || !mm.style.display) ? 'block' : 'none';
 });
+
+/* Series inline details toggler with deep-link support */
+(function(){
+  const buttons = document.querySelectorAll('.js-view-series');
+  const panels = {
+    '#kx': '#kx-details',
+    '#ke': '#ke-details',
+    '#es': '#es-details',
+    '#mas': '#mas-details',
+    '#sunny': '#sunny-details'
+  };
+
+  function closeAll(){
+    document.querySelectorAll('.series-details.open').forEach(el=>{
+      el.classList.remove('open');
+      el.setAttribute('aria-hidden','true');
+    });
+    buttons.forEach(b=>b.setAttribute('aria-expanded','false'));
+  }
+  function openFor(hash, scroll=true){
+    const sel = panels[hash];
+    if(!sel) return;
+    const panel = document.querySelector(sel);
+    const btn = Array.from(buttons).find(b=>b.getAttribute('href')===hash);
+    if(!panel) return;
+    closeAll();
+    panel.classList.add('open');
+    panel.setAttribute('aria-hidden','false');
+    if(btn) btn.setAttribute('aria-expanded','true');
+    if(scroll){
+      panel.closest('.hcard')?.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  }
+  buttons.forEach(btn=>{
+    btn.setAttribute('aria-expanded','false');
+    btn.addEventListener('click', (e)=>{
+      const hash = btn.getAttribute('href');
+      const sel = panels[hash];
+      if(!sel) return; // allow default if not wired yet
+      e.preventDefault();
+      const panel = document.querySelector(sel);
+      if(panel?.classList.contains('open')){
+        closeAll();
+        history.replaceState(null,'',' ');
+      }else{
+        openFor(hash);
+        history.replaceState(null,'', hash);
+      }
+    });
+  });
+  if(location.hash && panels[location.hash]){
+    openFor(location.hash, false);
+    document.getElementById('series')?.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+})();
 </script>
 </body>
 </html>
+
 
 
 
