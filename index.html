@@ -80,49 +80,17 @@ footer .cols{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
 @media (max-width:600px){footer .cols{grid-template-columns:1fr}}
 ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 
-/* --- Horizontal cards: restore size + spacing, keep image pinned to top --- */
-.hcards{ gap:22px; margin-top:20px; }            /* a bit more inter-card space */
-
-.hcard{
-  align-items:flex-start;                         /* prevents media from stretching */
-  border-radius:18px;
-  box-shadow:0 10px 30px rgba(2,6,23,.06);
-}
-
-/* Media column */
-.hcard .media{
-  background:#fff;
-  /* restore comfortable height like before, but don't force a hard box */
-  min-height:280px;                               /* ← was 220; looks closer to your “before” */
-  /* remove extra padding that made things feel tight */
-  padding:0;
-  align-self:start;                               /* pin to top so it won't "drop" */
-  display:flex;
-  align-items:flex-start;                         /* anchor image to top */
-  justify-content:center;                         /* center horizontally */
-}
-
-/* Image sizing — back to large, natural aspect */
-.hcard .media img{
-  max-width:100%;
-  height:auto;
-  width:auto;
-  max-height:clamp(260px, 34vh, 360px);           /* larger cap to match your earlier look */
-  object-fit:contain;
-}
-
-/* Mobile — keep it roomy when stacked */
-@media (max-width:900px){
-  .hcard{ grid-template-columns:1fr }
-  .hcard .media{
-    min-height:240px;
-  }
-  .hcard .media img{
-    max-height:clamp(240px, 42vh, 380px);
-  }
-}
-
-
+/* Horizontal cards */
+.hcards{display:grid;gap:16px;margin-top:16px}
+.hcard{display:grid;grid-template-columns:360px 1fr;gap:18px;align-items:stretch;border:1px solid var(--line);background:var(--surface);border-radius:18px;box-shadow:0 10px 30px rgba(2,6,23,.06);overflow:hidden}
+.hcard .media{min-height:220px;background:#fff}
+.hcard .body{padding:16px}
+.hcard .meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 10px}
+.hcard .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+.hcard .heads{font-weight:700;color:#0f172a}
+@media (max-width:900px){.hcard{grid-template-columns:1fr}.hcard .media{max-height:340px}}
+/* keep card images unsquished */
+.hcard .media img{ width:100%; height:100%; object-fit:contain; }
 
 /* Mini gallery in cards */
 .mini-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
