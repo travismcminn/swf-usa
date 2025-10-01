@@ -81,37 +81,16 @@ footer .cols{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
 ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 
 /* Horizontal cards */
-/* Keep series card images steady when details open */
-.hcard{ align-items:start; } /* prevent grid items from stretching vertically */
-.hcard .media{
-  height:260px;            /* fixed visual height on desktop */
-  min-height:260px;
-  background:#fff;
-  align-self:start;        /* stay pinned to the top of the card */
-  display:flex;            /* center the image within the fixed box */
-  align-items:center;
-  justify-content:center;
-}
-.hcard .media img{
-  max-height:100%;
-  width:auto;
-  height:100%;
-  object-fit:contain;      /* no squish */
-}
-
-/* Mobile: allow the image to size naturally */
-@media (max-width:900px){
-  .hcard{ align-items:stretch; }       /* normal behavior on mobile */
-  .hcard .media{
-    height:auto;
-    min-height:220px;
-  }
-  .hcard .media img{
-    width:100%;
-    height:auto;
-  }
-}
-
+.hcards{display:grid;gap:16px;margin-top:16px}
+.hcard{display:grid;grid-template-columns:360px 1fr;gap:18px;align-items:stretch;border:1px solid var(--line);background:var(--surface);border-radius:18px;box-shadow:0 10px 30px rgba(2,6,23,.06);overflow:hidden}
+.hcard .media{min-height:220px;background:#fff}
+.hcard .body{padding:16px}
+.hcard .meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 10px}
+.hcard .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+.hcard .heads{font-weight:700;color:#0f172a}
+@media (max-width:900px){.hcard{grid-template-columns:1fr}.hcard .media{max-height:340px}}
+/* keep card images unsquished */
+.hcard .media img{ width:100%; height:100%; object-fit:contain; }
 
 /* Mini gallery in cards */
 .mini-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
@@ -1047,6 +1026,20 @@ links.forEach(a=>{
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
