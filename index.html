@@ -80,49 +80,48 @@ footer .cols{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
 @media (max-width:600px){footer .cols{grid-template-columns:1fr}}
 ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 
-/* Horizontal cards (stable, no squish, no jump) */
-.hcard{ 
-  display:grid; 
-  grid-template-columns:360px 1fr; 
-  gap:18px; 
-  align-items:flex-start;            /* don't stretch the media column */
-  border:1px solid var(--line);
-  background:var(--surface);
+/* --- Horizontal cards: restore size + spacing, keep image pinned to top --- */
+.hcards{ gap:22px; margin-top:20px; }            /* a bit more inter-card space */
+
+.hcard{
+  align-items:flex-start;                         /* prevents media from stretching */
   border-radius:18px;
   box-shadow:0 10px 30px rgba(2,6,23,.06);
-  overflow:hidden;
 }
 
-/* Media column: let it size naturally, pin content to top */
+/* Media column */
 .hcard .media{
   background:#fff;
-  padding:12px;                      /* breathing room so wide images fit nicely */
-  align-self:start;                  /* keep the media block at the top */
-  display:flex;                      /* control image alignment */
-  align-items:flex-start;            /* anchor image to top (no vertical “drop”) */
-  justify-content:center;            /* center horizontally */
+  /* restore comfortable height like before, but don't force a hard box */
+  min-height:280px;                               /* ← was 220; looks closer to your “before” */
+  /* remove extra padding that made things feel tight */
+  padding:0;
+  align-self:start;                               /* pin to top so it won't "drop" */
+  display:flex;
+  align-items:flex-start;                         /* anchor image to top */
+  justify-content:center;                         /* center horizontally */
 }
 
-/* Image: preserve aspect, never stretch, never squish */
+/* Image sizing — back to large, natural aspect */
 .hcard .media img{
-  width:auto;                        /* keep natural aspect ratio */
   max-width:100%;
   height:auto;
-  max-height:clamp(180px, 26vh, 260px); /* responsive cap, prevents giant images */
-  object-fit:contain;                /* just in case */
+  width:auto;
+  max-height:clamp(260px, 34vh, 360px);           /* larger cap to match your earlier look */
+  object-fit:contain;
 }
 
-/* Mobile: allow a bit more height and center vertically */
+/* Mobile — keep it roomy when stacked */
 @media (max-width:900px){
   .hcard{ grid-template-columns:1fr }
   .hcard .media{
-    padding:10px;
-    align-items:center;              /* looks nicer on stacked layout */
+    min-height:240px;
   }
   .hcard .media img{
-    max-height:clamp(200px, 38vh, 340px);
+    max-height:clamp(240px, 42vh, 380px);
   }
 }
+
 
 
 /* Mini gallery in cards */
