@@ -103,6 +103,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 .hcards{display:grid;gap:16px;margin-top:16px}
 .hcard{display:grid;grid-template-columns:360px 1fr;gap:18px;align-items:stretch;border:1px solid var(--line);background:var(--surface);border-radius:18px;box-shadow:0 10px 30px rgba(2,6,23,.06);overflow:hidden}
 .hcard .media{min-height:220px;background:#fff}
+.hcard .media img{width:100%;height:auto;display:block} /* natural sizing to prevent squish */
 .hcard .body{padding:16px}
 .hcard .meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 10px}
 .hcard .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
@@ -208,7 +209,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 }
 .tab{
   appearance:none; border:1px solid var(--line); border-bottom:2px solid transparent;
-  background:#fff; color:var(--ink);
+  background:#fff; color:#0f172a;
   padding:.55rem .9rem; border-radius:10px 10px 0 0; font-weight:800; cursor:pointer;
 }
 .tab[aria-selected="true"]{
@@ -373,7 +374,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
         <!-- KX -->
         <article class="hcard" id="kx">
           <div class="media">
-            <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/kx_series.png?v=1759259733" alt="KX Series" width="720" height="420">
+            <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/kx_series.png?v=1759259733" alt="KX Series">
           </div>
           <div class="body">
             <div class="meta">
@@ -550,7 +551,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
         <!-- KE -->
         <article class="hcard" id="ke">
           <div class="media">
-            <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/Ke_Series.jpg?v=1759259733" alt="KE Series" width="720" height="420">
+            <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/Ke_Series.jpg?v=1759259733" alt="KE Series">
           </div>
           <div class="body">
             <div class="meta">
@@ -574,7 +575,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
         <!-- ES -->
         <article class="hcard" id="es">
           <div class="media">
-            <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/es_full_size.jpg?v=1759260197" alt="ES Series" width="720" height="420">
+            <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/es_full_size.jpg?v=1759260197" alt="ES Series">
           </div>
           <div class="body">
             <div class="meta">
@@ -598,7 +599,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
         <!-- MAS -->
         <article class="hcard" id="mas">
           <div class="media">
-            <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/MAS-12.jpg?v=1759260197" alt="MAS Series" width="720" height="420">
+            <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/MAS-12.jpg?v=1759260197" alt="MAS Series">
           </div>
           <div class="body">
             <div class="meta">
@@ -622,7 +623,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
         <!-- Sunny -->
         <article class="hcard" id="sunny">
           <div class="media">
-            <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/Sunny_6.jpg?v=1759260197" alt="Sunny 7-needle Single Head" width="720" height="420">
+            <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/Sunny_6.jpg?v=1759260197" alt="Sunny 7-needle Single Head">
           </div>
           <div class="body">
             <div class="meta">
@@ -959,6 +960,7 @@ links.forEach(a=>{
 </script>
 </body>
 </html>
+
 
 
 
