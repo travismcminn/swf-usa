@@ -29,7 +29,7 @@ a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
 .badge{display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .6rem;border-radius:999px;font-weight:800;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase}
 .badge-flagship{background:#ffe4e8;color:#8a1838;border:1px solid #ffd5ea}
 .badge-economy{background:#eef2ff;color:#3730a3;border:1px solid #e0e7ff}
-/* NEW: KS Performance badge */
+/* KS Performance badge */
 .badge-performance{background:#e7faf3;color:#065f46;border:1px solid #c7f0e3}
 
 /* Headings & text */
@@ -88,7 +88,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 .hcard .media{
   min-height:220px;
   background:#fff;
-  align-self:start;
+  align-self:start; /* keep image column at top when details open */
 }
 .hcard .body{padding:16px}
 .hcard .meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 10px}
@@ -344,135 +344,284 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
               <a class="btn btn-outline" href="#financing">Financing Options</a>
             </div>
 
-            <!-- KX DETAILS (unchanged) -->
-            <!-- ... (KX details unchanged from your current page, kept for brevity) ... -->
-            <!-- For your live file, keep the full KX block you pasted previously -->
+            <!-- KX DETAILS -->
+            <div id="kx-details" class="series-details" role="region" aria-label="KX Series details" aria-hidden="true">
+              <div class="tabs" data-tabs id="kx-tabs">
+                <div class="tablist" role="tablist" aria-label="KX tabs">
+                  <button class="tab" role="tab" aria-selected="true" aria-controls="kx-overview"  id="tab-kx-overview">Overview</button>
+                  <button class="tab" role="tab" aria-selected="false" aria-controls="kx-specs"     id="tab-kx-specs">Specs</button>
+                  <button class="tab" role="tab" aria-selected="false" aria-controls="kx-videos"    id="tab-kx-videos">Videos</button>
+                  <button class="tab" role="tab" aria-selected="false" aria-controls="kx-downloads" id="tab-kx-downloads">Downloads</button>
+                </div>
+
+                <!-- OVERVIEW -->
+                <div class="tabpanel active" role="tabpanel" id="kx-overview" aria-labelledby="tab-kx-overview" tabindex="0">
+                  <div class="specs kx-grid">
+                    <div class="spec-card">
+                      <h4>Why shops choose <strong>KX</strong> (the flagship)</h4>
+                      <div class="spec-list" style="margin-left:0">
+                        <li><strong>Built for hats—really.</strong> Redesigned cap + slim cylinder arm for clean stitching on structured hats at speed.</li>
+                        <li><strong>Speed without compromise.</strong> SAP smart presser foot + STS smart tension keep quality up at high SPM.</li>
+                        <li><strong>Real uptime.</strong> Fast changeovers, SWNS wireless job send, rugged chassis.</li>
+                        <li><strong>Lower cost per order.</strong> Fewer rejects, fewer reruns, more revenue hours per shift.</li>
+                        <li><strong>Scales with you.</strong> Start single-head, add multi-head (4/6/8), or step into <em>KX-T1502D</em> dual-function.</li>
+                      </div>
+                      <div class="included">
+                        <strong>Included with every KX</strong>
+                        <div class="items">
+                          <div class="item"><span class="dot">✓</span><div>High-speed cap frame set</div></div>
+                          <div class="item"><span class="dot">✓</span><div>Tubular hoops (assorted sizes)</div></div>
+                          <div class="item"><span class="dot">✓</span><div>15″ touch LCD controller</div></div>
+                          <div class="item"><span class="dot">✓</span><div>SWNS wireless job send (network ready)</div></div>
+                          <div class="item"><span class="dot">✓</span><div>Dealer install & operator training</div></div>
+                          <div class="item"><span class="dot">✓</span><div>U.S. warranty & lifetime technical support</div></div>
+                        </div>
+                        <small>Packages vary by dealer/model.</small>
+                      </div>
+                    </div>
+
+                    <div class="spec-card">
+                      <h4>At-a-glance</h4>
+                      <ul class="spec-list">
+                        <li><strong>Heads:</strong> 1–8 (incl. dual-function 2-head)</li>
+                        <li><strong>Use case:</strong> hats-first shops, quick-turn orders, daily production</li>
+                        <li><strong>Operator wins:</strong> fewer tweaks, faster changeovers, wireless job send</li>
+                        <li><strong>Growth path:</strong> add heads or stations—same controls, same workflow</li>
+                      </ul>
+                      <div class="spec-card callout" style="margin-top:10px">
+                        <strong>When KX shines</strong>
+                        <div class="note">• Cap work is growing • Need quality at 1k+ spm • Want to queue designs over Wi-Fi</div>
+                      </div>
+                      <div class="cta-row" style="margin-top:10px">
+                        <a class="btn btn-primary" href="#financing">Financing Options</a>
+                        <a class="btn btn-outline" href="#locator">Find a Dealer</a>
+                        <a class="btn btn-outline" href="#contact">Talk to SWF</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="gallery-row" aria-label="KX gallery">
+                    <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/KX_single.jpg?v=1759260196" alt="KX Single Head"></div>
+                    <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/KX_T1502D.png?v=1759260378" alt="KX-T1502D Dual-Function"></div>
+                    <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/kx_series.png?v=1759259733" alt="KX Series lineup"></div>
+                  </div>
+                  <p class="note" style="margin-top:8px">Specs vary by configuration. No public pricing—<em>call for pricing</em> via an authorized dealer.</p>
+                </div>
+
+                <!-- SPECS -->
+                <div class="tabpanel" role="tabpanel" id="kx-specs" aria-labelledby="tab-kx-specs" tabindex="0">
+                  <div class="specs-grid">
+                    <div class="spec-card">
+                      <h4>KX Single-Head</h4>
+                      <table>
+                        <tr><th>Max Speed</th><td>1,200 spm (flat), 1,000 spm (cap)</td></tr>
+                        <tr><th>Embroidery Field</th><td>Up to 520 × 360 mm</td></tr>
+                        <tr><th>Needles</th><td>15</td></tr>
+                        <tr><th>Memory</th><td>Up to 40,000,000 stitches</td></tr>
+                        <tr><th>Control</th><td>15″ touch LCD (advanced job controls)</td></tr>
+                        <tr><th>Automation</th><td>SAP presser foot, STS smart tension, SWNS wireless</td></tr>
+                        <tr><th>Cap System</th><td>High-speed cap frame; quick/easy change</td></tr>
+                        <tr><th>Power</th><td>100–240V, 50/60Hz</td></tr>
+                      </table>
+                    </div>
+                    <div class="spec-card">
+                      <h4>KX-T1502D (Dual-Function 2-Head)</h4>
+                      <table>
+                        <tr><th>Max Speed</th><td>1,200 spm (flat), 1,000 spm (cap)</td></tr>
+                        <tr><th>Embroidery Field</th><td>Up to 520 × 360 mm</td></tr>
+                        <tr><th>Needles</th><td>15 × 2 heads</td></tr>
+                        <tr><th>Operation</th><td>Run two different items/patterns simultaneously</td></tr>
+                        <tr><th>Control</th><td>15″ touch LCD; wireless networking</td></tr>
+                        <tr><th>Automation</th><td>SAP, STS; quick cap changes</td></tr>
+                        <tr><th>Power</th><td>100–240V, 50/60Hz</td></tr>
+                      </table>
+                    </div>
+                    <div class="spec-card">
+                      <h4>KX Multi-Head (4 / 6 / 8)</h4>
+                      <table>
+                        <tr><th>Heads</th><td>4, 6, or 8</td></tr>
+                        <tr><th>Needles</th><td>15 per head</td></tr>
+                        <tr><th>Max Speed</th><td>Up to 1,200 spm (flat)</td></tr>
+                        <tr><th>Embroidery Field</th><td>Large tubular area (model-dependent)</td></tr>
+                        <tr><th>Control</th><td>15″ touch LCD; SWNS wireless (job queue/send)</td></tr>
+                        <tr><th>Cap System</th><td>High-speed cap frames; fast changeovers</td></tr>
+                        <tr><th>Power</th><td>Per model; consult dealer</td></tr>
+                      </table>
+                    </div>
+                  </div>
+                  <p class="note" style="margin-top:8px">Exact specs vary by model/package. Your dealer will confirm the correct configuration.</p>
+                </div>
+
+                <!-- VIDEOS -->
+                <div class="tabpanel" role="tabpanel" id="kx-videos" aria-labelledby="tab-kx-videos" tabindex="0">
+                  <div class="video-grid">
+                    <iframe title="KX Single Head" src="https://www.youtube.com/embed/JGvx7qR-Z8c" allowfullscreen loading="lazy"></iframe>
+                    <iframe title="KX Multi Head (4–8)" src="https://www.youtube.com/embed/qaDz0VXBX3M" allowfullscreen loading="lazy"></iframe>
+                    <iframe title="KX Dual 2-Head (T1502D)" src="https://www.youtube.com/embed/lMtjbxIf4pw" allowfullscreen loading="lazy"></iframe>
+                  </div>
+                </div>
+
+                <!-- DOWNLOADS -->
+                <div class="tabpanel" role="tabpanel" id="kx-downloads" aria-labelledby="tab-kx-downloads" tabindex="0">
+                  <div class="spec-card">
+                    <h4>Brochures & PDFs</h4>
+                    <div class="dl-cards">
+                      <button class="dl-card js-open-pdf" data-pdf="https://cdn.shopify.com/s/files/1/0878/0608/3384/files/KX_Single_EN_5.pdf?v=1759267471" data-title="KX Single — Brochure (PDF)">
+                        <div class="pdf-ic">PDF</div>
+                        <div><h5>KX Single — Brochure</h5><p>Specs, features & accessories</p></div>
+                      </button>
+                      <button class="dl-card js-open-pdf" data-pdf="https://cdn.shopify.com/s/files/1/0878/0608/3384/files/KX_Tubular_EN_5.pdf?v=1759267471" data-title="KX Multi-Head — Brochure (PDF)">
+                        <div class="pdf-ic">PDF</div>
+                        <div><h5>KX Multi-Head — Brochure</h5><p>4 / 6 / 8 head lineup</p></div>
+                      </button>
+                      <button class="dl-card js-open-pdf" data-pdf="https://cdn.shopify.com/s/files/1/0878/0608/3384/files/KX_Dual_EN_6.pdf?v=1759267470" data-title="KX Dual 2-Head — Brochure (PDF)">
+                        <div class="pdf-ic">PDF</div>
+                        <div><h5>KX Dual 2-Head — Brochure</h5><p>Dual-function T1502D details</p></div>
+                      </button>
+                    </div>
+                    <p class="note" style="margin-top:8px">Brochures open in a pop-up viewer. You can download from the viewer if needed.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /KX DETAILS -->
           </div>
         </article>
 
-       <!-- KS (NEW) -->
-<article class="hcard" id="ks">
-  <div class="media">
-    <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/KS_Series_5.jpg?v=1759498315" alt="KS Series">
-  </div>
-  <div class="body">
-    <div class="meta">
-      <span class="badge badge-performance">Performance Series</span>
-      <span class="pill">Call for Pricing</span>
-      <span class="heads">Heads: 2, 4, 6, 8</span>
-    </div>
-    <h3 class="h3">KS Series</h3>
-    <p class="p-muted" style="margin:8px 0 10px">
-      Smart, cap-ready multi-heads that balance speed and sophistication—great for shops that need more
-      automation than KE without stepping up to KX.
-    </p>
-    <div class="mini-gallery">
-      <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/KS_Series_5.jpg?v=1759498315" alt="KS Multi-Head"></div>
-    </div>
-    <div class="cta-row">
-      <a class="btn btn-primary js-view-series" href="#ks" data-target="#ks-details" aria-expanded="false">
-        View KS Series <span class="chev">▾</span>
-      </a>
-      <a class="btn btn-outline" href="#locator">Find a Dealer</a>
-      <a class="btn btn-outline" href="#financing">Financing Options</a>
-    </div>
-
-    <!-- KS DETAILS -->
-    <div id="ks-details" class="series-details" role="region" aria-label="KS Series details" aria-hidden="true">
-      <div class="tabs" data-tabs id="ks-tabs">
-        <div class="tablist" role="tablist" aria-label="KS tabs">
-          <button class="tab" role="tab" aria-selected="true"  aria-controls="ks-overview"  id="tab-ks-overview">Overview</button>
-          <button class="tab" role="tab" aria-selected="false" aria-controls="ks-specs"     id="tab-ks-specs">Specs</button>
-          <button class="tab" role="tab" aria-selected="false" aria-controls="ks-videos"    id="tab-ks-videos">Videos</button>
-          <button class="tab" role="tab" aria-selected="false" aria-controls="ks-downloads" id="tab-ks-downloads">Downloads</button>
-        </div>
-
-        <!-- OVERVIEW -->
-        <div class="tabpanel active" role="tabpanel" id="ks-overview" aria-labelledby="tab-ks-overview" tabindex="0">
-          <div class="specs">
-            <div class="spec-card">
-              <h4>Why shops choose <strong>KS</strong> (performance multi-heads)</h4>
-              <ul class="spec-list">
-                <li><strong>Cap-first design:</strong> slim cylinder & improved arm angle for cleaner hat stitching.</li>
-                <li><strong>Fast changeovers:</strong> quick cap/tubular swaps; efficient daily workflow.</li>
-                <li><strong>Operator-friendly:</strong> 15″ full-touch LCD with advanced functions.</li>
-                <li><strong>Network ready:</strong> SWNS wireless send/queue across machines.</li>
-                <li><strong>Scalable lineup:</strong> 2/4/6/8-head in UH (400×450) or UK (500×450) variants.</li>
-              </ul>
-            </div>
-            <div class="spec-card">
-              <h4>Models in the KS family</h4>
-              <ul class="spec-list">
-                <li>KS-UK1502-45</li>
-                <li>KS-UH1504-45 • KS-UK1504-45</li>
-                <li>KS-UH1506-45 • KS-UK1506-45</li>
-                <li>KS-UH1508-45 • KS-UK1508-45</li>
-              </ul>
-            </div>
+        <!-- KS (NEW) -->
+        <article class="hcard" id="ks">
+          <div class="media">
+            <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/KS_Series_5.jpg?v=1759498315" alt="KS Series">
           </div>
-        </div>
+          <div class="body">
+            <div class="meta">
+              <span class="badge badge-performance">Performance Series</span>
+              <span class="pill">Call for Pricing</span>
+              <span class="heads">Heads: 2, 4, 6, 8</span>
+            </div>
+            <h3 class="h3">KS Series</h3>
+            <p class="p-muted" style="margin:8px 0 10px">
+              Smart, cap-ready multi-heads that balance speed and sophistication—more automation than KE without stepping up to KX.
+            </p>
+            <div class="mini-gallery">
+              <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/KS_Series_5.jpg?v=1759498315" alt="KS Multi-Head"></div>
+            </div>
+            <div class="cta-row">
+              <a class="btn btn-primary js-view-series" href="#ks" data-target="#ks-details" aria-expanded="false">
+                View KS Series <span class="chev">▾</span>
+              </a>
+              <a class="btn btn-outline" href="#locator">Find a Dealer</a>
+              <a class="btn btn-outline" href="#financing">Financing Options</a>
+            </div>
 
-        <!-- SPECS -->
-        <div class="tabpanel" role="tabpanel" id="ks-specs" aria-labelledby="tab-ks-specs" tabindex="0">
-          <div class="specs-grid">
-            <div class="spec-card">
-              <h4>Speed & Control</h4>
-              <table>
-                <tr><th>Max Speed</th><td>1,200 spm (flat), 1,000 spm (cap)</td></tr>
-                <tr><th>Controller</th><td>15″ full-touch LCD (advanced job functions)</td></tr>
-                <tr><th>Networking</th><td>SWNS wireless job send / queue</td></tr>
-              </table>
-            </div>
-            <div class="spec-card">
-              <h4>Fields (UH vs UK)</h4>
-              <table>
-                <tr><th>Flat (UH)</th><td>400 × 450 mm</td></tr>
-                <tr><th>Flat (UK)</th><td>500 × 450 mm</td></tr>
-                <tr><th>Cap</th><td>360 × 75 mm</td></tr>
-                <tr><th>Semi-cap</th><td>180 × 83 mm</td></tr>
-              </table>
-            </div>
-            <div class="spec-card">
-              <h4>Electrical</h4>
-              <table>
-                <tr><th>Power</th><td>100–240V, 50/60Hz</td></tr>
-                <tr><th>Memory</th><td>Up to 40,000,000 stitches</td></tr>
-              </table>
-            </div>
-          </div>
-          <p class="note" style="margin-top:8px">Specs may vary by configuration/year—your dealer will confirm details.</p>
-        </div>
+            <!-- KS DETAILS -->
+            <div id="ks-details" class="series-details" role="region" aria-label="KS Series details" aria-hidden="true">
+              <div class="tabs" data-tabs id="ks-tabs">
+                <div class="tablist" role="tablist" aria-label="KS tabs">
+                  <button class="tab" role="tab" aria-selected="true"  aria-controls="ks-overview"  id="tab-ks-overview">Overview</button>
+                  <button class="tab" role="tab" aria-selected="false" aria-controls="ks-specs"     id="tab-ks-specs">Specs</button>
+                  <button class="tab" role="tab" aria-selected="false" aria-controls="ks-videos"    id="tab-ks-videos">Videos</button>
+                  <button class="tab" role="tab" aria-selected="false" aria-controls="ks-downloads" id="tab-ks-downloads">Downloads</button>
+                </div>
 
-        <!-- VIDEOS -->
-        <div class="tabpanel" role="tabpanel" id="ks-videos" aria-labelledby="tab-ks-videos" tabindex="0">
-          <div class="video-grid">
-            <iframe title="KS Series Overview" src="https://www.youtube.com/embed/NUH5Bfd23TQ" allowfullscreen loading="lazy"></iframe>
-          </div>
-        </div>
+                <!-- OVERVIEW -->
+                <div class="tabpanel active" role="tabpanel" id="ks-overview" aria-labelledby="tab-ks-overview" tabindex="0">
+                  <div class="specs">
+                    <div class="spec-card">
+                      <h4>Why shops choose <strong>KS</strong> (performance multi-heads)</h4>
+                      <ul class="spec-list">
+                        <li><strong>Cap-first design:</strong> slim cylinder & improved arm angle for cleaner hat stitching.</li>
+                        <li><strong>Fast changeovers:</strong> quick cap/tubular swaps; efficient daily workflow.</li>
+                        <li><strong>Operator-friendly:</strong> 15″ full-touch LCD with advanced functions.</li>
+                        <li><strong>Network ready:</strong> SWNS wireless send/queue across machines.</li>
+                        <li><strong>Scalable lineup:</strong> 2/4/6/8-head in UH (400×450) or UK (500×450) variants.</li>
+                      </ul>
+                      <div class="included">
+                        <strong>Included with most KS packages</strong>
+                        <div class="items">
+                          <div class="item"><span class="dot">✓</span><div>Quick-change cap frame set</div></div>
+                          <div class="item"><span class="dot">✓</span><div>Tubular hoops — multiple sizes</div></div>
+                          <div class="item"><span class="dot">✓</span><div>15″ touch LCD controller</div></div>
+                          <div class="item"><span class="dot">✓</span><div>SWNS networking (wireless ready)</div></div>
+                          <div class="item"><span class="dot">✓</span><div>Dealer install & training</div></div>
+                          <div class="item"><span class="dot">✓</span><div>U.S. warranty & support</div></div>
+                        </div>
+                        <small>Exact contents vary by dealer/model.</small>
+                      </div>
+                    </div>
+                    <div class="spec-card">
+                      <h4>Models in the KS family</h4>
+                      <ul class="spec-list">
+                        <li>KS-UK1502-45</li>
+                        <li>KS-UH1504-45 • KS-UK1504-45</li>
+                        <li>KS-UH1506-45 • KS-UK1506-45</li>
+                        <li>KS-UH1508-45 • KS-UK1508-45</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
 
-        <!-- DOWNLOADS -->
-        <div class="tabpanel" role="tabpanel" id="ks-downloads" aria-labelledby="tab-ks-downloads" tabindex="0">
-          <div class="spec-card">
-            <h4>Brochures & Links</h4>
-            <div class="dl-cards">
-              <button class="dl-card js-open-pdf" data-pdf="https://cdn.shopify.com/s/files/1/1236/6284/files/KS_Tubular_EN_3.pdf?v=1759498319" data-title="KS Series — Brochure (PDF)">
-                <div class="pdf-ic">PDF</div>
-                <div><h5>KS Series — Brochure</h5><p>Official brochure (PDF)</p></div>
-              </button>
-              <button class="dl-card js-open-pdf" data-pdf="https://www.swfkorea.co.kr/index.php?module=Goods&action=SiteGoodsEn&sMode=VIEW_FORM&sCurrSortCd=002002&iGoodsCd=30&CurrentPage=1&sSearchField=&sSearchValue=" data-title="Manufacturer Page — KS Series">
-                <div class="pdf-ic">WEB</div>
-                <div><h5>Manufacturer Page</h5><p>Specs & features on swfkorea.co.kr</p></div>
-              </button>
+                <!-- SPECS -->
+                <div class="tabpanel" role="tabpanel" id="ks-specs" aria-labelledby="tab-ks-specs" tabindex="0">
+                  <div class="specs-grid">
+                    <div class="spec-card">
+                      <h4>Speed & Control</h4>
+                      <table>
+                        <tr><th>Max Speed</th><td>1,200 spm (flat), 1,000 spm (cap)</td></tr>
+                        <tr><th>Controller</th><td>15″ full-touch LCD (advanced job functions)</td></tr>
+                        <tr><th>Networking</th><td>SWNS wireless job send / queue</td></tr>
+                      </table>
+                    </div>
+                    <div class="spec-card">
+                      <h4>Fields (UH vs UK)</h4>
+                      <table>
+                        <tr><th>Flat (UH)</th><td>400 × 450 mm</td></tr>
+                        <tr><th>Flat (UK)</th><td>500 × 450 mm</td></tr>
+                        <tr><th>Cap</th><td>360 × 75 mm</td></tr>
+                        <tr><th>Semi-cap</th><td>180 × 83 mm</td></tr>
+                      </table>
+                    </div>
+                    <div class="spec-card">
+                      <h4>Electrical</h4>
+                      <table>
+                        <tr><th>Power</th><td>100–240V, 50/60Hz</td></tr>
+                        <tr><th>Memory</th><td>Up to 40,000,000 stitches</td></tr>
+                      </table>
+                    </div>
+                  </div>
+                  <p class="note" style="margin-top:8px">Specs may vary by configuration/year—your dealer will confirm details.</p>
+                </div>
+
+                <!-- VIDEOS -->
+                <div class="tabpanel" role="tabpanel" id="ks-videos" aria-labelledby="tab-ks-videos" tabindex="0">
+                  <div class="video-grid">
+                    <iframe title="KS Series Overview" src="https://www.youtube.com/embed/NUH5Bfd23TQ" allowfullscreen loading="lazy"></iframe>
+                  </div>
+                </div>
+
+                <!-- DOWNLOADS -->
+                <div class="tabpanel" role="tabpanel" id="ks-downloads" aria-labelledby="tab-ks-downloads" tabindex="0">
+                  <div class="spec-card">
+                    <h4>Brochures & Links</h4>
+                    <div class="dl-cards">
+                      <button class="dl-card js-open-pdf" data-pdf="https://cdn.shopify.com/s/files/1/1236/6284/files/KS_Tubular_EN_3.pdf?v=1759498319" data-title="KS Series — Brochure (PDF)">
+                        <div class="pdf-ic">PDF</div>
+                        <div><h5>KS Series — Brochure</h5><p>Official brochure (PDF)</p></div>
+                      </button>
+                      <button class="dl-card js-open-pdf" data-pdf="https://www.swfkorea.co.kr/index.php?module=Goods&action=SiteGoodsEn&sMode=VIEW_FORM&sCurrSortCd=002002&iGoodsCd=30&CurrentPage=1&sSearchField=&sSearchValue=" data-title="Manufacturer Page — KS Series">
+                        <div class="pdf-ic">WEB</div>
+                        <div><h5>Manufacturer Page</h5><p>Specs & features on swfkorea.co.kr</p></div>
+                      </button>
+                    </div>
+                    <p class="note" style="margin-top:8px">Opens in a pop-up viewer so you can stay on this page.</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <p class="note" style="margin-top:8px">Opens in a pop-up viewer so you can stay on this page.</p>
+            <!-- /KS DETAILS -->
           </div>
-        </div>
-      </div>
-    </div>
-    <!-- /KS DETAILS -->
-  </div>
-</article>
-        
+        </article>
+
         <!-- KE -->
         <article class="hcard" id="ke">
           <div class="media">
@@ -496,18 +645,208 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
             </div>
 
             <!-- KE DETAILS -->
-            <!-- (ke details remain exactly as in your current page) -->
+            <div id="ke-details" class="series-details" role="region" aria-label="KE Series details" aria-hidden="true">
+              <div class="tabs" data-tabs id="ke-tabs">
+                <div class="tablist" role="tablist" aria-label="KE tabs">
+                  <button class="tab" role="tab" aria-selected="true"  aria-controls="ke-overview"  id="tab-ke-overview">Overview</button>
+                  <button class="tab" role="tab" aria-selected="false" aria-controls="ke-specs"     id="tab-ke-specs">Specs</button>
+                  <button class="tab" role="tab" aria-selected="false" aria-controls="ke-videos"    id="tab-ke-videos">Videos</button>
+                  <button class="tab" role="tab" aria-selected="false" aria-controls="ke-downloads" id="tab-ke-downloads">Downloads</button>
+                </div>
+
+                <!-- OVERVIEW -->
+                <div class="tabpanel active" role="tabpanel" id="ke-overview" aria-labelledby="tab-ke-overview" tabindex="0">
+                  <div class="specs">
+                    <div class="spec-card">
+                      <h4>Why shops choose <strong>KE</strong> (the value workhorse)</h4>
+                      <div class="spec-list" style="margin-left:0">
+                        <li><strong>Lower cost per head</strong> with SWF reliability—ideal for scaling capacity.</li>
+                        <li><strong>Hat-friendly</strong> slim cylinder arm + high-speed cap frame for smoother cap stitching.</li>
+                        <li><strong>Operator-friendly</strong> 15.1″ LCD, clear menus, fast color changes.</li>
+                        <li><strong>Automation assists</strong> like SAP presser foot & STS smart tension help keep quality up at speed.</li>
+                        <li><strong>Network ready</strong> with SWNS wireless job send / queue.</li>
+                      </div>
+                      <div class="included">
+                        <strong>Included with most KE packages</strong>
+                        <div class="items">
+                          <div class="item"><span class="dot">✓</span><div>Quick-change cap frame set</div></div>
+                          <div class="item"><span class="dot">✓</span><div>Tubular hoops — multiple sizes</div></div>
+                          <div class="item"><span class="dot">✓</span><div>15.1″ touch LCD controller</div></div>
+                          <div class="item"><span class="dot">✓</span><div>SWNS networking (wireless ready)</div></div>
+                          <div class="item"><span class="dot">✓</span><div>Dealer install & training</div></div>
+                          <div class="item"><span class="dot">✓</span><div>U.S. warranty & support</div></div>
+                        </div>
+                        <small>Exact contents vary by dealer/model.</small>
+                      </div>
+                    </div>
+
+                    <div class="spec-card">
+                      <h4>At-a-glance</h4>
+                      <ul class="spec-list">
+                        <li><strong>Heads:</strong> 4 / 6 / 8</li>
+                        <li><strong>Needles:</strong> 15 per head</li>
+                        <li><strong>Speed:</strong> up to ~1,200 SPM (flat); ~1,000 SPM (cap)</li>
+                        <li><strong>Sewing field (flat):</strong> ~400 × 450 mm</li>
+                        <li><strong>Cap field:</strong> ~360 × 75 mm</li>
+                        <li><strong>Control:</strong> 15.1″ full-color touch LCD</li>
+                        <li><strong>Assists:</strong> SAP, STS, Slim Cylinder, SWNS</li>
+                      </ul>
+                      <div class="spec-card callout" style="margin-top:10px">
+                        <strong>Best for</strong>
+                        <div class="note">High-volume logos, hats, uniforms, and everyday production where ROI per head matters.</div>
+                      </div>
+                      <div class="cta-row" style="margin-top:10px">
+                        <a class="btn btn-primary" href="#financing">Financing Options</a>
+                        <a class="btn btn-outline" href="#locator">Find a Dealer</a>
+                        <a class="btn btn-outline" href="#contact">Talk to SWF</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- SPECS -->
+                <div class="tabpanel" role="tabpanel" id="ke-specs" aria-labelledby="tab-ke-specs" tabindex="0">
+                  <div class="specs-grid">
+                    <div class="spec-card">
+                      <h4>KE — 4-Head</h4>
+                      <table>
+                        <tr><th>Heads</th><td>4</td></tr>
+                        <tr><th>Needles</th><td>15 / head</td></tr>
+                        <tr><th>Max Speed</th><td>Up to ~1,200 SPM (flat)</td></tr>
+                        <tr><th>Flat Sewing Field</th><td>~400 × 450 mm</td></tr>
+                        <tr><th>Cap Sewing Field</th><td>~360 × 75 mm</td></tr>
+                        <tr><th>Control</th><td>15.1″ LCD touch</td></tr>
+                        <tr><th>Networking</th><td>SWNS Wi-Fi / LAN</td></tr>
+                      </table>
+                    </div>
+                    <div class="spec-card">
+                      <h4>KE — 6-Head</h4>
+                      <table>
+                        <tr><th>Heads</th><td>6</td></tr>
+                        <tr><th>Needles</th><td>15 / head</td></tr>
+                        <tr><th>Max Speed</th><td>~1,000 SPM</td></tr>
+                        <tr><th>Flat Sewing Field</th><td>~400 × 450 mm</td></tr>
+                        <tr><th>Cap Sewing Field</th><td>~360 × 75 mm</td></tr>
+                        <tr><th>Control</th><td>15.1″ LCD touch</td></tr>
+                        <tr><th>Notes</th><td>Slim cylinder arm; cap-optimized</td></tr>
+                      </table>
+                    </div>
+                    <div class="spec-card">
+                      <h4>KE — 8-Head</h4>
+                      <table>
+                        <tr><th>Heads</th><td>8</td></tr>
+                        <tr><th>Needles</th><td>15 / head</td></tr>
+                        <tr><th>Max Speed</th><td>Up to ~1,200 SPM (flat)</td></tr>
+                        <tr><th>Flat Sewing Field</th><td>~400 × 450 mm</td></tr>
+                        <tr><th>Cap Sewing Field</th><td>~360 × 75 mm</td></tr>
+                        <tr><th>Control</th><td>15.1″ LCD touch</td></tr>
+                        <tr><th>Automation</th><td>SAP, STS assists</td></tr>
+                      </table>
+                    </div>
+                  </div>
+                  <p class="note" style="margin-top:8px">Exact specs vary by configuration/year—your dealer will confirm details.</p>
+                </div>
+
+                <!-- VIDEOS -->
+                <div class="tabpanel" role="tabpanel" id="ke-videos" aria-labelledby="tab-ke-videos" tabindex="0">
+                  <div class="video-grid">
+                    <iframe title="KE Series Overview" src="https://www.youtube.com/embed/650irwOZM4A" allowfullscreen loading="lazy"></iframe>
+                  </div>
+                </div>
+
+                <!-- DOWNLOADS -->
+                <div class="tabpanel" role="tabpanel" id="ke-downloads" aria-labelledby="tab-ke-downloads" tabindex="0">
+                  <div class="spec-card">
+                    <h4>Brochures & Links</h4>
+                    <div class="dl-cards">
+                      <button class="dl-card js-open-pdf" data-pdf="https://cdn.shopify.com/s/files/1/1236/6284/files/KE_TUBULAR_8.pdf?v=1759349664" data-title="KE Series — Brochure (PDF)">
+                        <div class="pdf-ic">PDF</div>
+                        <div><h5>KE Series — Brochure</h5><p>Official brochure (PDF)</p></div>
+                      </button>
+                      <button class="dl-card js-open-pdf" data-pdf="https://www.swfkorea.co.kr/index.php?module=Goods&action=SiteGoodsEn&sMode=VIEW_FORM&sCurrSortCd=002002&iGoodsCd=29&CurrentPage=1&sSearchField=&sSearchValue=" data-title="Manufacturer Page — KE Series">
+                        <div class="pdf-ic">WEB</div>
+                        <div><h5>Manufacturer Page</h5><p>Specs & features on swfkorea.co.kr</p></div>
+                      </button>
+                    </div>
+                    <p class="note" style="margin-top:8px">Opens in a pop-up viewer so you can stay on this page.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /KE DETAILS -->
           </div>
         </article>
 
         <!-- ES -->
-        <!-- (unchanged)... -->
+        <article class="hcard" id="es">
+          <div class="media">
+            <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/es_full_size.jpg?v=1759260197" alt="ES Series">
+          </div>
+          <div class="body">
+            <div class="meta">
+              <span class="pill">Call for Pricing</span>
+              <span class="heads">Heads: Single-head (Full Size & Compact)</span>
+            </div>
+            <h3 class="h3">ES Series</h3>
+            <p class="p-muted" style="margin:8px 0 10px">Compact footprint, pro-grade stitch quality—perfect for small to mid-volume shops getting into SWF.</p>
+            <div class="mini-gallery">
+              <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/es_compact_ce76207c-a665-4f6f-8335-a67fc84e26c4.jpg?v=1759260197" alt="ES Compact"></div>
+              <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/es_full_size.jpg?v=1759260197" alt="ES Full Size"></div>
+            </div>
+            <div class="cta-row">
+              <a class="btn btn-primary" href="#es">View ES Series</a>
+              <a class="btn btn-outline" href="#locator">Find a Dealer</a>
+              <a class="btn btn-outline" href="#financing">Financing Options</a>
+            </div>
+          </div>
+        </article>
 
         <!-- MAS -->
-        <!-- (unchanged)... -->
+        <article class="hcard" id="mas">
+          <div class="media">
+            <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/MAS-12.jpg?v=1759260197" alt="MAS Series">
+          </div>
+          <div class="body">
+            <div class="meta">
+              <span class="pill">Call for Pricing</span>
+              <span class="heads">Heads: Single-head (Home/Hobby & Compact)</span>
+            </div>
+            <h3 class="h3">MAS Series</h3>
+            <p class="p-muted" style="margin:8px 0 10px">Modular automation built to scale output with consistent, repeatable quality across runs.</p>
+            <div class="mini-gallery">
+              <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/MAS-12.jpg?v=1759260197" alt="MAS-12"></div>
+              <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/es_compact_ce76207c-a665-4f6f-8335-a67fc84e26c4.jpg?v=1759260197" alt="MAS-15"></div>
+            </div>
+            <div class="cta-row">
+              <a class="btn btn-primary" href="#mas">View MAS Series</a>
+              <a class="btn btn-outline" href="#locator">Find a Dealer</a>
+              <a class="btn btn-outline" href="#financing">Financing Options</a>
+            </div>
+          </div>
+        </article>
 
         <!-- Sunny -->
-        <!-- (unchanged)... -->
+        <article class="hcard" id="sunny">
+          <div class="media">
+            <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/Sunny_6.jpg?v=1759260197" alt="Sunny 7-needle Single Head">
+          </div>
+          <div class="body">
+            <div class="meta">
+              <span class="pill">Call for Pricing</span>
+              <span class="heads">Heads: Single-head • 7-needle</span>
+            </div>
+            <h3 class="h3">Sunny — 7-Needle Single Head</h3>
+            <p class="p-muted" style="margin:8px 0 10px">Compact 7-needle embroidery—ideal as an entry solution or complementary station for patches, names, and small runs.</p>
+            <div class="mini-gallery">
+              <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/Sunny_6.jpg?v=1759260197" alt="Sunny"></div>
+            </div>
+            <div class="cta-row">
+              <a class="btn btn-primary" href="#sunny">View Sunny</a>
+              <a class="btn btn-outline" href="#locator">Find a Dealer</a>
+              <a class="btn btn-outline" href="#financing">Financing Options</a>
+            </div>
+          </div>
+        </article>
 
       </div>
     </div>
@@ -523,8 +862,58 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
     </div>
   </section>
 
-  <!-- FINANCING (unchanged) -->
-  <!-- ... keep your full Financing section as-is ... -->
+  <!-- FINANCING -->
+  <section id="financing" class="section">
+    <div class="container">
+      <h2 class="h2">Financing — SWF × BYLD Finance</h2>
+      <div class="fin-card">
+        <div class="fin-grid">
+          <div class="fin-body">
+            <div class="fin-hero">
+              <span class="tag">Financing Partner</span>
+              <img src="https://cdn.shopify.com/s/files/1/0878/0608/3384/files/byld_finance_logo.png?v=1746030247" alt="BYLD Finance">
+            </div>
+            <p class="p-muted" style="margin:0 0 8px">Upgrade faster and keep cash on hand. One simple application, a soft credit pull to explore options, and flexible structures that fit your workflow.</p>
+            <div class="fin-trust" aria-label="Benefits">
+              <span class="fin-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="2" d="M20 6L9 17l-5-5"/></svg>Soft credit pull</span>
+              <span class="fin-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="2" d="M5 12h14M12 5l7 7-7 7"/></svg>Fast decisions</span>
+              <span class="fin-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="2" d="M12 8v8m-4-4h8"/></svg>$0 down options*</span>
+              <span class="fin-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="2" d="M3 7h18M3 12h18M3 17h18"/></svg>Bundle multiple machines</span>
+              <span class="fin-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="2" d="M8 12l2 2 6-6"/></svg>No payments for 90 days†</span>
+            </div>
+            <div class="fin-steps" aria-label="How it works">
+              <div class="step"><h4>1) Apply</h4><p>Submit the short application to preview terms without impacting your credit score.</p></div>
+              <div class="step"><h4>2) Choose terms</h4><p>Pick the monthly payment and length that match your cash flow.</p></div>
+              <div class="step"><h4>3) Fund equipment</h4><p>Get your SWF machines installed with a plan that scales as you grow.</p></div>
+            </div>
+            <div class="contact-card">
+              <img src="https://cdn.shopify.com/s/files/1/0878/0608/3384/files/charlie_newest_headshot.png?v=1749240989" alt="Charlie McMinn">
+              <div class="meta">
+                <h4>Questions? Talk to Charlie McMinn</h4>
+                <p>BYLD Finance — SWF Partner Liaison</p>
+                <div class="contact-actions">
+                  <a class="btn btn-outline" href="mailto:charlie@byldfinance.com">📧 Email Charlie</a>
+                  <a class="btn btn-primary" href="tel:6129780728">📞 612-978-0728</a>
+                </div>
+              </div>
+            </div>
+            <p class="fin-note">Prefer to chat first? We’ll help you pick terms that match your production plan.</p>
+            <p class="fin-disclaimer">*Subject to credit approval. †Available to qualified customers. Terms & conditions apply.</p>
+          </div>
+
+          <aside class="embed-wrap">
+            <div class="embed-head">
+              <h3>Apply with BYLD Finance</h3>
+              <a class="btn btn-primary" href="https://form.jotform.com/251746356514157" target="_blank" rel="noopener">Open in new tab</a>
+            </div>
+            <div class="embed-body">
+              <script type="text/javascript" src="https://form.jotform.com/jsform/251746356514157"></script>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- SUPPORT -->
   <section id="support" class="section" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
@@ -542,16 +931,64 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
             </ul>
           </div>
         </div>
-        <!-- other support cards unchanged -->
+        <div class="hcard" style="grid-template-columns:1fr">
+          <div class="body">
+            <h3 class="h3">Training & Videos</h3>
+            <ul class="clean">
+              <li><a style="color:var(--swf-red)" href="#">KE Series overview</a></li>
+              <li><a style="color:var(--swf-red)" href="#">KX setup & changeover</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="hcard" style="grid-template-columns:1fr">
+          <div class="body">
+            <h3 class="h3">Open a Support Ticket</h3>
+            <p class="p-muted">Email <a style="color:var(--swf-red)" href="mailto:support@swf-usa.com">support@swf-usa.com</a> with serial number, model, description, and a short video if possible.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- DEALER LOCATOR CTA / Contact / Footer / Modal -->
-  <!-- (unchanged from your current page; keep those blocks exactly as you have them) -->
-  
-  <!-- For brevity, keep the rest identical to your current file -->
+  <!-- DEALER LOCATOR CTA -->
+  <section id="locator" class="section" style="padding:40px 0">
+    <div class="container" style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+      <a class="btn btn-primary" href="/dealers/">Find a Dealer</a>
+      <a class="btn btn-outline" href="#contact">Contact Us</a>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section">
+    <div class="container">
+      <h2 class="h2">Contact</h2>
+      <p class="p-muted">Email <a style="color:var(--swf-red)" href="mailto:contact@swf-usa.com">contact@swf-usa.com</a></p>
+    </div>
+  </section>
 </main>
+
+<!-- Footer -->
+<footer>
+  <div class="container cols" style="padding:22px 0">
+    <div>
+      <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/swfnobg.png?v=1759258611" alt="SWF" style="height:30px;margin-bottom:8px" />
+      <p class="p-muted" style="margin:0">Official U.S. site for SWF embroidery equipment and support.</p>
+    </div>
+    <div><h4 class="h3" style="margin:0 0 6px;font-size:16px">Explore</h4><div style="display:grid;gap:6px;font-size:15px">
+      <a href="#series">Machines</a><a href="#financing">Financing</a><a href="#support">Support</a><a href="#locator">Dealer Locator</a>
+    </div></div>
+    <div><h4 class="h3" style="margin:0 0 6px;font-size:16px">Company</h4><div style="display:grid;gap:6px;font-size:15px">
+      <a href="#contact">Contact</a><a href="#">Privacy</a>
+    </div></div>
+    <div><h4 class="h3" style="margin:0 0 6px;font-size:16px">Get Support</h4>
+      <p class="p-muted" style="margin:0 0 8px">Questions about machines, parts, or service</p>
+      <a class="btn btn-primary" href="#support">Visit Support</a>
+    </div>
+  </div>
+  <div style="border-top:1px solid var(--line);text-align:center;padding:12px 0;font-size:13px;color:#64748b">
+    © <span id="y"></span> SWF USA
+  </div>
+</footer>
 
 <!-- PDF/WEB Modal -->
 <div class="modal-backdrop" id="pdfBackdrop" hidden></div>
@@ -565,7 +1002,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 
 <script>
 /* Year */
-document.getElementById('y')?.textContent = new Date().getFullYear?.() ?? '';
+document.getElementById('y').textContent = new Date().getFullYear();
 
 /* Header behavior */
 const header = document.getElementById('siteHeader');
@@ -631,10 +1068,13 @@ links.forEach(a=>{
       const targetSel =
         btn.getAttribute('data-target') ||
         (btn.getAttribute('href') ? btn.getAttribute('href') + '-details' : '');
-      if (!targetSel) return; // let normal links work
-      e.preventDefault();
+      if (!targetSel) return;
+
       const panel = document.querySelector(targetSel);
-      if (panel?.classList.contains('open')) {
+      if (!panel) return; // let normal links work if panel isn't present
+
+      e.preventDefault(); // only prevent default if we do have a panel
+      if (panel.classList.contains('open')) {
         closeAll();
         history.replaceState(null, '', ' ');
       } else {
@@ -763,6 +1203,7 @@ links.forEach(a=>{
 </script>
 </body>
 </html>
+
 
 
 
