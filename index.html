@@ -1579,6 +1579,297 @@ links.forEach(a=>{
   [q,t,c].forEach(el=> el.addEventListener('input', apply));
   apply();
 })();
+  <!-- Leaflet (map) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NXAo4A1rQvC6H0ZQh4GQnQfLfsrQ5p3tyFk0W4Xpw=" crossorigin="">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-VuZ8n3C3QvJtJ6kRkQ0lXxv1PGsZ6cYlDdyCjTiM/a0=" crossorigin=""></script>
+
+<script>
+(function(){
+  /* ================= Dealer Data =================
+     NOTE: Add more retail locations by providing lat/lng.
+  */
+  const dealers = [
+    {
+      id:'kens-online',
+      name:"Ken's Sewing Center",
+      website:'https://www.kenssewingcenter.com',
+      phone:'877-536-7739',
+      type:'online',
+      certs:['single']
+    },
+    {
+      id:'topps-online',
+      name:'Topps Vacuum & Sewing',
+      website:'https://www.toppsvacuumandsewing.com',
+      phone:'800-280-4919',
+      type:'online',
+      certs:['single']
+    },
+    {
+      id:'smp-online',
+      name:'Sewing Machines Plus',
+      website:'https://www.sewingmachinesplus.com',
+      phone:'800-408-5181',
+      type:'online',
+      certs:['single','multi']
+    },
+    {
+      id:'smp-san-marcos',
+      name:'Sewing Machines Plus — San Marcos, CA',
+      website:'https://www.sewingmachinesplus.com',
+      phone:'760-739-8222',
+      type:'retail',
+      address:'713 Center Dr, San Marcos, CA 92069',
+      // Approximate coordinates for the store; refine if needed
+      lat:33.1283, lng:-117.1591,
+      certs:['single']
+    },
+    {
+      id:'stitchit-online',
+      name:'Stitch It International, Inc.',
+      website:'https://stitchitintl.com',
+      phone:'573-866-3676',
+      type:'online',
+      certs:['single','multi']
+    }
+  ];
+
+  /* ============== DOM refs ============== */
+  const q = document.getElementById('dealerSearch');
+  const t = document.getElementById('dealerType');
+  const c = document.getElementById('dealerCert');
+  const s = document.getElementById('dealerSort');
+  const groupsHost = document.getElementById('dealerGroups');
+  const countEl = document.getElementById('dealerCount');
+  const clearBtn = document.getElementById('dealerClear');
+  const locBtn = document.getElementById('useLocation');
+  const mapBtn = document.getElementById('toggleMap');
+  const mapPane = document.getElementById('mapPane');
+
+  let userPos = null;         // {lat,lng}
+  let map, markers = [];
+
+  /* ============== Render helpers ============== */
+  function chip(cert){
+    const span = document.createElement('span');
+    span.className = 'dealer-chip '+(cert==='single'?'single':'multi');
+    span.textContent = cert==='single' ? 'Single Head Certified' : 'Multi-Head Certified';
+    return span;
+  }
+
+  function vcfFor(d){
+    const lines = [
+      'BEGIN:VCARD','VERSION:3.0',
+      `FN:${d.name}`,
+      d.phone ? `TEL;TYPE=WORK,VOICE:${d.phone}` : '',
+      d.website ? `URL:${d.website}` : '',
+      d.address ? `ADR;TYPE=WORK:;;${d.address.replace(/,/g,'\\,')};;;;` : '',
+      'END:VCARD'
+    ].filter(Boolean).join('\n');
+    return 'data:text/vcard;charset=utf-8,'+encodeURIComponent(lines);
+  }
+
+  function distanceMiles(a,b){
+    if(!a || !b) return Infinity;
+    const toRad = x => x*Math.PI/180;
+    const R = 3958.8; // miles
+    const dLat = toRad(b.lat-a.lat), dLng = toRad(b.lng-a.lng);
+    const lat1 = toRad(a.lat), lat2 = toRad(b.lat);
+    const h = Math.sin(dLat/2)**2 + Math.cos(lat1)*Math.cos(lat2)*Math.sin(dLng/2)**2;
+    return R*2*Math.asin(Math.sqrt(h));
+  }
+
+  function card(d){
+    const div = document.createElement('div');
+    div.className = 'dealer-item';
+    div.dataset.id = d.id;
+    div.dataset.type = d.type;
+    div.dataset.search = [d.name, d.website, d.phone, d.address].filter(Boolean).join(' ').toLowerCase();
+    div.dataset.cert = (d.certs||[]).join(' ');
+    const headBadge = d.type==='online' ? ' <span class="badge-online">Online</span>' : '';
+    div.innerHTML = `
+      <h3>${d.name}${headBadge}</h3>
+      <div class="dealer-meta">
+        ${d.website ? `<a href="${d.website}" target="_blank" rel="noopener">${d.website.replace(/^https?:\/\//,'')}</a>`:''}
+        ${d.phone ? `• <span>Call: <a href="tel:${d.phone}">${d.phone}</a></span>`:''}
+        ${d.address ? `• <span>${d.address}</span>`:''}
+        ${d.distance ? `• <strong>${d.distance.toFixed(1)} mi</strong>`:''}
+      </div>
+      <div class="dealer-actions">
+        ${d.phone ? `<a class="btn btn-outline" href="tel:${d.phone}">📞 Call</a>`:''}
+        ${d.website ? `<a class="btn btn-outline" target="_blank" rel="noopener" href="${d.website}">🌐 Website</a>`:''}
+        ${d.address ? `<a class="btn btn-outline" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(d.address)}">🧭 Directions</a>`:''}
+        <a class="btn btn-outline" download="${d.name.replace(/\s+/g,'_')}.vcf" href="${vcfFor(d)}">💾 Save vCard</a>
+      </div>
+    `;
+    // cert chips under title
+    if(d.certs && d.certs.length){
+      const wrap = document.createElement('div');
+      d.certs.forEach(cs => wrap.appendChild(chip(cs)));
+      div.querySelector('h3').insertAdjacentElement('afterend', wrap);
+    }
+    // hover sync with map
+    div.addEventListener('mouseenter', ()=> highlightMarker(d.id, true));
+    div.addEventListener('mouseleave', ()=> highlightMarker(d.id, false));
+    return div;
+  }
+
+  function groupAndRender(list){
+    groupsHost.innerHTML = '';
+    const online = list.filter(x=>x.type==='online');
+    const retail = list.filter(x=>x.type==='retail');
+
+    if(online.length){
+      const h = document.createElement('div'); h.className='group-head'; h.textContent='Online Dealers';
+      groupsHost.appendChild(h);
+      online.forEach(d => groupsHost.appendChild(card(d)));
+    }
+    if(retail.length){
+      const h = document.createElement('div'); h.className='group-head'; h.textContent='Retail Stores';
+      groupsHost.appendChild(h);
+      retail.forEach(d => groupsHost.appendChild(card(d)));
+    }
+    if(!online.length && !retail.length){
+      const empty = document.createElement('div');
+      empty.className='empty-state';
+      empty.textContent = 'No dealers match your filters. Clear filters or try a different search.';
+      groupsHost.appendChild(empty);
+    }
+    countEl.textContent = list.length;
+  }
+
+  /* ============== Filtering/Sorting ============== */
+  function filtered(){
+    const qv = (q.value||'').toLowerCase();
+    const tv = t.value;
+    const cv = c.value;
+    let list = dealers.map(d => ({...d}));
+    // compute distance for retail when we have user location
+    if(userPos){
+      list = list.map(d => d.type==='retail' && d.lat ? ({...d, distance: distanceMiles(userPos, {lat:d.lat,lng:d.lng})}) : d);
+    }
+    // filters
+    list = list.filter(d => {
+      const text = (d.name+' '+(d.website||'')+' '+(d.phone||'')+' '+(d.address||'')).toLowerCase();
+      const qOk = !qv || text.includes(qv);
+      const tOk = !tv || d.type===tv;
+      const cOk = !cv || (d.certs||[]).includes(cv);
+      return qOk && tOk && cOk;
+    });
+    // sort
+    const sort = s.value || 'alpha';
+    if(sort==='nearest'){
+      // put retail with distance first; then others
+      const withDist = list.filter(d => d.type==='retail' && typeof d.distance==='number').sort((a,b)=>a.distance-b.distance);
+      const noDist = list.filter(d => !(d.type==='retail' && typeof d.distance==='number'));
+      list = [...withDist, ...noDist];
+    }else{
+      list.sort((a,b)=> a.name.localeCompare(b.name));
+    }
+    return list;
+  }
+
+  function apply(){
+    groupAndRender(filtered());
+    plotMap(filtered());
+  }
+
+  /* ============== Map ============== */
+  function ensureMap(){
+    if(map) return;
+    map = L.map('dealerMap');
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+      attribution:'© OpenStreetMap'
+    }).addTo(map);
+    map.setView([37.5,-96], 4); // USA-ish
+  }
+
+  function plotMap(list){
+    if(!map || mapPane.classList.contains('map-hidden')) return;
+    // clear
+    markers.forEach(m => m.remove());
+    markers = [];
+
+    const retail = list.filter(d=>d.type==='retail' && d.lat && d.lng);
+    if(!retail.length){
+      map.setView([37.5,-96], 4);
+      return;
+    }
+    const group = [];
+    retail.forEach(d=>{
+      const m = L.marker([d.lat,d.lng]).addTo(map).bindPopup(`<strong>${d.name}</strong><br>${d.address || ''}<br>${d.phone ? `<a href="tel:${d.phone}">${d.phone}</a>`:''}`);
+      m.on('mouseover', ()=> highlightCard(d.id));
+      markers.push({ id:d.id, marker:m });
+      group.push([d.lat,d.lng]);
+    });
+    if(group.length===1){
+      map.setView(group[0], 12);
+    }else{
+      const bounds = L.latLngBounds(group);
+      map.fitBounds(bounds.pad(0.2));
+    }
+    // user marker
+    if(userPos){
+      const u = L.circleMarker([userPos.lat,userPos.lng],{radius:6}).addTo(map).bindPopup('You');
+      markers.push({ id:'__user', marker:u });
+    }
+  }
+
+  function highlightMarker(id, on){
+    const mm = markers.find(m => m.id===id);
+    if(mm){
+      mm.marker.setZIndexOffset(on ? 1000 : 0);
+      if(on) mm.marker.openPopup();
+    }
+  }
+  function highlightCard(id){
+    const el = groupsHost.querySelector(`[data-id="${id}"]`);
+    if(!el) return;
+    el.classList.add('ring');
+    setTimeout(()=> el.classList.remove('ring'), 400);
+  }
+
+  /* ============== Events ============== */
+  [q,t,c,s].forEach(el => el.addEventListener('input', apply));
+  clearBtn.addEventListener('click', ()=>{ q.value=''; t.value=''; c.value=''; s.value='alpha'; apply(); });
+
+  mapBtn.addEventListener('click', ()=>{
+    const showing = !mapPane.classList.contains('map-hidden');
+    if(showing){
+      mapPane.classList.add('map-hidden');
+      mapPane.setAttribute('aria-hidden','true');
+      mapBtn.setAttribute('aria-pressed','false');
+      mapBtn.textContent = '🗺️ Show Map';
+    }else{
+      mapPane.classList.remove('map-hidden');
+      mapPane.removeAttribute('aria-hidden');
+      mapBtn.setAttribute('aria-pressed','true');
+      mapBtn.textContent = '🗺️ Hide Map';
+      ensureMap();
+      plotMap(filtered());
+    }
+  });
+
+  locBtn.addEventListener('click', ()=>{
+    if(!navigator.geolocation){ alert('Geolocation not available in this browser.'); return; }
+    locBtn.disabled = true;
+    navigator.geolocation.getCurrentPosition(pos=>{
+      userPos = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+      s.value = 'nearest';
+      apply();
+      if(map && !mapPane.classList.contains('map-hidden')) plotMap(filtered());
+      locBtn.disabled = false;
+    }, err=>{
+      alert('Could not get your location.');
+      locBtn.disabled = false;
+    }, { enableHighAccuracy:true, timeout:10000, maximumAge:60000 });
+  });
+
+  // init
+  apply();
+})();
+</script>
+
 </script>
 </body>
 </html>
