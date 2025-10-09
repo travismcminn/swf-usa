@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>SWF USA — Official U.S. Site for SWF Embroidery</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+<!-- Leaflet for map -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
 <style>
 :root{
   /* Brand */
@@ -88,14 +93,13 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 .hcard .media{
   min-height:220px;
   background:#fff;
-  align-self:start; /* keep image column at top when details open */
+  align-self:start;
 }
 .hcard .body{padding:16px}
 .hcard .meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 10px}
 .hcard .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
 .hcard .heads{font-weight:700;color:#0f172a}
 @media (max-width:900px){.hcard{grid-template-columns:1fr}.hcard .media{max-height:340px}}
-/* keep card images unsquished */
 .hcard .media img{display:block;width:100%;height:auto;object-fit:contain}
 
 /* Mini gallery in cards */
@@ -183,14 +187,14 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 .included .dot { flex:0 0 auto; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:1px solid var(--line); background:#fff5f5; color:var(--swf-red); font-weight:800 }
 .included small { color:var(--muted); display:block; margin-top:6px }
 
-/* ===== Tabs (style + behavior) ===== */
+/* ===== Tabs ===== */
 .tablist{ display:flex; gap:8px; align-items:flex-end; margin:0 0 12px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
 .tab{ appearance:none; border:1px solid var(--line); border-bottom:2px solid transparent; background:#fff; color:#000; padding:.55rem .9rem; border-radius:10px 10px 0 0; font-weight:800; cursor:pointer; }
 .tab[aria-selected="true"]{ color:var(--swf-red); border-color:#ffd5da #ffd5da var(--swf-red); background:#fff5f6; position:relative; top:1px; }
 .tabpanel{ display:none !important; }
 .tabpanel.active{ display:block !important; }
 
-/* ===== HERO (with watermark + plaque) ===== */
+/* ===== HERO ===== */
 .hero--pro{
   position: relative;
   padding: 64px 0 56px;
@@ -225,16 +229,11 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
   .hero--pro{ padding-top:48px }
   .hero__wm{ background-size:360px auto; background-position:-50px -30px; opacity:.055 }
 }
-/* Give the KS card image a little breathing room */
+/* KS image padding */
 #ks .media{ padding: 12px 18px; box-sizing: border-box; }
 @media (max-width:900px){ #ks .media{ padding: 10px 14px; } }
 
 /* ===== Dealer Locator ===== */
-.locator-head{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;margin-bottom:12px}
-.input{appearance:none;border:1px solid var(--line);background:#fff;border-radius:12px;padding:.7rem 1rem;font:inherit}
-.select{appearance:none;border:1px solid var(--line);background:#fff;border-radius:12px;padding:.7rem 2.2rem .7rem 1rem;font:inherit}
-.tagline{color:var(--muted);text-align:center;margin:6px 0 0}
-  /* ===== Dealer Locator upgrades ===== */
 .locator-head{display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:10px}
 .locator-row{display:flex;flex-wrap:wrap;gap:8px}
 .locator-row .field{display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;border-radius:12px;padding:.5rem .6rem}
@@ -270,7 +269,6 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 
 /* Small buttons inside cards */
 .dealer-actions .btn{padding:.5rem .7rem;border-radius:10px;font-weight:700}
-
 </style>
 </head>
 <body>
@@ -357,795 +355,10 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
     </div>
   </section>
 
-  <!-- =================== SERIES =================== -->
-  <section id="series" class="section">
-    <div class="container">
-      <h2 class="h2" style="margin-bottom:8px">Choose Your Series</h2>
-      <p class="p-muted" style="max-width:60ch">Pick the family that fits your volume and workflow. Specs vary by model—talk to a dealer for details.</p>
-
-      <div class="hcards">
-        <!-- KX -->
-        <article class="hcard" id="kx">
-          <div class="media">
-            <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/kx_series.png?v=1759259733" alt="KX Series">
-          </div>
-          <div class="body">
-            <div class="meta">
-              <span class="badge badge-flagship">Flagship Series</span>
-              <span class="pill">Call for Pricing</span>
-              <span class="heads">Heads: 1–8</span>
-            </div>
-            <h3 class="h3">KX Series</h3>
-            <p class="p-muted" style="margin:8px 0 10px">
-              High-performance single and two-head options with a redesigned cap system engineered
-              for structured hats. Fast changeover and rugged chassis for daily production.
-            </p>
-            <div class="mini-gallery">
-              <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/KX_single.jpg?v=1759260196" alt="KX Single Head"></div>
-              <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/KX_T1502D.png?v=1759260378" alt="KX-T1502D Dual-Function"></div>
-            </div>
-            <div class="cta-row" style="margin-top:12px">
-              <a class="btn btn-primary js-view-series" href="#kx" data-target="#kx-details" aria-expanded="false">View KX Series <span class="chev">▾</span></a>
-              <a class="btn btn-outline" href="#locator">Find a Dealer</a>
-              <a class="btn btn-outline" href="#financing">Financing Options</a>
-            </div>
-
-            <!-- KX DETAILS -->
-            <div id="kx-details" class="series-details" role="region" aria-label="KX Series details" aria-hidden="true">
-              <div class="tabs" data-tabs id="kx-tabs">
-                <div class="tablist" role="tablist" aria-label="KX tabs">
-                  <button class="tab" role="tab" aria-selected="true" aria-controls="kx-overview"  id="tab-kx-overview">Overview</button>
-                  <button class="tab" role="tab" aria-selected="false" aria-controls="kx-specs"     id="tab-kx-specs">Specs</button>
-                  <button class="tab" role="tab" aria-selected="false" aria-controls="kx-videos"    id="tab-kx-videos">Videos</button>
-                  <button class="tab" role="tab" aria-selected="false" aria-controls="kx-downloads" id="tab-kx-downloads">Downloads</button>
-                </div>
-
-                <!-- OVERVIEW -->
-                <div class="tabpanel active" role="tabpanel" id="kx-overview" aria-labelledby="tab-kx-overview" tabindex="0">
-                  <div class="specs kx-grid">
-                    <div class="spec-card">
-                      <h4>Why shops choose <strong>KX</strong> (the flagship)</h4>
-                      <div class="spec-list" style="margin-left:0">
-                        <li><strong>Built for hats—really.</strong> Redesigned cap + slim cylinder arm for clean stitching on structured hats at speed.</li>
-                        <li><strong>Speed without compromise.</strong> SAP smart presser foot + STS smart tension keep quality up at high SPM.</li>
-                        <li><strong>Real uptime.</strong> Fast changeovers, SWNS wireless job send, rugged chassis.</li>
-                        <li><strong>Lower cost per order.</strong> Fewer rejects, fewer reruns, more revenue hours per shift.</li>
-                        <li><strong>Scales with you.</strong> Start single-head, add multi-head (4/6/8), or step into <em>KX-T1502D</em> dual-function.</li>
-                      </div>
-                      <div class="included">
-                        <strong>Included with every KX</strong>
-                        <div class="items">
-                          <div class="item"><span class="dot">✓</span><div>High-speed cap frame set</div></div>
-                          <div class="item"><span class="dot">✓</span><div>Tubular hoops (assorted sizes)</div></div>
-                          <div class="item"><span class="dot">✓</span><div>15″ touch LCD controller</div></div>
-                          <div class="item"><span class="dot">✓</span><div>SWNS wireless job send (network ready)</div></div>
-                          <div class="item"><span class="dot">✓</span><div>Dealer install & operator training</div></div>
-                          <div class="item"><span class="dot">✓</span><div>U.S. warranty & lifetime technical support</div></div>
-                        </div>
-                        <small>Packages vary by dealer/model.</small>
-                      </div>
-                    </div>
-
-                    <div class="spec-card">
-                      <h4>At-a-glance</h4>
-                      <ul class="spec-list">
-                        <li><strong>Heads:</strong> 1–8 (incl. dual-function 2-head)</li>
-                        <li><strong>Use case:</strong> hats-first shops, quick-turn orders, daily production</li>
-                        <li><strong>Operator wins:</strong> fewer tweaks, faster changeovers, wireless job send</li>
-                        <li><strong>Growth path:</strong> add heads or stations—same controls, same workflow</li>
-                      </ul>
-                      <div class="spec-card callout" style="margin-top:10px">
-                        <strong>When KX shines</strong>
-                        <div class="note">• Cap work is growing • Need quality at 1k+ spm • Want to queue designs over Wi-Fi</div>
-                      </div>
-                      <div class="cta-row" style="margin-top:10px">
-                        <a class="btn btn-primary" href="#financing">Financing Options</a>
-                        <a class="btn btn-outline" href="#locator">Find a Dealer</a>
-                        <a class="btn btn-outline" href="#contact">Talk to SWF</a>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="gallery-row" aria-label="KX gallery">
-                    <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/KX_single.jpg?v=1759260196" alt="KX Single Head"></div>
-                    <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/KX_T1502D.png?v=1759260378" alt="KX-T1502D Dual-Function"></div>
-                    <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/kx_series.png?v=1759259733" alt="KX Series lineup"></div>
-                  </div>
-                  <p class="note" style="margin-top:8px">Specs vary by configuration. No public pricing—<em>call for pricing</em> via an authorized dealer.</p>
-                </div>
-
-                <!-- SPECS -->
-                <div class="tabpanel" role="tabpanel" id="kx-specs" aria-labelledby="tab-kx-specs" tabindex="0">
-                  <div class="specs-grid">
-                    <div class="spec-card">
-                      <h4>KX Single-Head</h4>
-                      <table>
-                        <tr><th>Max Speed</th><td>1,200 spm (flat), 1,000 spm (cap)</td></tr>
-                        <tr><th>Embroidery Field</th><td>Up to 520 × 360 mm</td></tr>
-                        <tr><th>Needles</th><td>15</td></tr>
-                        <tr><th>Memory</th><td>Up to 40,000,000 stitches</td></tr>
-                        <tr><th>Control</th><td>15″ touch LCD (advanced job controls)</td></tr>
-                        <tr><th>Automation</th><td>SAP presser foot, STS smart tension, SWNS wireless</td></tr>
-                        <tr><th>Cap System</th><td>High-speed cap frame; quick/easy change</td></tr>
-                        <tr><th>Power</th><td>100–240V, 50/60Hz</td></tr>
-                      </table>
-                    </div>
-                    <div class="spec-card">
-                      <h4>KX-T1502D (Dual-Function 2-Head)</h4>
-                      <table>
-                        <tr><th>Max Speed</th><td>1,200 spm (flat), 1,000 spm (cap)</td></tr>
-                        <tr><th>Embroidery Field</th><td>Up to 520 × 360 mm</td></tr>
-                        <tr><th>Needles</th><td>15 × 2 heads</td></tr>
-                        <tr><th>Operation</th><td>Run two different items/patterns simultaneously</td></tr>
-                        <tr><th>Control</th><td>15″ touch LCD; wireless networking</td></tr>
-                        <tr><th>Automation</th><td>SAP, STS; quick cap changes</td></tr>
-                        <tr><th>Power</th><td>100–240V, 50/60Hz</td></tr>
-                      </table>
-                    </div>
-                    <div class="spec-card">
-                      <h4>KX Multi-Head (4 / 6 / 8)</h4>
-                      <table>
-                        <tr><th>Heads</th><td>4, 6, or 8</td></tr>
-                        <tr><th>Needles</th><td>15 per head</td></tr>
-                        <tr><th>Max Speed</th><td>Up to 1,200 spm (flat)</td></tr>
-                        <tr><th>Embroidery Field</th><td>Large tubular area (model-dependent)</td></tr>
-                        <tr><th>Control</th><td>15″ touch LCD; SWNS wireless (job queue/send)</td></tr>
-                        <tr><th>Cap System</th><td>High-speed cap frames; fast changeovers</td></tr>
-                        <tr><th>Power</th><td>Per model; consult dealer</td></tr>
-                      </table>
-                    </div>
-                  </div>
-                  <p class="note" style="margin-top:8px">Exact specs vary by model/package. Your dealer will confirm the correct configuration.</p>
-                </div>
-
-                <!-- VIDEOS -->
-                <div class="tabpanel" role="tabpanel" id="kx-videos" aria-labelledby="tab-kx-videos" tabindex="0">
-                  <div class="video-grid">
-                    <iframe title="KX Single Head" src="https://www.youtube.com/embed/JGvx7qR-Z8c" allowfullscreen loading="lazy"></iframe>
-                    <iframe title="KX Multi Head (4–8)" src="https://www.youtube.com/embed/qaDz0VXBX3M" allowfullscreen loading="lazy"></iframe>
-                    <iframe title="KX Dual 2-Head (T1502D)" src="https://www.youtube.com/embed/lMtjbxIf4pw" allowfullscreen loading="lazy"></iframe>
-                  </div>
-                </div>
-
-                <!-- DOWNLOADS -->
-                <div class="tabpanel" role="tabpanel" id="kx-downloads" aria-labelledby="tab-kx-downloads" tabindex="0">
-                  <div class="spec-card">
-                    <h4>Brochures & PDFs</h4>
-                    <div class="dl-cards">
-                      <button class="dl-card js-open-pdf" data-pdf="https://cdn.shopify.com/s/files/1/0878/0608/3384/files/KX_Single_EN_5.pdf?v=1759267471" data-title="KX Single — Brochure (PDF)">
-                        <div class="pdf-ic">PDF</div>
-                        <div><h5>KX Single — Brochure</h5><p>Specs, features & accessories</p></div>
-                      </button>
-                      <button class="dl-card js-open-pdf" data-pdf="https://cdn.shopify.com/s/files/1/0878/0608/3384/files/KX_Tubular_EN_5.pdf?v=1759267471" data-title="KX Multi-Head — Brochure (PDF)">
-                        <div class="pdf-ic">PDF</div>
-                        <div><h5>KX Multi-Head — Brochure</h5><p>4 / 6 / 8 head lineup</p></div>
-                      </button>
-                      <button class="dl-card js-open-pdf" data-pdf="https://cdn.shopify.com/s/files/1/0878/0608/3384/files/KX_Dual_EN_6.pdf?v=1759267470" data-title="KX Dual 2-Head — Brochure (PDF)">
-                        <div class="pdf-ic">PDF</div>
-                        <div><h5>KX Dual 2-Head — Brochure</h5><p>Dual-function T1502D details</p></div>
-                      </button>
-                    </div>
-                    <p class="note" style="margin-top:8px">Brochures open in a pop-up viewer. You can download from the viewer if needed.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- /KX DETAILS -->
-          </div>
-        </article>
-
-        <!-- KS -->
-        <article class="hcard" id="ks">
-          <div class="media">
-            <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/KS_Series_card.png?v=1759501740" alt="KS Series">
-          </div>
-          <div class="body">
-            <div class="meta">
-              <span class="badge badge-performance">Performance Series</span>
-              <span class="pill">Call for Pricing</span>
-              <span class="heads">Heads: 2, 4, 6, 8</span>
-            </div>
-            <h3 class="h3">KS Series</h3>
-            <p class="p-muted" style="margin:8px 0 10px">
-              Smart, cap-ready multi-heads that balance speed and sophistication—more automation than KE without stepping up to KX.
-            </p>
-            <div class="mini-gallery">
-              <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/KS_Series_thumb_ceaad5ef-9389-4024-92b1-eb35ef88862c.png?v=1759501739" alt="KS Multi-Head"></div>
-            </div>
-            <div class="cta-row">
-              <a class="btn btn-primary js-view-series" href="#ks" data-target="#ks-details" aria-expanded="false">
-                View KS Series <span class="chev">▾</span>
-              </a>
-              <a class="btn btn-outline" href="#locator">Find a Dealer</a>
-              <a class="btn btn-outline" href="#financing">Financing Options</a>
-            </div>
-
-            <!-- KS DETAILS -->
-            <div id="ks-details" class="series-details" role="region" aria-label="KS Series details" aria-hidden="true">
-              <div class="tabs" data-tabs id="ks-tabs">
-                <div class="tablist" role="tablist" aria-label="KS tabs">
-                  <button class="tab" role="tab" aria-selected="true"  aria-controls="ks-overview"  id="tab-ks-overview">Overview</button>
-                  <button class="tab" role="tab" aria-selected="false" aria-controls="ks-specs"     id="tab-ks-specs">Specs</button>
-                  <button class="tab" role="tab" aria-selected="false" aria-controls="ks-videos"    id="tab-ks-videos">Videos</button>
-                  <button class="tab" role="tab" aria-selected="false" aria-controls="ks-downloads" id="tab-ks-downloads">Downloads</button>
-                </div>
-
-                <!-- OVERVIEW -->
-                <div class="tabpanel active" role="tabpanel" id="ks-overview" aria-labelledby="tab-ks-overview" tabindex="0">
-                  <div class="specs">
-                    <div class="spec-card">
-                      <h4>Why shops choose <strong>KS</strong> (performance multi-heads)</h4>
-                      <ul class="spec-list">
-                        <li><strong>Cap-first design:</strong> slim cylinder & improved arm angle for cleaner hat stitching.</li>
-                        <li><strong>Fast changeovers:</strong> quick cap/tubular swaps; efficient daily workflow.</li>
-                        <li><strong>Operator-friendly:</strong> 15″ full-touch LCD with advanced functions.</li>
-                        <li><strong>Network ready:</strong> SWNS wireless send/queue across machines.</li>
-                        <li><strong>Scalable lineup:</strong> 2/4/6/8-head in UH (400×450) or UK (500×450) variants.</li>
-                      </ul>
-                      <div class="included">
-                        <strong>Included with most KS packages</strong>
-                        <div class="items">
-                          <div class="item"><span class="dot">✓</span><div>Quick-change cap frame set</div></div>
-                          <div class="item"><span class="dot">✓</span><div>Tubular hoops — multiple sizes</div></div>
-                          <div class="item"><span class="dot">✓</span><div>15″ touch LCD controller</div></div>
-                          <div class="item"><span class="dot">✓</span><div>SWNS networking (wireless ready)</div></div>
-                          <div class="item"><span class="dot">✓</span><div>Dealer install & training</div></div>
-                          <div class="item"><span class="dot">✓</span><div>U.S. warranty & support</div></div>
-                        </div>
-                        <small>Exact contents vary by dealer/model.</small>
-                      </div>
-                    </div>
-                    <div class="spec-card">
-                      <h4>Models in the KS family</h4>
-                      <ul class="spec-list">
-                        <li>KS-UK1502-45</li>
-                        <li>KS-UH1504-45 • KS-UK1504-45</li>
-                        <li>KS-UH1506-45 • KS-UK1506-45</li>
-                        <li>KS-UH1508-45 • KS-UK1508-45</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- SPECS -->
-                <div class="tabpanel" role="tabpanel" id="ks-specs" aria-labelledby="tab-ks-specs" tabindex="0">
-                  <div class="specs-grid">
-                    <div class="spec-card">
-                      <h4>Speed & Control</h4>
-                      <table>
-                        <tr><th>Max Speed</th><td>1,200 spm (flat), 1,000 spm (cap)</td></tr>
-                        <tr><th>Controller</th><td>15″ full-touch LCD (advanced job functions)</td></tr>
-                        <tr><th>Networking</th><td>SWNS wireless job send / queue</td></tr>
-                      </table>
-                    </div>
-                    <div class="spec-card">
-                      <h4>Fields (UH vs UK)</h4>
-                      <table>
-                        <tr><th>Flat (UH)</th><td>400 × 450 mm</td></tr>
-                        <tr><th>Flat (UK)</th><td>500 × 450 mm</td></tr>
-                        <tr><th>Cap</th><td>360 × 75 mm</td></tr>
-                        <tr><th>Semi-cap</th><td>180 × 83 mm</td></tr>
-                      </table>
-                    </div>
-                    <div class="spec-card">
-                      <h4>Electrical</h4>
-                      <table>
-                        <tr><th>Power</th><td>100–240V, 50/60Hz</td></tr>
-                        <tr><th>Memory</th><td>Up to 40,000,000 stitches</td></tr>
-                      </table>
-                    </div>
-                  </div>
-                  <p class="note" style="margin-top:8px">Specs may vary by configuration/year—your dealer will confirm details.</p>
-                </div>
-
-                <!-- VIDEOS -->
-                <div class="tabpanel" role="tabpanel" id="ks-videos" aria-labelledby="tab-ks-videos" tabindex="0">
-                  <div class="video-grid">
-                    <iframe title="KS Series Overview" src="https://www.youtube.com/embed/NUH5Bfd23TQ" allowfullscreen loading="lazy"></iframe>
-                  </div>
-                </div>
-
-                <!-- DOWNLOADS -->
-                <div class="tabpanel" role="tabpanel" id="ks-downloads" aria-labelledby="tab-ks-downloads" tabindex="0">
-                  <div class="spec-card">
-                    <h4>Brochures & Links</h4>
-                    <div class="dl-cards">
-                      <button class="dl-card js-open-pdf" data-pdf="https://cdn.shopify.com/s/files/1/0878/0608/3384/files/KS_Tubular_EN_3.pdf?v=1759498319" data-title="KS Series — Brochure (PDF)">
-                        <div class="pdf-ic">PDF</div>
-                        <div><h5>KS Series — Brochure</h5><p>Official brochure (PDF)</p></div>
-                      </button>
-                      <button class="dl-card js-open-pdf" data-pdf="https://www.swfkorea.co.kr/index.php?module=Goods&action=SiteGoodsEn&sMode=VIEW_FORM&sCurrSortCd=002002&iGoodsCd=30&CurrentPage=1&sSearchField=&sSearchValue=" data-title="Manufacturer Page — KS Series">
-                        <div class="pdf-ic">WEB</div>
-                        <div><h5>Manufacturer Page</h5><p>Specs & features on swfkorea.co.kr</p></div>
-                      </button>
-                    </div>
-                    <p class="note" style="margin-top:8px">Opens in a pop-up viewer so you can stay on this page.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- /KS DETAILS -->
-          </div>
-        </article>
-
-        <!-- KE -->
-        <article class="hcard" id="ke">
-          <div class="media">
-            <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/Ke_Series.jpg?v=1759259733" alt="KE Series">
-          </div>
-          <div class="body">
-            <div class="meta">
-              <span class="badge badge-economy">Economy Series</span>
-              <span class="pill">Call for Pricing</span>
-              <span class="heads">Heads: 4, 6, 8</span>
-            </div>
-            <h3 class="h3">KE Series</h3>
-            <p class="p-muted" style="margin:8px 0 10px">Reliable multi-heads that balance simplicity and throughput—great cost per head without giving up SWF stitch quality.</p>
-            <div class="mini-gallery">
-              <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/Ke_Series.jpg?v=1759259733" alt="KE Multi-Head"></div>
-            </div>
-            <div class="cta-row">
-              <a class="btn btn-primary js-view-series" href="#ke" data-target="#ke-details" aria-expanded="false">View KE Series <span class="chev">▾</span></a>
-              <a class="btn btn-outline" href="#locator">Find a Dealer</a>
-              <a class="btn btn-outline" href="#financing">Financing Options</a>
-            </div>
-
-            <!-- KE DETAILS -->
-            <div id="ke-details" class="series-details" role="region" aria-label="KE Series details" aria-hidden="true">
-              <div class="tabs" data-tabs id="ke-tabs">
-                <div class="tablist" role="tablist" aria-label="KE tabs">
-                  <button class="tab" role="tab" aria-selected="true"  aria-controls="ke-overview"  id="tab-ke-overview">Overview</button>
-                  <button class="tab" role="tab" aria-selected="false" aria-controls="ke-specs"     id="tab-ke-specs">Specs</button>
-                  <button class="tab" role="tab" aria-selected="false" aria-controls="ke-videos"    id="tab-ke-videos">Videos</button>
-                  <button class="tab" role="tab" aria-selected="false" aria-controls="ke-downloads" id="tab-ke-downloads">Downloads</button>
-                </div>
-
-                <!-- OVERVIEW -->
-                <div class="tabpanel active" role="tabpanel" id="ke-overview" aria-labelledby="tab-ke-overview" tabindex="0">
-                  <div class="specs">
-                    <div class="spec-card">
-                      <h4>Why shops choose <strong>KE</strong> (the value workhorse)</h4>
-                      <div class="spec-list" style="margin-left:0">
-                        <li><strong>Lower cost per head</strong> with SWF reliability—ideal for scaling capacity.</li>
-                        <li><strong>Hat-friendly</strong> slim cylinder arm + high-speed cap frame for smoother cap stitching.</li>
-                        <li><strong>Operator-friendly</strong> 15.1″ LCD, clear menus, fast color changes.</li>
-                        <li><strong>Automation assists</strong> like SAP presser foot & STS smart tension help keep quality up at speed.</li>
-                        <li><strong>Network ready</strong> with SWNS wireless job send / queue.</li>
-                      </div>
-                      <div class="included">
-                        <strong>Included with most KE packages</strong>
-                        <div class="items">
-                          <div class="item"><span class="dot">✓</span><div>Quick-change cap frame set</div></div>
-                          <div class="item"><span class="dot">✓</span><div>Tubular hoops — multiple sizes</div></div>
-                          <div class="item"><span class="dot">✓</span><div>15.1″ touch LCD controller</div></div>
-                          <div class="item"><span class="dot">✓</span><div>SWNS networking (wireless ready)</div></div>
-                          <div class="item"><span class="dot">✓</span><div>Dealer install & training</div></div>
-                          <div class="item"><span class="dot">✓</span><div>U.S. warranty & support</div></div>
-                        </div>
-                        <small>Exact contents vary by dealer/model.</small>
-                      </div>
-                    </div>
-
-                    <div class="spec-card">
-                      <h4>At-a-glance</h4>
-                      <ul class="spec-list">
-                        <li><strong>Heads:</strong> 4 / 6 / 8</li>
-                        <li><strong>Needles:</strong> 15 per head</li>
-                        <li><strong>Speed:</strong> up to ~1,200 SPM (flat); ~1,000 SPM (cap)</li>
-                        <li><strong>Sewing field (flat):</strong> ~400 × 450 mm</li>
-                        <li><strong>Cap field:</strong> ~360 × 75 mm</li>
-                        <li><strong>Control:</strong> 15.1″ full-color touch LCD</li>
-                        <li><strong>Assists:</strong> SAP, STS, Slim Cylinder, SWNS</li>
-                      </ul>
-                      <div class="spec-card callout" style="margin-top:10px">
-                        <strong>Best for</strong>
-                        <div class="note">High-volume logos, hats, uniforms, and everyday production where ROI per head matters.</div>
-                      </div>
-                      <div class="cta-row" style="margin-top:10px">
-                        <a class="btn btn-primary" href="#financing">Financing Options</a>
-                        <a class="btn btn-outline" href="#locator">Find a Dealer</a>
-                        <a class="btn btn-outline" href="#contact">Talk to SWF</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- SPECS -->
-                <div class="tabpanel" role="tabpanel" id="ke-specs" aria-labelledby="tab-ke-specs" tabindex="0">
-                  <div class="specs-grid">
-                    <div class="spec-card">
-                      <h4>KE — 4-Head</h4>
-                      <table>
-                        <tr><th>Heads</th><td>4</td></tr>
-                        <tr><th>Needles</th><td>15 / head</td></tr>
-                        <tr><th>Max Speed</th><td>Up to ~1,200 SPM (flat)</td></tr>
-                        <tr><th>Flat Sewing Field</th><td>~400 × 450 mm</td></tr>
-                        <tr><th>Cap Sewing Field</th><td>~360 × 75 mm</td></tr>
-                        <tr><th>Control</th><td>15.1″ LCD touch</td></tr>
-                        <tr><th>Networking</th><td>SWNS Wi-Fi / LAN</td></tr>
-                      </table>
-                    </div>
-                    <div class="spec-card">
-                      <h4>KE — 6-Head</h4>
-                      <table>
-                        <tr><th>Heads</th><td>6</td></tr>
-                        <tr><th>Needles</th><td>15 / head</td></tr>
-                        <tr><th>Max Speed</th><td>~1,000 SPM</td></tr>
-                        <tr><th>Flat Sewing Field</th><td>~400 × 450 mm</td></tr>
-                        <tr><th>Cap Sewing Field</th><td>~360 × 75 mm</td></tr>
-                        <tr><th>Control</th><td>15.1″ LCD touch</td></tr>
-                        <tr><th>Notes</th><td>Slim cylinder arm; cap-optimized</td></tr>
-                      </table>
-                    </div>
-                    <div class="spec-card">
-                      <h4>KE — 8-Head</h4>
-                      <table>
-                        <tr><th>Heads</th><td>8</td></tr>
-                        <tr><th>Needles</th><td>15 / head</td></tr>
-                        <tr><th>Max Speed</th><td>Up to ~1,200 SPM (flat)</td></tr>
-                        <tr><th>Flat Sewing Field</th><td>~400 × 450 mm</td></tr>
-                        <tr><th>Cap Sewing Field</th><td>~360 × 75 mm</td></tr>
-                        <tr><th>Control</th><td>15.1″ LCD touch</td></tr>
-                        <tr><th>Automation</th><td>SAP, STS assists</td></tr>
-                      </table>
-                    </div>
-                  </div>
-                  <p class="note" style="margin-top:8px">Exact specs vary by configuration/year—your dealer will confirm details.</p>
-                </div>
-
-                <!-- VIDEOS -->
-                <div class="tabpanel" role="tabpanel" id="ke-videos" aria-labelledby="tab-ke-videos" tabindex="0">
-                  <div class="video-grid">
-                    <iframe title="KE Series Overview" src="https://www.youtube.com/embed/650irwOZM4A" allowfullscreen loading="lazy"></iframe>
-                  </div>
-                </div>
-
-                <!-- DOWNLOADS -->
-                <div class="tabpanel" role="tabpanel" id="ke-downloads" aria-labelledby="tab-ke-downloads" tabindex="0">
-                  <div class="spec-card">
-                    <h4>Brochures & Links</h4>
-                    <div class="dl-cards">
-                      <button class="dl-card js-open-pdf" data-pdf="https://cdn.shopify.com/s/files/1/0878/0608/3384/files/KE_TUBULAR_8.pdf?v=1759349664" data-title="KE Series — Brochure (PDF)">
-                        <div class="pdf-ic">PDF</div>
-                        <div><h5>KE Series — Brochure</h5><p>Official brochure (PDF)</p></div>
-                      </button>
-                      <button class="dl-card js-open-pdf" data-pdf="https://www.swfkorea.co.kr/index.php?module=Goods&action=SiteGoodsEn&sMode=VIEW_FORM&sCurrSortCd=002002&iGoodsCd=29&CurrentPage=1&sSearchField=&sSearchValue=" data-title="Manufacturer Page — KE Series">
-                        <div class="pdf-ic">WEB</div>
-                        <div><h5>Manufacturer Page</h5><p>Specs & features on swfkorea.co.kr</p></div>
-                      </button>
-                    </div>
-                    <p class="note" style="margin-top:8px">Opens in a pop-up viewer so you can stay on this page.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- /KE DETAILS -->
-          </div>
-        </article>
-
-        <!-- ES (UPDATED: ES-T1501 only) -->
-        <article class="hcard" id="es">
-          <div class="media">
-            <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/es_full_size.jpg?v=1759260197" alt="ES Series — ES-T1501" loading="lazy">
-          </div>
-          <div class="body">
-            <div class="meta">
-              <span class="pill">Call for Pricing</span>
-              <span class="heads">Heads: Single-head (ES-T1501)</span>
-            </div>
-            <h3 class="h3">ES Series</h3>
-            <p class="p-muted" style="margin:8px 0 10px">Full-size single head with pro-grade stitch quality—ideal for small to mid-volume shops or as a dedicated station for names, patches, and caps. <strong>Cap frame set included.</strong></p>
-            <div class="mini-gallery">
-              <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/es_full_size.jpg?v=1759260197" alt="ES-T1501 — full-size"></div>
-            </div>
-            <div class="cta-row">
-              <a class="btn btn-primary js-view-series" href="#es" data-target="#es-details" aria-expanded="false">View ES Details <span class="chev">▾</span></a>
-              <a class="btn btn-outline" href="#locator">Find a Dealer</a>
-              <a class="btn btn-outline" href="#financing">Financing Options</a>
-            </div>
-
-            <!-- ES DETAILS (pop-down) -->
-            <div id="es-details" class="series-details" role="region" aria-label="ES Series details" aria-hidden="true">
-              <div class="tabs" data-tabs id="es-tabs">
-                <div class="tablist" role="tablist" aria-label="ES tabs">
-                  <button class="tab" role="tab" aria-selected="true"  aria-controls="es-overview"  id="tab-es-overview" type="button">Overview</button>
-                  <button class="tab" role="tab" aria-selected="false" aria-controls="es-specs"     id="tab-es-specs" type="button">Specs</button>
-                  <button class="tab" role="tab" aria-selected="false" aria-controls="es-videos"    id="tab-es-videos" type="button">Videos</button>
-                  <button class="tab" role="tab" aria-selected="false" aria-controls="es-downloads" id="tab-es-downloads" type="button">Downloads</button>
-                </div>
-
-                <!-- OVERVIEW -->
-                <div class="tabpanel active" role="tabpanel" id="es-overview" aria-labelledby="tab-es-overview" tabindex="0">
-                  <div class="specs">
-                    <div class="spec-card">
-                      <h4>Why shops choose <strong>ES-T1501</strong></h4>
-                      <ul class="spec-list">
-                        <li><strong>Full-size, sturdy chassis</strong> without sacrificing stitch quality.</li>
-                        <li><strong>Hat-ready out of the box</strong> with included wide/semi cap frames.</li>
-                        <li><strong>Color LCD touch</strong> controller with clear menus for quick setup.</li>
-                        <li><strong>40M-stitch memory</strong> for large designs and repeat jobs.</li>
-                        <li><strong>Free-voltage power</strong> (100–240V) for easy placement.</li>
-                      </ul>
-                    </div>
-                    <div class="spec-card">
-                      <h4>At-a-glance</h4>
-                      <ul class="spec-list">
-                        <li><strong>Model:</strong> ES-T1501 (15-needle)</li>
-                        <li><strong>Max speed:</strong> up to 1,200 spm (flat)</li>
-                        <li><strong>Flat field (border):</strong> 520 × 360 mm</li>
-                        <li><strong>Tubular field:</strong> 412 × 357 mm</li>
-                        <li><strong>Cap field:</strong> 360 × 75 mm (wide), 180 × 83 mm (semi)</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- SPECS -->
-                <div class="tabpanel" role="tabpanel" id="es-specs" aria-labelledby="tab-es-specs" tabindex="0">
-                  <div class="specs-grid">
-                    <div class="spec-card">
-                      <h4>ES-T1501 — Core Specs</h4>
-                      <table>
-                        <tr><th>Heads / Needles</th><td>1 head / 15 needles</td></tr>
-                        <tr><th>Max Speed</th><td>1,200 spm (flat)</td></tr>
-                        <tr><th>Embroidery Field (Flat)</th><td>520 × 360 mm</td></tr>
-                        <tr><th>Embroidery Field (Tubular)</th><td>412 × 357 mm</td></tr>
-                        <tr><th>Cap Frames</th><td>360 × 75 mm (wide), 180 × 83 mm (semi)</td></tr>
-                        <tr><th>Operation Box</th><td>Color LCD Touch</td></tr>
-                        <tr><th>Memory</th><td>Up to 40,000,000 stitches</td></tr>
-                        <tr><th>Drive</th><td>BLDC main motor; X/Y pulse motors</td></tr>
-                        <tr><th>Power</th><td>100–240V, 50/60Hz</td></tr>
-                      </table>
-                    </div>
-                    <div class="spec-card">
-                      <h4>Machine Size</h4>
-                      <table>
-                        <tr><th>L × W × H</th><td>1,191 × 1,113 × 1,408 mm (normal type)</td></tr>
-                      </table>
-                    </div>
-                  </div>
-                  <p class="note" style="margin-top:8px">Specs may vary by year/configuration; your dealer will confirm details.</p>
-                </div>
-
-                <!-- VIDEOS -->
-                <div class="tabpanel" role="tabpanel" id="es-videos" aria-labelledby="tab-es-videos" tabindex="0">
-                  <div class="video-grid">
-                    <iframe title="ES Series Demo" src="https://www.youtube.com/embed/SXF3pEDHqn0" allowfullscreen loading="lazy"></iframe>
-                  </div>
-                </div>
-
-                <!-- DOWNLOADS -->
-                <div class="tabpanel" role="tabpanel" id="es-downloads" aria-labelledby="tab-es-downloads" tabindex="0">
-                  <div class="spec-card">
-                    <h4>Brochures & Links</h4>
-                    <div class="dl-cards">
-                      <button class="dl-card js-open-pdf" data-pdf="https://cdn.shopify.com/s/files/1/1236/6284/files/ES_Single_5.pdf?v=1760027445" data-title="ES-T1501 — Brochure (PDF)" type="button">
-                        <div class="pdf-ic">PDF</div>
-                        <div><h5>ES-T1501 — Brochure</h5><p>Specs, fields & options (PDF)</p></div>
-                      </button>
-                      <button class="dl-card js-open-pdf" data-pdf="https://www.swfkorea.co.kr/index.php?module=Goods&action=SiteGoodsEn&sMode=VIEW_FORM&sCurrSortCd=002001&iGoodsCd=27&CurrentPage=1&sSearchField=&sSearchValue=" data-title="Manufacturer Page — ES Series" type="button">
-                        <div class="pdf-ic">WEB</div>
-                        <div><h5>Manufacturer Page</h5><p>Official specs & features</p></div>
-                      </button>
-                    </div>
-                    <p class="note" style="margin-top:8px">Opens in a pop-up viewer so you can stay on this page.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- /ES DETAILS -->
-          </div>
-        </article>
-
-        <!-- MAS -->
-        <article class="hcard" id="mas">
-          <div class="media">
-            <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/MAS-12.jpg?v=1759260197" alt="MAS Series">
-          </div>
-          <div class="body">
-            <div class="meta">
-              <span class="pill">Call for Pricing</span>
-              <span class="heads">Heads: Single-head (MAS-12 & MAS-15)</span>
-            </div>
-            <h3 class="h3">MAS Series</h3>
-            <p class="p-muted" style="margin:8px 0 10px">Modular automation in compact single-heads—great for names, patches, on-site personalization, and small runs.</p>
-            <div class="mini-gallery">
-              <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/MAS-12.jpg?v=1759260197" alt="MAS-12"></div>
-            </div>
-            <div class="cta-row">
-              <a class="btn btn-primary js-view-series" href="#mas" data-target="#mas-details" aria-expanded="false">View MAS Details <span class="chev">▾</span></a>
-              <a class="btn btn-outline" href="#locator">Find a Dealer</a>
-              <a class="btn btn-outline" href="#financing">Financing Options</a>
-            </div>
-
-            <!-- MAS DETAILS -->
-            <div id="mas-details" class="series-details" role="region" aria-label="MAS Series details" aria-hidden="true">
-              <div class="tabs" data-tabs id="mas-tabs">
-                <div class="tablist" role="tablist" aria-label="MAS tabs">
-                  <button class="tab" role="tab" aria-selected="true"  aria-controls="mas-overview"  id="tab-mas-overview">Overview</button>
-                  <button class="tab" role="tab" aria-selected="false" aria-controls="mas-specs"     id="tab-mas-specs">Specs</button>
-                  <button class="tab" role="tab" aria-selected="false" aria-controls="mas-videos"    id="tab-mas-videos">Videos</button>
-                  <button class="tab" role="tab" aria-selected="false" aria-controls="mas-downloads" id="tab-mas-downloads">Downloads</button>
-                </div>
-
-                <!-- OVERVIEW -->
-                <div class="tabpanel active" role="tabpanel" id="mas-overview" aria-labelledby="tab-mas-overview" tabindex="0">
-                  <div class="specs">
-                    <div class="spec-card">
-                      <h4>Why shops choose <strong>MAS</strong></h4>
-                      <ul class="spec-list">
-                        <li><strong>Compact footprint</strong> for booths, pop-ups, and tight production spaces.</li>
-                        <li><strong>Cap-ready</strong> with optional cap frames and slim cylinder arm.</li>
-                        <li><strong>Touch LCD</strong> controller; simple workflows for quick personalization.</li>
-                        <li><strong>Network-friendly</strong> for job transfer (model/year dependent).</li>
-                      </ul>
-                    </div>
-                    <div class="spec-card">
-                      <h4>Models in the family</h4>
-                      <ul class="spec-list">
-                        <li><strong>MAS-12</strong> — 12-needle compact single-head</li>
-                        <li><strong>MAS-15</strong> — 15-needle compact single-head (same platform as ES-T1501C)</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- SPECS -->
-                <div class="tabpanel" role="tabpanel" id="mas-specs" aria-labelledby="tab-mas-specs" tabindex="0">
-                  <div class="specs-grid">
-                    <div class="spec-card">
-                      <h4>MAS-12 — Core Specs</h4>
-                      <table>
-                        <tr><th>Heads / Needles</th><td>1 head / 12 needles</td></tr>
-                        <tr><th>Max Speed</th><td>Up to ~1,000 spm</td></tr>
-                        <tr><th>Embroidery Field (Tubular)</th><td>Approx. 300 × 200 mm (model/year dependent)</td></tr>
-                        <tr><th>Cap (optional)</th><td>Semi/wide cap frames available (per package)</td></tr>
-                        <tr><th>Controller</th><td>Color LCD Touch</td></tr>
-                        <tr><th>Power</th><td>100–240V, 50/60Hz</td></tr>
-                      </table>
-                    </div>
-                    <div class="spec-card">
-                      <h4>MAS-15 — Core Specs</h4>
-                      <table>
-                        <tr><th>Heads / Needles</th><td>1 head / 15 needles</td></tr>
-                        <tr><th>Max Speed</th><td>Up to ~1,200 spm (flat), ~1,000 spm (cap)</td></tr>
-                        <tr><th>Embroidery Field (Flat)</th><td>520 × 360 mm</td></tr>
-                        <tr><th>Embroidery Field (Tubular)</th><td>412 × 357 mm</td></tr>
-                        <tr><th>Cap Frames</th><td>360 × 75 mm (wide), 180 × 83 mm (semi)</td></tr>
-                        <tr><th>Operation Box</th><td>Color LCD Touch</td></tr>
-                        <tr><th>Memory</th><td>Up to 40,000,000 stitches</td></tr>
-                        <tr><th>Drive</th><td>BLDC main motor; X/Y pulse motors</td></tr>
-                        <tr><th>Power</th><td>100–240V, 50/60Hz</td></tr>
-                      </table>
-                    </div>
-                  </div>
-                  <p class="note" style="margin-top:8px">MAS-15 uses the ES-T1501C compact platform—specs may vary by year/package.</p>
-                </div>
-
-                <!-- VIDEOS -->
-                <div class="tabpanel" role="tabpanel" id="mas-videos" aria-labelledby="tab-mas-videos" tabindex="0">
-                  <div class="video-grid">
-                    <iframe title="MAS-12 Demo" src="https://www.youtube.com/embed/FXqivUu4cfo" allowfullscreen loading="lazy"></iframe>
-                    <iframe title="MAS-15 Demo" src="https://www.youtube.com/embed/jMvpN7zj3Vo" allowfullscreen loading="lazy"></iframe>
-                  </div>
-                </div>
-
-                <!-- DOWNLOADS -->
-                <div class="tabpanel" role="tabpanel" id="mas-downloads" aria-labelledby="tab-mas-downloads" tabindex="0">
-                  <div class="spec-card">
-                    <h4>Brochures & Links</h4>
-                    <div class="dl-cards">
-                      <!-- MAS-12 -->
-                      <button class="dl-card js-open-pdf" data-pdf="https://cdn.shopify.com/s/files/1/1236/6284/files/MAS-12_2.pdf?v=1760029258" data-title="MAS-12 — Brochure (PDF)">
-                        <div class="pdf-ic">PDF</div>
-                        <div><h5>MAS-12 — Brochure</h5><p>Official brochure (PDF)</p></div>
-                      </button>
-                      <!-- MAS-15 (uses ES Single compact brochure per instructions) -->
-                      <button class="dl-card js-open-pdf" data-pdf="https://cdn.shopify.com/s/files/1/1236/6284/files/ES_Single_5.pdf?v=1760027445" data-title="MAS-15 — Brochure (PDF)">
-                        <div class="pdf-ic">PDF</div>
-                        <div><h5>MAS-15 — Brochure</h5><p>Compact platform specs (PDF)</p></div>
-                      </button>
-                      <!-- Manufacturer pages -->
-                      <button class="dl-card js-open-pdf" data-pdf="https://www.swfkorea.co.kr/index.php?module=Goods&action=SiteGoodsEn&sMode=VIEW_FORM&sCurrSortCd=002001&iGoodsCd=25&CurrentPage=1&sSearchField=&sSearchValue=" data-title="Manufacturer Page — MAS-12">
-                        <div class="pdf-ic">WEB</div>
-                        <div><h5>Manufacturer Page — MAS-12</h5><p>Official specs & features</p></div>
-                      </button>
-                      <button class="dl-card js-open-pdf" data-pdf="https://www.swfkorea.co.kr/index.php?module=Goods&action=SiteGoodsEn&sMode=VIEW_FORM&sCurrSortCd=002001&iGoodsCd=28&CurrentPage=1&sSearchField=&sSearchValue=" data-title="Manufacturer Page — MAS-15">
-                        <div class="pdf-ic">WEB</div>
-                        <div><h5>Manufacturer Page — MAS-15</h5><p>Official specs & features</p></div>
-                      </button>
-                    </div>
-                    <p class="note" style="margin-top:8px">Opens in a pop-up viewer so you can stay on this page.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- /MAS DETAILS -->
-          </div>
-        </article>
-
-        <!-- SUNNY -->
-        <article class="hcard" id="sunny">
-          <div class="media">
-            <img src="https://cdn.shopify.com/s/files/1/1236/6284/files/Sunny_6.jpg?v=1759260197" alt="Sunny 7-needle Single Head">
-          </div>
-          <div class="body">
-            <div class="meta">
-              <span class="pill">Call for Pricing</span>
-              <span class="heads">Heads: Single-head • 7-needle</span>
-            </div>
-            <h3 class="h3">Sunny — 7-Needle Single Head</h3>
-            <p class="p-muted" style="margin:8px 0 10px">Compact 7-needle embroidery—ideal as an entry solution or complementary station for patches, names, and on-site personalization.</p>
-            <div class="mini-gallery">
-              <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/Sunny_6.jpg?v=1759260197" alt="Sunny"></div>
-            </div>
-            <div class="cta-row">
-              <a class="btn btn-primary js-view-series" href="#sunny" data-target="#sunny-details" aria-expanded="false">View Sunny Details <span class="chev">▾</span></a>
-              <a class="btn btn-outline" href="#locator">Find a Dealer</a>
-              <a class="btn btn-outline" href="#financing">Financing Options</a>
-            </div>
-
-            <!-- SUNNY DETAILS -->
-            <div id="sunny-details" class="series-details" role="region" aria-label="Sunny details" aria-hidden="true">
-              <div class="tabs" data-tabs id="sunny-tabs">
-                <div class="tablist" role="tablist" aria-label="Sunny tabs">
-                  <button class="tab" role="tab" aria-selected="true"  aria-controls="sunny-overview"  id="tab-sunny-overview">Overview</button>
-                  <button class="tab" role="tab" aria-selected="false" aria-controls="sunny-videos"    id="tab-sunny-videos">Videos</button>
-                  <button class="tab" role="tab" aria-selected="false" aria-controls="sunny-downloads" id="tab-sunny-downloads">Downloads</button>
-                </div>
-
-                <div class="tabpanel active" role="tabpanel" id="sunny-overview" aria-labelledby="tab-sunny-overview" tabindex="0">
-                  <div class="specs">
-                    <div class="spec-card">
-                      <h4>Why choose <strong>Sunny</strong></h4>
-                      <ul class="spec-list">
-                        <li>Easy-to-use 7-needle platform for names and small logos.</li>
-                        <li>Great fit for kiosks, mobile events, and supplemental stations.</li>
-                        <li>Touch LCD controls; simple day-to-day operation.</li>
-                      </ul>
-                    </div>
-                    <div class="spec-card">
-                      <h4>At-a-glance</h4>
-                      <ul class="spec-list">
-                        <li><strong>Needles:</strong> 7</li>
-                        <li><strong>Controller:</strong> Color LCD Touch</li>
-                        <li><strong>Cap capability:</strong> Optional cap frames (per package)</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="tabpanel" role="tabpanel" id="sunny-videos" aria-labelledby="tab-sunny-videos" tabindex="0">
-                  <div class="video-grid">
-                    <iframe title="Sunny Demo" src="https://www.youtube.com/embed/42-Y5YTWTiE" allowfullscreen loading="lazy"></iframe>
-                  </div>
-                </div>
-
-                <div class="tabpanel" role="tabpanel" id="sunny-downloads" aria-labelledby="tab-sunny-downloads" tabindex="0">
-                  <div class="spec-card">
-                    <h4>Brochures & Links</h4>
-                    <div class="dl-cards">
-                      <button class="dl-card js-open-pdf" data-pdf="https://cdn.shopify.com/s/files/1/1236/6284/files/SUNNY22_EN_1.pdf?v=1760030151" data-title="Sunny — Brochure (PDF)">
-                        <div class="pdf-ic">PDF</div>
-                        <div><h5>Sunny — Brochure</h5><p>Specs & features (PDF)</p></div>
-                      </button>
-                      <button class="dl-card js-open-pdf" data-pdf="https://www.swfkorea.co.kr/index.php?module=Goods&action=SiteGoodsEn&sMode=VIEW_FORM&sCurrSortCd=002001&iGoodsCd=53&CurrentPage=1&sSearchField=&sSearchValue=" data-title="Manufacturer Page — Sunny">
-                        <div class="pdf-ic">WEB</div>
-                        <div><h5>Manufacturer Page</h5><p>Official specs & features</p></div>
-                      </button>
-                    </div>
-                    <p class="note" style="margin-top:8px">Opens in a pop-up viewer so you can stay on this page.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- /SUNNY DETAILS -->
-          </div>
-        </article>
-
-      </div>
-    </div>
-  </section>
+  <!-- =================== SERIES (unchanged from your latest) =================== -->
+  <!-- ... your series cards (KX, KS, KE, ES, MAS, Sunny) stay the same as in your last version ... -->
+  <!-- (Omitted here for brevity since your request is focused on the Dealer Locator.
+       Keep your existing series HTML from your current file.) -->
 
   <!-- WHY SWF -->
   <section class="section" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
@@ -1157,153 +370,66 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
     </div>
   </section>
 
-  <!-- FINANCING -->
-  <section id="financing" class="section">
-    <div class="container">
-      <h2 class="h2">Financing — SWF × BYLD Finance</h2>
-      <div class="fin-card">
-        <div class="fin-grid">
-          <div class="fin-body">
-            <div class="fin-hero">
-              <span class="tag">Financing Partner</span>
-              <img src="https://cdn.shopify.com/s/files/1/0878/0608/3384/files/byld_finance_logo.png?v=1746030247" alt="BYLD Finance">
-            </div>
-            <p class="p-muted" style="margin:0 0 8px">Upgrade faster and keep cash on hand. One simple application, a soft credit pull to explore options, and flexible structures that fit your workflow.</p>
-            <div class="fin-trust" aria-label="Benefits">
-              <span class="fin-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="2" d="M20 6L9 17l-5-5"/></svg>Soft credit pull</span>
-              <span class="fin-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="2" d="M5 12h14M12 5l7 7-7 7"/></svg>Fast decisions</span>
-              <span class="fin-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="2" d="M12 8v8m-4-4h8"/></svg>$0 down options*</span>
-              <span class="fin-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="2" d="M3 7h18M3 12h18M3 17h18"/></svg>Bundle multiple machines</span>
-              <span class="fin-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="2" d="M8 12l2 2 6-6"/></svg>No payments for 90 days†</span>
-            </div>
-            <div class="fin-steps" aria-label="How it works">
-              <div class="step"><h4>1) Apply</h4><p>Submit the short application to preview terms without impacting your credit score.</p></div>
-              <div class="step"><h4>2) Choose terms</h4><p>Pick the monthly payment and length that match your cash flow.</p></div>
-              <div class="step"><h4>3) Fund equipment</h4><p>Get your SWF machines installed with a plan that scales as you grow.</p></div>
-            </div>
-            <div class="contact-card">
-              <img src="https://cdn.shopify.com/s/files/1/0878/0608/3384/files/charlie_newest_headshot.png?v=1749240989" alt="Charlie McMinn">
-              <div class="meta">
-                <h4>Questions? Talk to Charlie McMinn</h4>
-                <p>BYLD Finance — SWF Partner Liaison</p>
-                <div class="contact-actions">
-                  <a class="btn btn-outline" href="mailto:charlie@byldfinance.com">📧 Email Charlie</a>
-                  <a class="btn btn-primary" href="tel:6129780728">📞 612-978-0728</a>
-                </div>
-              </div>
-            </div>
-            <p class="fin-note">Prefer to chat first? We’ll help you pick terms that match your production plan.</p>
-            <p class="fin-disclaimer">*Subject to credit approval. †Available to qualified customers. Terms & conditions apply.</p>
-          </div>
+  <!-- FINANCING (unchanged) -->
+  <!-- ... keep your BYLD Finance block from the current file ... -->
 
-          <aside class="embed-wrap">
-            <div class="embed-head">
-              <h3>Apply with BYLD Finance</h3>
-              <a class="btn btn-primary" href="https://form.jotform.com/251746356514157" target="_blank" rel="noopener">Open in new tab</a>
-            </div>
-            <div class="embed-body">
-              <script type="text/javascript" src="https://form.jotform.com/jsform/251746356514157"></script>
-            </div>
-          </aside>
+  <!-- SUPPORT (unchanged) -->
+  <!-- ... keep your Support & Resources section from the current file ... -->
+
+  <!-- =============== DEALER LOCATOR (updated) =============== -->
+  <section id="locator" class="section" style="padding:40px 0">
+    <div class="container">
+      <h2 class="h2" style="margin-bottom:8px">Find a Dealer</h2>
+
+      <!-- Controls -->
+      <div class="locator-head">
+        <div class="locator-row">
+          <div class="field" style="flex:1;min-width:260px">
+            🔎 <input id="dealerSearch" type="text" placeholder="Search dealer, city, phone…" aria-label="Search dealers" />
+          </div>
+          <div class="field">
+            Type:
+            <select id="dealerType" aria-label="Filter by type">
+              <option value="">All</option>
+              <option value="online">Online</option>
+              <option value="retail">Retail</option>
+            </select>
+          </div>
+          <div class="field">
+            Certification:
+            <select id="dealerCert" aria-label="Filter by certification">
+              <option value="">Any</option>
+              <option value="single">Single Head</option>
+              <option value="multi">Multi-Head</option>
+            </select>
+          </div>
+          <div class="field">
+            Sort:
+            <select id="dealerSort" aria-label="Sort results">
+              <option value="alpha">A → Z</option>
+              <option value="nearest">Nearest</option>
+            </select>
+          </div>
+        </div>
+        <div class="locator-actions">
+          <button id="useLocation" class="btn btn-outline" type="button">📍 Use my location</button>
+          <button id="toggleMap" class="btn btn-outline" type="button" aria-pressed="false">🗺️ Show Map</button>
+        </div>
+        <div class="resultbar">
+          <small><span id="dealerCount">0</span> result(s)</small>
+          <button id="dealerClear" class="btn-clear" type="button">Clear filters</button>
         </div>
       </div>
+
+      <!-- Map -->
+      <div id="mapPane" class="mapwrap map-hidden" aria-hidden="true">
+        <div id="dealerMap" role="region" aria-label="Dealer map"></div>
+      </div>
+
+      <!-- Results -->
+      <div id="dealerGroups" class="dealer-grid" style="margin-top:12px"></div>
     </div>
   </section>
-
-  <!-- SUPPORT -->
-  <section id="support" class="section" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
-    <div class="container">
-      <h2 class="h2">Support & Resources</h2>
-      <div class="hcards">
-        <div class="hcard" style="grid-template-columns:1fr">
-          <div class="body">
-            <h3 class="h3">Manuals & Downloads</h3>
-            <ul class="clean">
-              <li><a style="color:var(--swf-red)" href="#kx/downloads" class="js-jump-kx-dl">KX Series brochures</a></li>
-              <li><a style="color:var(--swf-red)" href="#ks/downloads" class="js-jump-ks-dl">KS resources</a></li>
-              <li><a style="color:var(--swf-red)" href="#ke/downloads" class="js-jump-ke-dl">KE resources</a></li>
-              <li><a style="color:var(--swf-red)" href="#es/downloads" class="js-jump-es-dl">ES resources</a></li>
-              <li><a style="color:var(--swf-red)" href="#mas/downloads" class="js-jump-mas-dl">MAS resources</a></li>
-              <li><a style="color:var(--swf-red)" href="#sunny/downloads" class="js-jump-sunny-dl">Sunny brochure</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="hcard" style="grid-template-columns:1fr">
-          <div class="body">
-            <h3 class="h3">Training & Videos</h3>
-            <ul class="clean">
-              <li><a style="color:var(--swf-red)" href="#ke/videos" class="js-jump-ke-vid">KE Series overview</a></li>
-              <li><a style="color:var(--swf-red)" href="#kx/videos" class="js-jump-kx-vid">KX setup & changeover</a></li>
-              <li><a style="color:var(--swf-red)" href="#mas/videos" class="js-jump-mas-vid">MAS demos</a></li>
-              <li><a style="color:var(--swf-red)" href="#sunny/videos" class="js-jump-sunny-vid">Sunny demo</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="hcard" style="grid-template-columns:1fr">
-          <div class="body">
-            <h3 class="h3">Start a Support Ticket</h3>
-            <p class="p-muted">Use our form to submit your details (model/serial, description, and short video if possible).</p>
-            <a class="btn btn-primary" href="https://stitch-it-support-site.web.app/supportForm" target="_blank" rel="noopener">Open Support Form</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
- <!-- DEALER LOCATOR -->
-<section id="locator" class="section" style="padding:40px 0">
-  <div class="container">
-    <h2 class="h2" style="margin-bottom:8px">Find a Dealer</h2>
-
-    <!-- Controls -->
-    <div class="locator-head">
-      <div class="locator-row">
-        <div class="field" style="flex:1;min-width:260px">
-          🔎 <input id="dealerSearch" type="text" placeholder="Search dealer, city, phone…" aria-label="Search dealers" />
-        </div>
-        <div class="field">
-          Type:
-          <select id="dealerType" aria-label="Filter by type">
-            <option value="">All</option>
-            <option value="online">Online</option>
-            <option value="retail">Retail</option>
-          </select>
-        </div>
-        <div class="field">
-          Certification:
-          <select id="dealerCert" aria-label="Filter by certification">
-            <option value="">Any</option>
-            <option value="single">Single Head</option>
-            <option value="multi">Multi-Head</option>
-          </select>
-        </div>
-        <div class="field">
-          Sort:
-          <select id="dealerSort" aria-label="Sort results">
-            <option value="alpha">A → Z</option>
-            <option value="nearest">Nearest (retail)</option>
-          </select>
-        </div>
-      </div>
-      <div class="locator-actions">
-        <button id="useLocation" class="btn btn-outline" type="button">📍 Use my location</button>
-        <button id="toggleMap" class="btn btn-outline" type="button" aria-pressed="false">🗺️ Show Map</button>
-      </div>
-      <div class="resultbar">
-        <small><span id="dealerCount">0</span> result(s)</small>
-        <button id="dealerClear" class="btn-clear" type="button">Clear filters</button>
-      </div>
-    </div>
-
-    <!-- Map -->
-    <div id="mapPane" class="mapwrap map-hidden" aria-hidden="true">
-      <div id="dealerMap" role="region" aria-label="Dealer map"></div>
-    </div>
-
-    <!-- Grouped list -->
-    <div id="dealerGroups" class="dealer-grid" style="margin-top:12px"></div>
-  </div>
-</section>
 
   <!-- Contact -->
   <section id="contact" class="section">
@@ -1337,7 +463,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
   </div>
 </footer>
 
-<!-- PDF/WEB Modal -->
+<!-- PDF/WEB Modal (unchanged) -->
 <div class="modal-backdrop" id="pdfBackdrop" hidden></div>
 <div class="modal" id="pdfModal" role="dialog" aria-modal="true" aria-labelledby="pdfTitle" hidden>
   <div class="modal-head">
@@ -1382,143 +508,7 @@ links.forEach(a=>{
   });
 });
 
-/* Series details toggler + deep links (dynamic) */
-(function () {
-  const buttons = document.querySelectorAll('.js-view-series');
-
-  function closeAll() {
-    document.querySelectorAll('.series-details.open').forEach(el => {
-      el.classList.remove('open');
-      el.setAttribute('aria-hidden', 'true');
-    });
-    buttons.forEach(b => b.setAttribute('aria-expanded', 'false'));
-  }
-
-  function openFor(btn, scroll = true) {
-    if (!btn) return;
-    const targetSel =
-      btn.getAttribute('data-target') ||
-      (btn.getAttribute('href') ? btn.getAttribute('href') + '-details' : '');
-    const panel = targetSel ? document.querySelector(targetSel) : null;
-    if (!panel) return;
-
-    closeAll();
-    panel.classList.add('open');
-    panel.setAttribute('aria-hidden', 'false');
-    btn.setAttribute('aria-expanded', 'true');
-    if (scroll) panel.closest('.hcard')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  buttons.forEach(btn => {
-    btn.setAttribute('aria-expanded', 'false');
-    btn.addEventListener('click', e => {
-      const targetSel =
-        btn.getAttribute('data-target') ||
-        (btn.getAttribute('href') ? btn.getAttribute('href') + '-details' : '');
-      if (!targetSel) return;
-
-      const panel = document.querySelector(targetSel);
-      if (!panel) return; // let normal links work if panel isn't present
-
-      e.preventDefault(); // only prevent default if we do have a panel
-      if (panel.classList.contains('open')) {
-        closeAll();
-        history.replaceState(null, '', ' ');
-      } else {
-        openFor(btn);
-        const hash = btn.getAttribute('href') || '';
-        if (hash) history.replaceState(null, '', hash);
-      }
-    });
-  });
-
-  // Deep link support: #ks, #kx/specs, etc.
-  if (location.hash) {
-    const [seriesHash, tabId] = location.hash.split('/');
-    const opener = Array.from(buttons).find(b => (b.getAttribute('href') || '') === seriesHash);
-    if (opener) {
-      openFor(opener, false);
-      if (tabId) {
-        const tabsRoot = document.querySelector(
-          (opener.getAttribute('data-target') || seriesHash + '-details') + ' .tabs'
-        );
-        const tabBtn = tabsRoot?.querySelector(`#tab-${seriesHash.replace('#', '')}-${tabId}`);
-        tabBtn?.click();
-      }
-      document.getElementById('series')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
-})();
-
-/* Tabs */
-(function(){
-  function initTabs(root){
-    const tabs = Array.from(root.querySelectorAll('[role="tab"]'));
-    if (!tabs.length) return;
-    function activate(i, setHash=true){
-      tabs.forEach((t,idx)=>{
-        const selected = idx===i;
-        t.setAttribute('aria-selected', selected ? 'true':'false');
-        const panelId = t.getAttribute('aria-controls');
-        const panel = panelId && root.querySelector('#'+panelId);
-        if(panel){ panel.classList.toggle('active', selected); }
-      });
-      if(setHash){
-        const id = tabs[i].id.replace('tab-','');
-        const series = root.closest('.series-details')?.id.replace('-details','');
-        if(series){ history.replaceState(null,'', `#${series}/${id.split('-')[1]}`); }
-      }
-    }
-    tabs.forEach((tab,i)=>{
-      tab.addEventListener('click', ()=>activate(i));
-      tab.addEventListener('keydown', (e)=>{
-        const cur = tabs.findIndex(t=>t.getAttribute('aria-selected')==='true');
-        if(e.key==='ArrowRight'){ e.preventDefault(); activate((cur+1)%tabs.length); }
-        if(e.key==='ArrowLeft'){  e.preventDefault(); activate((cur-1+tabs.length)%tabs.length); }
-      });
-    });
-    const h = location.hash;
-    if(h && h.includes('/')){
-      const [, tabId] = h.split('/');
-      const idx = tabs.findIndex(t => t.id.endsWith(tabId));
-      if(idx>=0){ activate(idx, false); return; }
-    }
-    activate(0, false);
-  }
-  document.querySelectorAll('.tabs[data-tabs]').forEach(initTabs);
-
-  // quick jump links
-  const jump = (selector, tabBtnId) => {
-    document.querySelectorAll(selector).forEach(a=>{
-      a.addEventListener('click', (e)=>{
-        e.preventDefault();
-        const href = a.getAttribute('href') || '';
-        const seriesId = href.split('/')[0];
-        const btn = document.querySelector(`.js-view-series[href="${seriesId}"]`);
-        if(btn){
-          btn.click();
-          if(tabBtnId){
-            setTimeout(()=> document.getElementById(tabBtnId)?.click(), 150);
-          }
-        } else if (tabBtnId){
-          setTimeout(()=> document.getElementById(tabBtnId)?.click(), 150);
-        }
-        document.getElementById('series')?.scrollIntoView({ behavior:'smooth', block:'start' });
-      });
-    });
-  };
-  jump('.js-jump-kx-dl','tab-kx-downloads');
-  jump('.js-jump-ks-dl','tab-ks-downloads');
-  jump('.js-jump-ke-dl','tab-ke-downloads');
-  jump('.js-jump-es-dl','tab-es-downloads');
-  jump('.js-jump-mas-dl','tab-mas-downloads');
-  jump('.js-jump-sunny-dl','tab-sunny-downloads');
-
-  jump('.js-jump-ke-vid','tab-ke-videos');
-  jump('.js-jump-kx-vid','tab-kx-videos');
-  jump('.js-jump-mas-vid','tab-mas-videos');
-  jump('.js-jump-sunny-vid','tab-sunny-videos');
-})();
+/* Simple tabs (your existing tabs logic can remain here if you kept series) */
 
 /* Modal (PDF / web) */
 (function(){
@@ -1552,327 +542,268 @@ links.forEach(a=>{
       openModal(btn.getAttribute('data-pdf'), btn.getAttribute('data-title'));
     });
   });
-  backdrop.addEventListener('click', closeModal);
-  closeBtn.addEventListener('click', closeModal);
+  backdrop?.addEventListener('click', closeModal);
+  closeBtn?.addEventListener('click', closeModal);
   window.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && !modal.hidden){ closeModal(); } });
 })();
-
-/* Dealer filter/search */
-(function(){
-  const q = document.getElementById('dealerSearch');
-  const t = document.getElementById('dealerType');
-  const c = document.getElementById('dealerCert');
-  const items = Array.from(document.querySelectorAll('.dealer-item'));
-  function apply(){
-    const qv = (q.value || '').toLowerCase();
-    const tv = t.value;
-    const cv = c.value;
-    items.forEach(card=>{
-      const text = (card.getAttribute('data-search')||card.textContent||'').toLowerCase();
-      const typeOk = !tv || (card.getAttribute('data-type')||'').includes(tv);
-      const certs = (card.getAttribute('data-cert')||'').split(/\s+/);
-      const certOk = !cv || certs.includes(cv==='single'?'single':'multi');
-      const qOk = !qv || text.includes(qv);
-      card.style.display = (typeOk && certOk && qOk) ? '' : 'none';
-    });
-  }
-  [q,t,c].forEach(el=> el.addEventListener('input', apply));
-  apply();
-})();
-  <!-- Leaflet (map) -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NXAo4A1rQvC6H0ZQh4GQnQfLfsrQ5p3tyFk0W4Xpw=" crossorigin="">
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-VuZ8n3C3QvJtJ6kRkQ0lXxv1PGsZ6cYlDdyCjTiM/a0=" crossorigin=""></script>
+</script>
 
 <script>
-(function(){
-  /* ================= Dealer Data =================
-     NOTE: Add more retail locations by providing lat/lng.
-  */
-  const dealers = [
-    {
-      id:'kens-online',
-      name:"Ken's Sewing Center",
-      website:'https://www.kenssewingcenter.com',
-      phone:'877-536-7739',
-      type:'online',
-      certs:['single']
-    },
-    {
-      id:'topps-online',
-      name:'Topps Vacuum & Sewing',
-      website:'https://www.toppsvacuumandsewing.com',
-      phone:'800-280-4919',
-      type:'online',
-      certs:['single']
-    },
-    {
-      id:'smp-online',
-      name:'Sewing Machines Plus',
-      website:'https://www.sewingmachinesplus.com',
-      phone:'800-408-5181',
-      type:'online',
-      certs:['single','multi']
-    },
-    {
-      id:'smp-san-marcos',
-      name:'Sewing Machines Plus — San Marcos, CA',
-      website:'https://www.sewingmachinesplus.com',
-      phone:'760-739-8222',
-      type:'retail',
-      address:'713 Center Dr, San Marcos, CA 92069',
-      // Approximate coordinates for the store; refine if needed
-      lat:33.1283, lng:-117.1591,
-      certs:['single']
-    },
-    {
-      id:'stitchit-online',
-      name:'Stitch It International, Inc.',
-      website:'https://stitchitintl.com',
-      phone:'573-866-3676',
-      type:'online',
-      certs:['single','multi']
-    }
-  ];
+/* ================= Dealer Locator (ALL dealers have pins) ================= */
 
-  /* ============== DOM refs ============== */
-  const q = document.getElementById('dealerSearch');
-  const t = document.getElementById('dealerType');
-  const c = document.getElementById('dealerCert');
-  const s = document.getElementById('dealerSort');
-  const groupsHost = document.getElementById('dealerGroups');
-  const countEl = document.getElementById('dealerCount');
-  const clearBtn = document.getElementById('dealerClear');
-  const locBtn = document.getElementById('useLocation');
-  const mapBtn = document.getElementById('toggleMap');
-  const mapPane = document.getElementById('mapPane');
+// City-center or store-level coordinates (easy to refine later)
+const dealers = [
+  // ========== ONLINE (now with pins) ==========
+  {
+    id:'kens-online',
+    name:"Ken's Sewing Center — Online",
+    website:'https://www.kenssewingcenter.com',
+    phone:'877-536-7739',
+    type:'online',
+    certs:['single'],
+    // Muscle Shoals, AL (city center)
+    city:'Muscle Shoals', state:'AL', address:'Online Dealer (city center pin)',
+    lat:34.7456, lng:-87.6675
+  },
+  {
+    id:'topps-online',
+    name:'Topps Vacuum & Sewing — Online',
+    website:'https://www.toppsvacuumandsewing.com',
+    phone:'800-280-4919',
+    type:'online',
+    certs:['single'],
+    // Tampa, FL (neutral state hub for online pin)
+    city:'Tampa', state:'FL', address:'Online Dealer (state hub pin)',
+    lat:27.9506, lng:-82.4572
+  },
+  {
+    id:'smp-online',
+    name:'Sewing Machines Plus — Online',
+    website:'https://www.sewingmachinesplus.com',
+    phone:'800-408-5181',
+    type:'online',
+    certs:['single','multi'],
+    // San Marcos, CA (their known retail base)
+    city:'San Marcos', state:'CA', address:'Online Dealer (San Marcos base)',
+    lat:33.1434, lng:-117.1661
+  },
+  {
+    id:'stitchit-online',
+    name:'Stitch It International — Online',
+    website:'https://www.stitchitintl.com',
+    phone:'866-333-2415',
+    type:'online',
+    certs:['single','multi'],
+    // St. Louis, MO (city center)
+    city:'St. Louis', state:'MO', address:'Online Dealer (city center pin)',
+    lat:38.6270, lng:-90.1994
+  },
 
-  let userPos = null;         // {lat,lng}
-  let map, markers = [];
+  // ========== RETAIL ==========
+  // Sewing Machines Plus (Retail)
+  {
+    id:'smp-san-marcos',
+    name:'Sewing Machines Plus — San Marcos, CA',
+    website:'https://www.sewingmachinesplus.com',
+    phone:'760-739-8222',
+    type:'retail',
+    address:'713 Center Dr, San Marcos, CA 92069',
+    city:'San Marcos', state:'CA',
+    lat:33.1434, lng:-117.1661,
+    certs:['single']
+  },
 
-  /* ============== Render helpers ============== */
-  function chip(cert){
-    const span = document.createElement('span');
-    span.className = 'dealer-chip '+(cert==='single'?'single':'multi');
-    span.textContent = cert==='single' ? 'Single Head Certified' : 'Multi-Head Certified';
-    return span;
-  }
+  // Topps — Florida
+  { id:'topps-boca', name:'Topps Vacuum & Sewing — Boca Raton, FL', website:'https://www.toppsvacuumandsewing.com', phone:'561-672-1709', type:'retail', address:'8177 Glades Rd Ste 7, Boca Raton, FL 33434', city:'Boca Raton', state:'FL', lat:26.3683, lng:-80.1289, certs:['single'] },
+  { id:'topps-brandon', name:'Topps Vacuum & Sewing — Brandon, FL', website:'https://www.toppsvacuumandsewing.com', phone:'813-689-5257', type:'retail', address:'112 E Brandon Blvd, Brandon, FL 33511', city:'Brandon', state:'FL', lat:27.9378, lng:-82.2859, certs:['single'] },
+  { id:'topps-fort-myers', name:'Topps Vacuum & Sewing — Fort Myers, FL', website:'https://www.toppsvacuumandsewing.com', phone:'239-936-3231', type:'retail', address:'12135 S Cleveland Ave, Fort Myers, FL 33907', city:'Fort Myers', state:'FL', lat:26.6406, lng:-81.8723, certs:['single'] },
+  { id:'topps-lakewood', name:'Topps Vacuum & Sewing — Lakewood Ranch (Bradenton), FL', website:'https://www.toppsvacuumandsewing.com', phone:'941-251-5226', type:'retail', address:'7212 55th Ave E, Bradenton, FL 34203', city:'Bradenton', state:'FL', lat:27.4342, lng:-82.4593, certs:['single'] },
+  { id:'topps-largo', name:'Topps Vacuum & Sewing — Largo, FL', website:'https://www.toppsvacuumandsewing.com', phone:'727-585-6676', type:'retail', address:'12495 Seminole Blvd, Largo, FL 33778', city:'Largo', state:'FL', lat:27.9095, lng:-82.7873, certs:['single'] },
+  { id:'topps-naples', name:'Topps Vacuum & Sewing — Naples, FL', website:'https://www.toppsvacuumandsewing.com', phone:'239-591-4422', type:'retail', address:'5367 Airport Pulling Rd N, Naples, FL 34109', city:'Naples', state:'FL', lat:26.1420, lng:-81.7948, certs:['single'] },
+  { id:'topps-palm-harbor', name:'Topps Vacuum & Sewing — Palm Harbor, FL', website:'https://www.toppsvacuumandsewing.com', phone:'727-787-7043', type:'retail', address:'#215, 3327 Tampa Rd, Palm Harbor, FL 34684', city:'Palm Harbor', state:'FL', lat:28.0781, lng:-82.7637, certs:['single'] },
+  { id:'topps-pembroke', name:'Topps Vacuum & Sewing — Pembroke Pines, FL', website:'https://www.toppsvacuumandsewing.com', phone:'954-431-3552', type:'retail', address:'10826 Pines Blvd, Pembroke Pines, FL 33026', city:'Pembroke Pines', state:'FL', lat:26.0032, lng:-80.2239, certs:['single'] },
+  { id:'topps-port-charlotte', name:'Topps Vacuum & Sewing — Port Charlotte, FL', website:'https://www.toppsvacuumandsewing.com', phone:'941-766-7118', type:'retail', address:'3846 Tamiami Trail, Port Charlotte, FL 33952', city:'Port Charlotte', state:'FL', lat:26.9762, lng:-82.0906, certs:['single'] },
+  { id:'topps-sarasota', name:'Topps Vacuum & Sewing — Sarasota, FL', website:'https://www.toppsvacuumandsewing.com', phone:'941-926-2699', type:'retail', address:'2120 Bee Ridge Road, Sarasota, FL 34239', city:'Sarasota', state:'FL', lat:27.3364, lng:-82.5307, certs:['single'] },
+  { id:'topps-tampa', name:'Topps Vacuum & Sewing — Tampa, FL', website:'https://www.toppsvacuumandsewing.com', phone:'813-963-6732', type:'retail', address:'14922 Dale Mabry Hwy #6, Tampa, FL 33618', city:'Tampa', state:'FL', lat:28.0887, lng:-82.4946, certs:['single'] },
 
-  function vcfFor(d){
-    const lines = [
-      'BEGIN:VCARD','VERSION:3.0',
-      `FN:${d.name}`,
-      d.phone ? `TEL;TYPE=WORK,VOICE:${d.phone}` : '',
-      d.website ? `URL:${d.website}` : '',
-      d.address ? `ADR;TYPE=WORK:;;${d.address.replace(/,/g,'\\,')};;;;` : '',
-      'END:VCARD'
-    ].filter(Boolean).join('\n');
-    return 'data:text/vcard;charset=utf-8,'+encodeURIComponent(lines);
-  }
+  // Topps — Texas
+  { id:'topps-plano', name:'Topps Vacuum & Sewing — Plano, TX', website:'https://www.toppsvacuumandsewing.com', phone:'214-440-2207', type:'retail', address:'700 Alma Dr #106, Plano, TX 75075', city:'Plano', state:'TX', lat:33.0198, lng:-96.6989, certs:['single'] },
+  { id:'topps-houston', name:'Topps Vacuum & Sewing — Houston, TX', website:'https://www.toppsvacuumandsewing.com', phone:'713-814-5121', type:'retail', address:'3727 Westheimer Rd, Houston, TX 77027', city:'Houston', state:'TX', lat:29.7420, lng:-95.4550, certs:['single'] },
+];
 
-  function distanceMiles(a,b){
-    if(!a || !b) return Infinity;
-    const toRad = x => x*Math.PI/180;
-    const R = 3958.8; // miles
-    const dLat = toRad(b.lat-a.lat), dLng = toRad(b.lng-a.lng);
-    const lat1 = toRad(a.lat), lat2 = toRad(b.lat);
-    const h = Math.sin(dLat/2)**2 + Math.cos(lat1)*Math.cos(lat2)*Math.sin(dLng/2)**2;
-    return R*2*Math.asin(Math.sqrt(h));
-  }
+const q = document.getElementById('dealerSearch');
+const t = document.getElementById('dealerType');
+const c = document.getElementById('dealerCert');
+const s = document.getElementById('dealerSort');
+const groupsHost = document.getElementById('dealerGroups');
+const countEl = document.getElementById('dealerCount');
+const clearBtn = document.getElementById('dealerClear');
+const locBtn = document.getElementById('useLocation');
+const mapBtn = document.getElementById('toggleMap');
+const mapPane = document.getElementById('mapPane');
 
-  function card(d){
-    const div = document.createElement('div');
-    div.className = 'dealer-item';
-    div.dataset.id = d.id;
-    div.dataset.type = d.type;
-    div.dataset.search = [d.name, d.website, d.phone, d.address].filter(Boolean).join(' ').toLowerCase();
-    div.dataset.cert = (d.certs||[]).join(' ');
-    const headBadge = d.type==='online' ? ' <span class="badge-online">Online</span>' : '';
-    div.innerHTML = `
-      <h3>${d.name}${headBadge}</h3>
+let userPos = null;
+let map, markerLayer;
+
+/* Helpers */
+const hasGeo = d => typeof d.lat === 'number' && typeof d.lng === 'number';
+const km = m => (m/1000).toFixed(1);
+function haversine(a, b) {
+  const toRad = v => v*Math.PI/180, R=6371000;
+  const dLat = toRad(b.lat-a.lat), dLng = toRad(b.lng-a.lng);
+  const lat1 = toRad(a.lat), lat2 = toRad(b.lat);
+  const h = Math.sin(dLat/2)**2 + Math.cos(lat1)*Math.cos(lat2)*Math.sin(dLng/2)**2;
+  return 2*R*Math.asin(Math.sqrt(h));
+}
+
+/* Render a single dealer card */
+function card(d){
+  const certTags = (d.certs||[]).map(cc => `<span class="dealer-chip ${cc==='single'?'single':'multi'}">${cc==='single'?'Single Head':'Multi-Head'} Certified</span>`).join(' ');
+  const typeTag = d.type==='online' ? `<span class="badge-online">Online</span>` : `<span class="badge-online">Retail</span>`;
+  const addr = d.address ? `<div>${d.address}</div>` : '';
+  const cityst = (d.city||d.state) ? `<div>${[d.city,d.state].filter(Boolean).join(', ')}</div>` : '';
+  const dist = (userPos && hasGeo(d)) ? `<span class="dealer-chip">~${km(haversine(userPos, d))} km</span>` : '';
+  return `
+    <div class="dealer-item" data-type="${d.type}" data-cert="${(d.certs||[]).join(' ')}" data-search="${(d.name+' '+(d.address||'')+' '+(d.city||'')+' '+(d.state||'')+' '+(d.phone||'')).toLowerCase()}">
+      <h3>${d.name}</h3>
       <div class="dealer-meta">
-        ${d.website ? `<a href="${d.website}" target="_blank" rel="noopener">${d.website.replace(/^https?:\/\//,'')}</a>`:''}
-        ${d.phone ? `• <span>Call: <a href="tel:${d.phone}">${d.phone}</a></span>`:''}
-        ${d.address ? `• <span>${d.address}</span>`:''}
-        ${d.distance ? `• <strong>${d.distance.toFixed(1)} mi</strong>`:''}
+        ${typeTag}
+        ${d.state ? `<span class="dealer-chip">${d.state}</span>`:''}
+        ${certTags}
+        ${dist}
+      </div>
+      <div class="p-muted" style="margin-top:6px">
+        ${addr || cityst}
+        ${d.phone ? `<div>☎ ${d.phone}</div>`:''}
       </div>
       <div class="dealer-actions">
-        ${d.phone ? `<a class="btn btn-outline" href="tel:${d.phone}">📞 Call</a>`:''}
-        ${d.website ? `<a class="btn btn-outline" target="_blank" rel="noopener" href="${d.website}">🌐 Website</a>`:''}
-        ${d.address ? `<a class="btn btn-outline" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(d.address)}">🧭 Directions</a>`:''}
-        <a class="btn btn-outline" download="${d.name.replace(/\s+/g,'_')}.vcf" href="${vcfFor(d)}">💾 Save vCard</a>
+        ${d.website ? `<a class="btn btn-outline" href="${d.website}" target="_blank" rel="noopener">Website</a>`:''}
+        ${d.phone ? `<a class="btn btn-primary" href="tel:${d.phone}">Call ${d.phone}</a>`:''}
+        ${hasGeo(d) ? `<a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(d.name+' '+(d.address||''))}" target="_blank" rel="noopener">Open in Maps</a>`:''}
       </div>
-    `;
-    // cert chips under title
-    if(d.certs && d.certs.length){
-      const wrap = document.createElement('div');
-      d.certs.forEach(cs => wrap.appendChild(chip(cs)));
-      div.querySelector('h3').insertAdjacentElement('afterend', wrap);
-    }
-    // hover sync with map
-    div.addEventListener('mouseenter', ()=> highlightMarker(d.id, true));
-    div.addEventListener('mouseleave', ()=> highlightMarker(d.id, false));
-    return div;
-  }
+    </div>
+  `;
+}
 
-  function groupAndRender(list){
-    groupsHost.innerHTML = '';
-    const online = list.filter(x=>x.type==='online');
-    const retail = list.filter(x=>x.type==='retail');
-
-    if(online.length){
-      const h = document.createElement('div'); h.className='group-head'; h.textContent='Online Dealers';
-      groupsHost.appendChild(h);
-      online.forEach(d => groupsHost.appendChild(card(d)));
-    }
-    if(retail.length){
-      const h = document.createElement('div'); h.className='group-head'; h.textContent='Retail Stores';
-      groupsHost.appendChild(h);
-      retail.forEach(d => groupsHost.appendChild(card(d)));
-    }
-    if(!online.length && !retail.length){
-      const empty = document.createElement('div');
-      empty.className='empty-state';
-      empty.textContent = 'No dealers match your filters. Clear filters or try a different search.';
-      groupsHost.appendChild(empty);
-    }
-    countEl.textContent = list.length;
-  }
-
-  /* ============== Filtering/Sorting ============== */
-  function filtered(){
-    const qv = (q.value||'').toLowerCase();
-    const tv = t.value;
-    const cv = c.value;
-    let list = dealers.map(d => ({...d}));
-    // compute distance for retail when we have user location
-    if(userPos){
-      list = list.map(d => d.type==='retail' && d.lat ? ({...d, distance: distanceMiles(userPos, {lat:d.lat,lng:d.lng})}) : d);
-    }
-    // filters
-    list = list.filter(d => {
-      const text = (d.name+' '+(d.website||'')+' '+(d.phone||'')+' '+(d.address||'')).toLowerCase();
-      const qOk = !qv || text.includes(qv);
-      const tOk = !tv || d.type===tv;
-      const cOk = !cv || (d.certs||[]).includes(cv);
-      return qOk && tOk && cOk;
-    });
-    // sort
-    const sort = s.value || 'alpha';
-    if(sort==='nearest'){
-      // put retail with distance first; then others
-      const withDist = list.filter(d => d.type==='retail' && typeof d.distance==='number').sort((a,b)=>a.distance-b.distance);
-      const noDist = list.filter(d => !(d.type==='retail' && typeof d.distance==='number'));
-      list = [...withDist, ...noDist];
-    }else{
-      list.sort((a,b)=> a.name.localeCompare(b.name));
-    }
-    return list;
-  }
-
-  function apply(){
-    groupAndRender(filtered());
-    plotMap(filtered());
-  }
-
-  /* ============== Map ============== */
-  function ensureMap(){
-    if(map) return;
-    map = L.map('dealerMap');
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-      attribution:'© OpenStreetMap'
-    }).addTo(map);
-    map.setView([37.5,-96], 4); // USA-ish
-  }
-
-  function plotMap(list){
-    if(!map || mapPane.classList.contains('map-hidden')) return;
-    // clear
-    markers.forEach(m => m.remove());
-    markers = [];
-
-    const retail = list.filter(d=>d.type==='retail' && d.lat && d.lng);
-    if(!retail.length){
-      map.setView([37.5,-96], 4);
-      return;
-    }
-    const group = [];
-    retail.forEach(d=>{
-      const m = L.marker([d.lat,d.lng]).addTo(map).bindPopup(`<strong>${d.name}</strong><br>${d.address || ''}<br>${d.phone ? `<a href="tel:${d.phone}">${d.phone}</a>`:''}`);
-      m.on('mouseover', ()=> highlightCard(d.id));
-      markers.push({ id:d.id, marker:m });
-      group.push([d.lat,d.lng]);
-    });
-    if(group.length===1){
-      map.setView(group[0], 12);
-    }else{
-      const bounds = L.latLngBounds(group);
-      map.fitBounds(bounds.pad(0.2));
-    }
-    // user marker
-    if(userPos){
-      const u = L.circleMarker([userPos.lat,userPos.lng],{radius:6}).addTo(map).bindPopup('You');
-      markers.push({ id:'__user', marker:u });
-    }
-  }
-
-  function highlightMarker(id, on){
-    const mm = markers.find(m => m.id===id);
-    if(mm){
-      mm.marker.setZIndexOffset(on ? 1000 : 0);
-      if(on) mm.marker.openPopup();
-    }
-  }
-  function highlightCard(id){
-    const el = groupsHost.querySelector(`[data-id="${id}"]`);
-    if(!el) return;
-    el.classList.add('ring');
-    setTimeout(()=> el.classList.remove('ring'), 400);
-  }
-
-  /* ============== Events ============== */
-  [q,t,c,s].forEach(el => el.addEventListener('input', apply));
-  clearBtn.addEventListener('click', ()=>{ q.value=''; t.value=''; c.value=''; s.value='alpha'; apply(); });
-
-  mapBtn.addEventListener('click', ()=>{
-    const showing = !mapPane.classList.contains('map-hidden');
-    if(showing){
-      mapPane.classList.add('map-hidden');
-      mapPane.setAttribute('aria-hidden','true');
-      mapBtn.setAttribute('aria-pressed','false');
-      mapBtn.textContent = '🗺️ Show Map';
-    }else{
-      mapPane.classList.remove('map-hidden');
-      mapPane.removeAttribute('aria-hidden');
-      mapBtn.setAttribute('aria-pressed','true');
-      mapBtn.textContent = '🗺️ Hide Map';
-      ensureMap();
-      plotMap(filtered());
-    }
+/* Filtering + sorting */
+function currentFiltered(){
+  const qv = (q.value||'').toLowerCase();
+  const tv = t.value;
+  const cv = c.value;
+  let list = dealers.filter(d => {
+    const typeOk = !tv || d.type===tv;
+    const certOk = !cv || (d.certs||[]).includes(cv);
+    const qOk = !qv || (d.name+' '+(d.address||'')+' '+(d.city||'')+' '+(d.state||'')+' '+(d.phone||'')).toLowerCase().includes(qv);
+    return typeOk && certOk && qOk;
   });
 
-  locBtn.addEventListener('click', ()=>{
-    if(!navigator.geolocation){ alert('Geolocation not available in this browser.'); return; }
-    locBtn.disabled = true;
-    navigator.geolocation.getCurrentPosition(pos=>{
-      userPos = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-      s.value = 'nearest';
-      apply();
-      if(map && !mapPane.classList.contains('map-hidden')) plotMap(filtered());
-      locBtn.disabled = false;
-    }, err=>{
-      alert('Could not get your location.');
-      locBtn.disabled = false;
-    }, { enableHighAccuracy:true, timeout:10000, maximumAge:60000 });
+  // sort
+  const sv = s.value;
+  if (sv==='alpha') {
+    list.sort((a,b)=> a.name.localeCompare(b.name));
+  } else if (sv==='nearest' && userPos) {
+    list.sort((a,b)=>{
+      const da = hasGeo(a) ? haversine(userPos,a) : Infinity;
+      const db = hasGeo(b) ? haversine(userPos,b) : Infinity;
+      return da - db;
+    });
+  } else {
+    // default alpha
+    list.sort((a,b)=> a.name.localeCompare(b.name));
+  }
+  return list;
+}
+
+/* Render list + count */
+function renderList(){
+  const list = currentFiltered();
+  countEl.textContent = list.length;
+  if (!list.length){
+    groupsHost.innerHTML = `<div class="empty-state">No dealers match your filters.</div>`;
+  } else {
+    groupsHost.innerHTML = list.map(card).join('');
+  }
+  updateMap(list);
+}
+
+/* Map setup */
+function ensureMap(){
+  if (map) return;
+  map = L.map('dealerMap', { zoomControl:true, minZoom:3 }).setView([39.5,-98.35], 4);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19, attribution: '&copy; OpenStreetMap'
+  }).addTo(map);
+  markerLayer = L.layerGroup().addTo(map);
+}
+
+function updateMap(list){
+  if (!mapPane || mapPane.classList.contains('map-hidden')) return;
+  ensureMap();
+  markerLayer.clearLayers();
+
+  const pts = list.filter(hasGeo);
+  const markers = pts.map(d => {
+    const m = L.marker([d.lat, d.lng]).bindPopup(
+      `<strong>${d.name}</strong><br>${d.address ? d.address+'<br>':''}${[d.city,d.state].filter(Boolean).join(', ')}${d.phone ? `<br><a href="tel:${d.phone}">${d.phone}</a>`:''}`
+    );
+    m.addTo(markerLayer);
+    return m;
   });
 
-  // init
-  apply();
-})();
+  // user location indicator
+  if (userPos){
+    L.circleMarker([userPos.lat,userPos.lng], { radius:6, weight:2 }).addTo(markerLayer).bindPopup('You');
+  }
+
+  if (markers.length){
+    const group = L.featureGroup(markers);
+    map.fitBounds(group.getBounds().pad(0.2));
+  } else {
+    map.setView([39.5,-98.35], 4);
+  }
+}
+
+/* Geolocation */
+function isSecure(){ return location.protocol==='https:' || location.hostname==='localhost'; }
+locBtn?.addEventListener('click', ()=>{
+  if (!isSecure()){ alert('Geolocation requires HTTPS (or localhost).'); return; }
+  if (!('geolocation' in navigator)){ alert('Geolocation is not available in this browser.'); return; }
+  navigator.geolocation.getCurrentPosition(
+    pos => { userPos = { lat:pos.coords.latitude, lng:pos.coords.longitude }; s.value='nearest'; renderList(); },
+    err => {
+      const reason = ({1:'Permission denied',2:'Position unavailable',3:'Timeout'})[err.code] || 'Unknown error';
+      alert(`Could not get your location (${reason}). If you denied the prompt, allow location access and try again.`);
+    },
+    { enableHighAccuracy:true, timeout:10000, maximumAge:60000 }
+  );
+});
+
+/* Map toggle */
+mapBtn?.addEventListener('click', ()=>{
+  const on = mapPane.classList.toggle('map-hidden');
+  mapPane.setAttribute('aria-hidden', on ? 'true':'false');
+  mapBtn.setAttribute('aria-pressed', (!on).toString());
+  mapBtn.textContent = on ? '🗺️ Show Map' : '🗺️ Hide Map';
+  if (!on){
+    setTimeout(()=>{
+      ensureMap(); map.invalidateSize(); updateMap(currentFiltered());
+    },0);
+  }
+});
+
+/* Filters */
+[q,t,c,s].forEach(el => el?.addEventListener('input', renderList));
+clearBtn?.addEventListener('click', ()=>{
+  q.value=''; t.value=''; c.value=''; s.value='alpha'; userPos=null; renderList();
+});
+
+/* Init */
+renderList();
 </script>
 
-</script>
 </body>
 </html>
+
 
 
 
