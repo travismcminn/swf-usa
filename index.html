@@ -234,6 +234,43 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 .input{appearance:none;border:1px solid var(--line);background:#fff;border-radius:12px;padding:.7rem 1rem;font:inherit}
 .select{appearance:none;border:1px solid var(--line);background:#fff;border-radius:12px;padding:.7rem 2.2rem .7rem 1rem;font:inherit}
 .tagline{color:var(--muted);text-align:center;margin:6px 0 0}
+  /* ===== Dealer Locator upgrades ===== */
+.locator-head{display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:10px}
+.locator-row{display:flex;flex-wrap:wrap;gap:8px}
+.locator-row .field{display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;border-radius:12px;padding:.5rem .6rem}
+.locator-row input[type="text"]{border:0;outline:0;background:transparent;font:inherit;min-width:220px}
+.locator-row select{border:0;outline:0;background:transparent;font:inherit}
+.locator-row .btn{padding:.55rem .8rem;border-radius:10px}
+.locator-actions{display:flex;gap:8px;flex-wrap:wrap}
+.resultbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:4px 0 12px}
+.resultbar small{color:var(--muted)}
+.btn-clear{background:#fff;border:1px solid var(--line);border-radius:10px;padding:.45rem .7rem;font-weight:700;cursor:pointer}
+
+.dealer-grid{display:grid;gap:12px}
+.dealer-item{border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px;box-shadow:0 6px 18px rgba(2,6,23,.06)}
+.dealer-item h3{margin:0 0 4px;font-size:18px}
+.dealer-meta{display:flex;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:14px}
+.dealer-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.dealer-chip{display:inline-flex;gap:.4rem;align-items:center;border:1px solid var(--line);border-radius:999px;padding:.25rem .55rem;font-weight:700;font-size:.78rem;background:#fff}
+.dealer-chip.single{background:#eefcf5;border-color:#d1fae5}
+.dealer-chip.multi{background:#eef2ff;border-color:#e0e7ff}
+.group-head{font-weight:800;letter-spacing:.02em;margin:12px 0 8px;color:#475569}
+.empty-state{border:1px dashed var(--line);border-radius:14px;padding:18px;text-align:center;color:var(--muted)}
+.badge-online{background:#f1f5f9;border:1px solid #e2e8f0;border-radius:8px;padding:.2rem .45rem;font-size:.72rem;font-weight:800}
+
+/* Map pane */
+.mapwrap{border:1px solid var(--line);background:#fff;border-radius:14px;overflow:hidden}
+#dealerMap{height:420px;width:100%}
+.map-hidden{display:none}
+
+/* Sticky on mobile */
+@media (max-width:760px){
+  .locator-head{position:sticky;top:56px;background:#fff;z-index:10;padding:10px 0;border-bottom:1px solid var(--line)}
+}
+
+/* Small buttons inside cards */
+.dealer-actions .btn{padding:.5rem .7rem;border-radius:10px;font-weight:700}
+
 </style>
 </head>
 <body>
