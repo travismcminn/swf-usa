@@ -1306,13 +1306,236 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 </section>
 
 
-  <!-- DEALER LOCATOR CTA -->
-  <section id="locator" class="section" style="padding:40px 0">
-    <div class="container" style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
-      <a class="btn btn-primary" href="/dealers/">Find a Dealer</a>
-      <a class="btn btn-outline" href="#contact">Contact Us</a>
+<!-- ===== DEALER LOCATOR ===== -->
+<section id="locator" class="section">
+  <div class="container">
+    <h2 class="h2">Find a Dealer</h2>
+    <p class="p-muted" style="margin:0 0 14px">
+      Search by state or find the closest dealer to your current location.
+    </p>
+
+    <!-- Controls -->
+    <div class="hcard" style="grid-template-columns:1fr">
+      <div class="body">
+        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end">
+          <label style="display:grid; gap:6px">
+            <span class="p-muted" style="font-size:13px">State</span>
+            <select id="dlrState" style="padding:.6rem .7rem; border:1px solid var(--line); border-radius:10px; min-width:180px">
+              <option value="">All states</option>
+              <!-- states auto-populated by JS -->
+            </select>
+          </label>
+
+          <label style="display:grid; gap:6px">
+            <span class="p-muted" style="font-size:13px">Radius (near me)</span>
+            <select id="dlrRadius" style="padding:.6rem .7rem; border:1px solid var(--line); border-radius:10px; min-width:160px">
+              <option value="">—</option>
+              <option value="25">25 mi</option>
+              <option value="50">50 mi</option>
+              <option value="100">100 mi</option>
+              <option value="200">200 mi</option>
+            </select>
+          </label>
+
+          <button id="dlrUseLocation" class="btn btn-outline">📍 Use my location</button>
+          <button id="dlrClear" class="btn btn-outline">Reset</button>
+        </div>
+
+        <div id="dlrStatus" class="p-muted" style="margin:10px 0 0; font-size:.95rem"></div>
+      </div>
     </div>
-  </section>
+
+    <!-- Results -->
+    <div id="dlrResults" class="hcards" style="margin-top:14px"></div>
+  </div>
+</section>
+
+<script>
+/* ====== Dealer data (populate this) ======
+   Tip: move this into /dealers.json and fetch if you prefer.
+   lat/lng enables distance sorting without external geocoding.
+*/
+const DEALERS = [
+  // SAMPLE ROWS — replace with real data
+  {
+    id: "d001",
+    name: "Example Embroidery Supply",
+    address: "123 Main St",
+    city: "Dallas",
+    state: "TX",
+    zip: "75201",
+    lat: 32.7767, lng: -96.7970,
+    phone: "214-555-0101",
+    email: "sales@example.com",
+    services: ["Sales","Install","Training","Service"]
+  },
+  {
+    id: "d002",
+    name: "Northern Stitch Group",
+    address: "456 Lake Ave",
+    city: "Minneapolis",
+    state: "MN",
+    zip: "55401",
+    lat: 44.9867, lng: -93.2581,
+    phone: "612-555-0119",
+    email: "info@northernstitch.com",
+    services: ["Sales","Service"]
+  },
+  // ...add as many as you need
+];
+
+/* ====== UI Elements ====== */
+const stateSel = document.getElementById('dlrState');
+const radiusSel = document.getElementById('dlrRadius');
+const useLocBtn = document.getElementById('dlrUseLocation');
+const clearBtn = document.getElementById('dlrClear');
+const resultsEl = document.getElementById('dlrResults');
+const statusEl = document.getElementById('dlrStatus');
+
+let userLoc = null; // {lat, lng}
+
+/* ====== Helpers ====== */
+function uniqStates(list){
+  return Array.from(new Set(list.map(d => d.state))).sort();
+}
+function kmToMiles(km){ return km * 0.621371; }
+function haversine(a, b){
+  const toRad = d => d * Math.PI / 180;
+  const R = 6371; // km
+  const dLat = toRad(b.lat - a.lat);
+  const dLng = toRad(b.lng - a.lng);
+  const lat1 = toRad(a.lat);
+  const lat2 = toRad(b.lat);
+  const s = Math.sin(dLat/2)**2 + Math.cos(lat1)*Math.cos(lat2)*Math.sin(dLng/2)**2;
+  return 2 * R * Math.asin(Math.sqrt(s)); // km
+}
+function fmtMiles(m){ return `${Math.round(m)} mi`; }
+
+/* ====== Render ====== */
+function render(list){
+  resultsEl.innerHTML = '';
+  if(!list.length){
+    resultsEl.innerHTML = `<div class="hcard" style="grid-template-columns:1fr"><div class="body">
+      <p class="p-muted" style="margin:0">No dealers match your filters.</p></div></div>`;
+    return;
+  }
+
+  list.forEach(d => {
+    const distance = (typeof d._distanceMi === 'number') ? ` • ${fmtMiles(d._distanceMi)}` : '';
+    const dirUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(d.address + ', ' + d.city + ', ' + d.state + ' ' + d.zip)}&destination_place_id=&travelmode=driving`;
+    const callHref = d.phone ? `tel:${d.phone.replace(/[^0-9+]/g,'')}` : '#';
+    const emailHref = d.email ? `mailto:${d.email}` : '#';
+
+    const card = document.createElement('article');
+    card.className = 'hcard';
+    card.style.gridTemplateColumns = '1fr';
+    card.innerHTML = `
+      <div class="body">
+        <div class="meta">
+          <span class="pill">${d.state}</span>
+          ${d.services?.length ? `<span class="pill" style="background:#eef2ff;border-color:#e0e7ff;color:#3730a3">${d.services.join(' • ')}</span>` : ''}
+          ${distance ? `<span class="pill" style="background:#e7faf3;border-color:#c7f0e3;color:#065f46">${distance.replace(' • ','')}</span>` : ''}
+        </div>
+        <h3 class="h3" style="margin-top:6px">${d.name}</h3>
+        <p class="p-muted" style="margin:6px 0 10px">
+          ${d.address}, ${d.city}, ${d.state} ${d.zip}
+        </p>
+        <div class="cta-row">
+          ${d.phone ? `<a class="btn btn-outline" href="${callHref}">📞 Call</a>` : ''}
+          ${d.email ? `<a class="btn btn-outline" href="${emailHref}">✉️ Email</a>` : ''}
+          <a class="btn btn-primary" href="${dirUrl}" target="_blank" rel="noopener">🗺️ Directions</a>
+        </div>
+      </div>`;
+    resultsEl.appendChild(card);
+  });
+}
+
+/* ====== Filter & Sort ====== */
+function applyFilters(){
+  const state = stateSel.value;
+  const radius = Number(radiusSel.value || 0);
+
+  let list = DEALERS.slice();
+
+  if(state){
+    list = list.filter(d => d.state === state);
+  }
+
+  // compute distances if we have user location
+  if(userLoc){
+    list.forEach(d => {
+      if(typeof d.lat === 'number' && typeof d.lng === 'number'){
+        d._distanceMi = kmToMiles(haversine(userLoc, {lat:d.lat, lng:d.lng}));
+      } else {
+        d._distanceMi = Infinity;
+      }
+    });
+    // radius filter (if selected)
+    if(radius){
+      list = list.filter(d => d._distanceMi <= radius);
+    }
+    // sort by distance then name
+    list.sort((a,b) => (a._distanceMi||Infinity) - (b._distanceMi||Infinity) || a.name.localeCompare(b.name));
+  } else {
+    // no location: sort by state then name
+    list.sort((a,b) => (a.state||'').localeCompare(b.state||'') || a.name.localeCompare(b.name));
+  }
+
+  // status line
+  const parts = [];
+  if(state) parts.push(state);
+  if(userLoc) parts.push('near you');
+  if(radius) parts.push(`within ${radius} mi`);
+  statusEl.textContent = parts.length ? `Filtering: ${parts.join(' • ')}` : '';
+
+  render(list);
+}
+
+/* ====== Init ====== */
+(function initDealerLocator(){
+  // populate state dropdown
+  const states = uniqStates(DEALERS);
+  states.forEach(s => {
+    const opt = document.createElement('option');
+    opt.value = s; opt.textContent = s;
+    stateSel.appendChild(opt);
+  });
+
+  // event listeners
+  stateSel.addEventListener('change', applyFilters);
+  radiusSel.addEventListener('change', applyFilters);
+  clearBtn.addEventListener('click', () => {
+    stateSel.value = '';
+    radiusSel.value = '';
+    userLoc = null;
+    statusEl.textContent = '';
+    applyFilters();
+  });
+
+  useLocBtn.addEventListener('click', () => {
+    if(!navigator.geolocation){
+      statusEl.textContent = "Geolocation is not supported by your browser.";
+      return;
+    }
+    statusEl.textContent = "Getting your location…";
+    navigator.geolocation.getCurrentPosition(
+      pos => {
+        userLoc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+        statusEl.textContent = "Location set.";
+        applyFilters();
+      },
+      err => {
+        statusEl.textContent = "Couldn’t get your location (permission denied or unavailable).";
+      },
+      { enableHighAccuracy:true, timeout:10000, maximumAge:0 }
+    );
+  });
+
+  // first render
+  applyFilters();
+})();
+</script>
+
 
   <!-- Contact -->
   <section id="contact" class="section">
