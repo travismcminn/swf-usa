@@ -1657,12 +1657,15 @@ let map, markerLayer;
 /* Helpers */
 const hasGeo = d => typeof d.lat === 'number' && typeof d.lng === 'number';
 const miles = m => (m / 1609.344).toFixed(1); // meters → miles
-function haversine(a, b) { /* returns meters */ ... }
-  const toRad = v => v*Math.PI/180, R=6371000;
-  const dLat = toRad(b.lat-a.lat), dLng = toRad(b.lng-a.lng);
-  const lat1 = toRad(a.lat), lat2 = toRad(b.lat);
+function haversine(a, b) {           // returns meters
+  const toRad = v => v * Math.PI / 180;
+  const R = 6371000;
+  const dLat = toRad(b.lat - a.lat);
+  const dLng = toRad(b.lng - a.lng);
+  const lat1 = toRad(a.lat);
+  const lat2 = toRad(b.lat);
   const h = Math.sin(dLat/2)**2 + Math.cos(lat1)*Math.cos(lat2)*Math.sin(dLng/2)**2;
-  return 2*R*Math.asin(Math.sqrt(h));
+  return 2 * R * Math.asin(Math.sqrt(h));
 }
 
 /* Render a single dealer card */
@@ -1672,6 +1675,7 @@ function card(d){
   const addr = d.address ? `<div>${d.address}</div>` : '';
   const cityst = (d.city||d.state) ? `<div>${[d.city,d.state].filter(Boolean).join(', ')}</div>` : '';
   const dist = (userPos && hasGeo(d)) ? `<span class="dealer-chip">~${miles(haversine(userPos, d))} mi</span>` : '';
+  const mapsQuery = encodeURIComponent(`${d.name} ${d.address||[d.city,d.state].filter(Boolean).join(', ')}`);
   return `
     <div class="dealer-item" data-type="${d.type}" data-cert="${(d.certs||[]).join(' ')}" data-search="${(d.name+' '+(d.address||'')+' '+(d.city||'')+' '+(d.state||'')+' '+(d.phone||'')).toLowerCase()}">
       <h3>${d.name}</h3>
@@ -1688,7 +1692,7 @@ function card(d){
       <div class="dealer-actions">
         ${d.website ? `<a class="btn btn-outline" href="${d.website}" target="_blank" rel="noopener">Website</a>`:''}
         ${d.phone ? `<a class="btn btn-primary" href="tel:${d.phone}">Call ${d.phone}</a>`:''}
-        ${hasGeo(d) ? `<a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(d.name+' '+(d.address||''))}" target="_blank" rel="noopener">Open in Maps</a>`:''}
+        ${hasGeo(d) ? `<a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&query=${mapsQuery}" target="_blank" rel="noopener">Open in Maps</a>`:''}
       </div>
     </div>
   `;
@@ -1702,11 +1706,11 @@ function currentFiltered(){
   let list = dealers.filter(d => {
     const typeOk = !tv || d.type===tv;
     const certOk = !cv || (d.certs||[]).includes(cv);
-    const target = (d.name+' '+(d.address||'')+' '+(d.city||'')+' '+(d.state||'')+' '+(d.phone||'')).toLowerCase();
-    const qOk = !qv || target.includes(qv);
+    const qOk = !qv || (d.name+' '+(d.address||'')+' '+(d.city||'')+' '+(d.state||'')+' '+(d.phone||'')).toLowerCase().includes(qv);
     return typeOk && certOk && qOk;
   });
 
+  // sort
   const sv = s.value;
   if (sv==='alpha') {
     list.sort((a,b)=> a.name.localeCompare(b.name));
@@ -1785,20 +1789,18 @@ locBtn?.addEventListener('click', ()=>{
 
 /* Map toggle */
 mapBtn?.addEventListener('click', ()=>{
-  const nowHidden = mapPane.classList.toggle('map-hidden');
-  mapPane.setAttribute('aria-hidden', nowHidden ? 'true':'false');
-  mapBtn.setAttribute('aria-pressed', (!nowHidden).toString());
-  mapBtn.textContent = nowHidden ? '🗺️ Show Map' : '🗺️ Hide Map';
-  if (!nowHidden){
-    setTimeout(()=>{ ensureMap(); map.invalidateSize(); updateMap(currentFiltered()); }, 0);
+  const on = mapPane.classList.toggle('map-hidden');
+  mapPane.setAttribute('aria-hidden', on ? 'true':'false');
+  mapBtn.setAttribute('aria-pressed', (!on).toString());
+  mapBtn.textContent = on ? '🗺️ Show Map' : '🗺️ Hide Map';
+  if (!on){
+    setTimeout(()=>{ ensureMap(); map.invalidateSize(); updateMap(currentFiltered()); },0);
   }
 });
 
 /* Filters */
 [q,t,c,s].forEach(el => el?.addEventListener('input', renderList));
-clearBtn?.addEventListener('click', ()=>{
-  q.value=''; t.value=''; c.value=''; s.value='alpha'; userPos=null; renderList();
-});
+clearBtn?.addEventListener('click', ()=>{ q.value=''; t.value=''; c.value=''; s.value='alpha'; userPos=null; renderList(); });
 
 /* Init */
 renderList();
