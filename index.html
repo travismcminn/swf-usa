@@ -1621,22 +1621,35 @@ const dealers = [
     certs:['single']
   },
 
-  /* Topps — Florida */
-  { id:'topps-boca', name:'Topps Vacuum & Sewing — Boca Raton, FL', website:'https://www.toppsvacuumandsewing.com', phone:'561-672-1709', type:'retail', address:'8177 Glades Rd Ste 7, Boca Raton, FL 33434', city:'Boca Raton', state:'FL', lat:26.3683, lng:-80.1289, certs:['single'] },
-  { id:'topps-brandon', name:'Topps Vacuum & Sewing — Brandon, FL', website:'https://www.toppsvacuumandsewing.com', phone:'813-689-5257', type:'retail', address:'112 E Brandon Blvd, Brandon, FL 33511', city:'Brandon', state:'FL', lat:27.9378, lng:-82.2859, certs:['single'] },
-  { id:'topps-fort-myers', name:'Topps Vacuum & Sewing — Fort Myers, FL', website:'https://www.toppsvacuumandsewing.com', phone:'239-936-3231', type:'retail', address:'12135 S Cleveland Ave, Fort Myers, FL 33907', city:'Fort Myers', state:'FL', lat:26.6406, lng:-81.8723, certs:['single'] },
-  { id:'topps-lakewood', name:'Topps Vacuum & Sewing — Lakewood Ranch (Bradenton), FL', website:'https://www.toppsvacuumandsewing.com', phone:'941-251-5226', type:'retail', address:'7212 55th Ave E, Bradenton, FL 34203', city:'Bradenton', state:'FL', lat:27.4342, lng:-82.4593, certs:['single'] },
-  { id:'topps-largo', name:'Topps Vacuum & Sewing — Largo, FL', website:'https://www.toppsvacuumandsewing.com', phone:'727-585-6676', type:'retail', address:'12495 Seminole Blvd, Largo, FL 33778', city:'Largo', state:'FL', lat:27.9095, lng:-82.7873, certs:['single'] },
-  { id:'topps-naples', name:'Topps Vacuum & Sewing — Naples, FL', website:'https://www.toppsvacuumandsewing.com', phone:'239-591-4422', type:'retail', address:'5367 Airport Pulling Rd N, Naples, FL 34109', city:'Naples', state:'FL', lat:26.1420, lng:-81.7948, certs:['single'] },
-  { id:'topps-palm-harbor', name:'Topps Vacuum & Sewing — Palm Harbor, FL', website:'https://www.toppsvacuumandsewing.com', phone:'727-787-7043', type:'retail', address:'#215, 3327 Tampa Rd, Palm Harbor, FL 34684', city:'Palm Harbor', state:'FL', lat:28.0781, lng:-82.7637, certs:['single'] },
-  { id:'topps-pembroke', name:'Topps Vacuum & Sewing — Pembroke Pines, FL', website:'https://www.toppsvacuumandsewing.com', phone:'954-431-3552', type:'retail', address:'10826 Pines Blvd, Pembroke Pines, FL 33026', city:'Pembroke Pines', state:'FL', lat:26.0032, lng:-80.2239, certs:['single'] },
-  { id:'topps-port-charlotte', name:'Topps Vacuum & Sewing — Port Charlotte, FL', website:'https://www.toppsvacuumandsewing.com', phone:'941-766-7118', type:'retail', address:'3846 Tamiami Trail, Port Charlotte, FL 33952', city:'Port Charlotte', state:'FL', lat:26.9762, lng:-82.0906, certs:['single'] },
-  { id:'topps-sarasota', name:'Topps Vacuum & Sewing — Sarasota, FL', website:'https://www.toppsvacuumandsewing.com', phone:'941-926-2699', type:'retail', address:'2120 Bee Ridge Road, Sarasota, FL 34239', city:'Sarasota', state:'FL', lat:27.3364, lng:-82.5307, certs:['single'] },
-  { id:'topps-tampa', name:'Topps Vacuum & Sewing — Tampa, FL', website:'https://www.toppsvacuumandsewing.com', phone:'813-963-6732', type:'retail', address:'14922 Dale Mabry Hwy #6, Tampa, FL 33618', city:'Tampa', state:'FL', lat:28.0887, lng:-82.4946, certs:['single'] },
+ // ONLINE (with pin)
+{
+  id:'tops-online',
+  name:'Tops Vacuum & Sewing — Online',
+  website:'https://topsvacuumandsewing.com',
+  phone:'800-280-4919',
+  type:'online',
+  certs:['single'],
+  address:'Online dealer (Florida hub)',
+  city:'Tampa', state:'FL',
+  lat:27.9506, lng:-82.4572
+},
 
-  /* Topps — Texas */
-  { id:'topps-plano', name:'Topps Vacuum & Sewing — Plano, TX', website:'https://www.toppsvacuumandsewing.com', phone:'214-440-2207', type:'retail', address:'700 Alma Dr #106, Plano, TX 75075', city:'Plano', state:'TX', lat:33.0198, lng:-96.6989, certs:['single'] },
-  { id:'topps-houston', name:'Topps Vacuum & Sewing — Houston, TX', website:'https://www.toppsvacuumandsewing.com', phone:'713-814-5121', type:'retail', address:'3727 Westheimer Rd, Houston, TX 77027', city:'Houston', state:'TX', lat:29.7420, lng:-95.4550, certs:['single'] },
+/* Tops — Florida */
+{ id:'tops-boca', name:'Tops Vacuum & Sewing — Boca Raton, FL', website:'https://topsvacuumandsewing.com', phone:'561-672-1709', type:'retail', address:'8177 Glades Rd Ste 7, Boca Raton, FL 33434', city:'Boca Raton', state:'FL', lat:26.3683, lng:-80.1289, certs:['single'] },
+{ id:'tops-brandon', name:'Tops Vacuum & Sewing — Brandon, FL', website:'https://topsvacuumandsewing.com', phone:'813-689-5257', type:'retail', address:'112 E Brandon Blvd, Brandon, FL 33511', city:'Brandon', state:'FL', lat:27.9378, lng:-82.2859, certs:['single'] },
+{ id:'tops-fort-myers', name:'Tops Vacuum & Sewing — Fort Myers, FL', website:'https://topsvacuumandsewing.com', phone:'239-936-3231', type:'retail', address:'12135 S Cleveland Ave, Fort Myers, FL 33907', city:'Fort Myers', state:'FL', lat:26.6406, lng:-81.8723, certs:['single'] },
+{ id:'tops-lakewood', name:'Tops Vacuum & Sewing — Lakewood Ranch (Bradenton), FL', website:'https://topsvacuumandsewing.com', phone:'941-251-5226', type:'retail', address:'7212 55th Ave E, Bradenton, FL 34203', city:'Bradenton', state:'FL', lat:27.4342, lng:-82.4593, certs:['single'] },
+{ id:'tops-largo', name:'Tops Vacuum & Sewing — Largo, FL', website:'https://topsvacuumandsewing.com', phone:'727-585-6676', type:'retail', address:'12495 Seminole Blvd, Largo, FL 33778', city:'Largo', state:'FL', lat:27.9095, lng:-82.7873, certs:['single'] },
+{ id:'tops-naples', name:'Tops Vacuum & Sewing — Naples, FL', website:'https://topsvacuumandsewing.com', phone:'239-591-4422', type:'retail', address:'5367 Airport Pulling Rd N, Naples, FL 34109', city:'Naples', state:'FL', lat:26.1420, lng:-81.7948, certs:['single'] },
+{ id:'tops-palm-harbor', name:'Tops Vacuum & Sewing — Palm Harbor, FL', website:'https://topsvacuumandsewing.com', phone:'727-787-7043', type:'retail', address:'#215, 3327 Tampa Rd, Palm Harbor, FL 34684', city:'Palm Harbor', state:'FL', lat:28.0781, lng:-82.7637, certs:['single'] },
+{ id:'tops-pembroke', name:'Tops Vacuum & Sewing — Pembroke Pines, FL', website:'https://topsvacuumandsewing.com', phone:'954-431-3552', type:'retail', address:'10826 Pines Blvd, Pembroke Pines, FL 33026', city:'Pembroke Pines', state:'FL', lat:26.0032, lng:-80.2239, certs:['single'] },
+{ id:'tops-port-charlotte', name:'Tops Vacuum & Sewing — Port Charlotte, FL', website:'https://topsvacuumandsewing.com', phone:'941-766-7118', type:'retail', address:'3846 Tamiami Trail, Port Charlotte, FL 33952', city:'Port Charlotte', state:'FL', lat:26.9762, lng:-82.0906, certs:['single'] },
+{ id:'tops-sarasota', name:'Tops Vacuum & Sewing — Sarasota, FL', website:'https://topsvacuumandsewing.com', phone:'941-926-2699', type:'retail', address:'2120 Bee Ridge Road, Sarasota, FL 34239', city:'Sarasota', state:'FL', lat:27.3364, lng:-82.5307, certs:['single'] },
+{ id:'tops-tampa', name:'Tops Vacuum & Sewing — Tampa, FL', website:'https://topsvacuumandsewing.com', phone:'813-963-6732', type:'retail', address:'14922 Dale Mabry Hwy #6, Tampa, FL 33618', city:'Tampa', state:'FL', lat:28.0887, lng:-82.4946, certs:['single'] },
+
+/* Tops — Texas */
+{ id:'tops-plano', name:'Tops Vacuum & Sewing — Plano, TX', website:'https://topsvacuumandsewing.com', phone:'214-440-2207', type:'retail', address:'700 Alma Dr #106, Plano, TX 75075', city:'Plano', state:'TX', lat:33.0198, lng:-96.6989, certs:['single'] },
+{ id:'tops-houston', name:'Tops Vacuum & Sewing — Houston, TX', website:'https://topsvacuumandsewing.com', phone:'713-814-5121', type:'retail', address:'3727 Westheimer Rd, Houston, TX 77027', city:'Houston', state:'TX', lat:29.7420, lng:-95.4550, certs:['single'] },
 ];
 
 /* DOM */
