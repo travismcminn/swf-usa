@@ -1656,8 +1656,8 @@ let map, markerLayer;
 
 /* Helpers */
 const hasGeo = d => typeof d.lat === 'number' && typeof d.lng === 'number';
-const km = m => (m/1000).toFixed(1);
-function haversine(a, b) {
+const miles = m => (m / 1609.344).toFixed(1); // meters → miles
+function haversine(a, b) { /* returns meters */ ... }
   const toRad = v => v*Math.PI/180, R=6371000;
   const dLat = toRad(b.lat-a.lat), dLng = toRad(b.lng-a.lng);
   const lat1 = toRad(a.lat), lat2 = toRad(b.lat);
@@ -1671,7 +1671,7 @@ function card(d){
   const typeTag = d.type==='online' ? `<span class="badge-online">Online</span>` : `<span class="badge-online">Retail</span>`;
   const addr = d.address ? `<div>${d.address}</div>` : '';
   const cityst = (d.city||d.state) ? `<div>${[d.city,d.state].filter(Boolean).join(', ')}</div>` : '';
-  const dist = (userPos && hasGeo(d)) ? `<span class="dealer-chip">~${km(haversine(userPos, d))} km</span>` : '';
+  const dist = (userPos && hasGeo(d)) ? `<span class="dealer-chip">~${miles(haversine(userPos, d))} mi</span>` : '';
   return `
     <div class="dealer-item" data-type="${d.type}" data-cert="${(d.certs||[]).join(' ')}" data-search="${(d.name+' '+(d.address||'')+' '+(d.city||'')+' '+(d.state||'')+' '+(d.phone||'')).toLowerCase()}">
       <h3>${d.name}</h3>
