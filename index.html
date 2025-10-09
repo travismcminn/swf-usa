@@ -1250,104 +1250,60 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
     </div>
   </section>
 
-  <!-- DEALER LOCATOR -->
-  <section id="locator" class="section" style="padding:40px 0">
-    <div class="container">
-      <h2 class="h2" style="text-align:center;margin-bottom:10px">Dealer Locator</h2>
-      <p class="tagline">Find an online dealer or a retail store near you.</p>
-      <div class="locator-head">
-        <input id="dealerSearch" class="input" placeholder="Search name, city, or state…" aria-label="Search dealers" />
-        <select id="dealerType" class="select" aria-label="Filter type">
-          <option value="">All types</option>
-          <option value="online">Online</option>
-          <option value="retail">Retail Store</option>
-        </select>
-        <select id="dealerCert" class="select" aria-label="Filter certification">
-          <option value="">All certifications</option>
-          <option value="single">Single Head Certified</option>
-          <option value="multi">Multi-Head Certified</option>
-        </select>
+ <!-- DEALER LOCATOR -->
+<section id="locator" class="section" style="padding:40px 0">
+  <div class="container">
+    <h2 class="h2" style="margin-bottom:8px">Find a Dealer</h2>
+
+    <!-- Controls -->
+    <div class="locator-head">
+      <div class="locator-row">
+        <div class="field" style="flex:1;min-width:260px">
+          🔎 <input id="dealerSearch" type="text" placeholder="Search dealer, city, phone…" aria-label="Search dealers" />
+        </div>
+        <div class="field">
+          Type:
+          <select id="dealerType" aria-label="Filter by type">
+            <option value="">All</option>
+            <option value="online">Online</option>
+            <option value="retail">Retail</option>
+          </select>
+        </div>
+        <div class="field">
+          Certification:
+          <select id="dealerCert" aria-label="Filter by certification">
+            <option value="">Any</option>
+            <option value="single">Single Head</option>
+            <option value="multi">Multi-Head</option>
+          </select>
+        </div>
+        <div class="field">
+          Sort:
+          <select id="dealerSort" aria-label="Sort results">
+            <option value="alpha">A → Z</option>
+            <option value="nearest">Nearest (retail)</option>
+          </select>
+        </div>
       </div>
-
-      <div class="hcards" id="dealerList">
-        <!-- Ken's Sewing Center — ONLINE -->
-        <article class="hcard dealer-item" style="grid-template-columns:1fr"
-                 data-type="online" data-cert="single"
-                 data-search="ken's sewing center kens kenssewing online">
-          <div class="body" style="padding:14px">
-            <h3 class="h3" style="margin-bottom:6px">Ken's Sewing Center</h3>
-            <div style="display:grid; gap:4px; font-size:15px">
-              <div><a href="https://www.kenssewingcenter.com" target="_blank" rel="noopener" style="color:var(--swf-red)">www.kenssewingcenter.com</a></div>
-              <div>Call Toll Free: <a href="tel:8775367739" style="color:inherit">877-536-7739</a></div>
-              <div>On-line Only Dealer</div>
-              <div>Single Head Certified</div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Topps Vacuum & Sewing — ONLINE -->
-        <article class="hcard dealer-item" style="grid-template-columns:1fr"
-                 data-type="online" data-cert="single"
-                 data-search="topps vacuum & sewing topps vacuum sewing online">
-          <div class="body" style="padding:14px">
-            <h3 class="h3" style="margin-bottom:6px">Topps Vacuum & Sewing</h3>
-            <div style="display:grid; gap:4px; font-size:15px">
-              <div><a href="https://www.toppsvacuumandsewing.com" target="_blank" rel="noopener" style="color:var(--swf-red)">www.toppsvacuumandsewing.com</a></div>
-              <div>Call: <a href="tel:8002804919" style="color:inherit">800-280-4919</a></div>
-              <div>On-line</div>
-              <div>Single Head Certified</div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Sewing Machines Plus — ONLINE -->
-        <article class="hcard dealer-item" style="grid-template-columns:1fr"
-                 data-type="online" data-cert="single multi"
-                 data-search="sewing machines plus online">
-          <div class="body" style="padding:14px">
-            <h3 class="h3" style="margin-bottom:6px">Sewing Machines Plus</h3>
-            <div style="display:grid; gap:4px; font-size:15px">
-              <div><a href="https://www.sewingmachinesplus.com" target="_blank" rel="noopener" style="color:var(--swf-red)">www.sewingmachinesplus.com</a></div>
-              <div>Call: <a href="tel:8004085181" style="color:inherit">800-408-5181</a></div>
-              <div>On-line</div>
-              <div>Single Head Certified</div>
-              <div>Multi-Head Certified</div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Sewing Machines Plus — RETAIL STORE -->
-        <article class="hcard dealer-item" style="grid-template-columns:1fr"
-                 data-type="retail" data-cert="single"
-                 data-search="sewing machines plus 713 center dr san marcos ca 92069 retail store">
-          <div class="body" style="padding:14px">
-            <h3 class="h3" style="margin-bottom:6px">Sewing Machines Plus</h3>
-            <div style="display:grid; gap:4px; font-size:15px">
-              <div>713 Center Dr.<br>San Marcos, CA 92069</div>
-              <div>Call: <a href="tel:7607398222" style="color:inherit">760-739-8222</a></div>
-              <div>Retail Store</div>
-              <div>Single Head Certified</div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Stitch It International, Inc. — ONLINE -->
-        <article class="hcard dealer-item" style="grid-template-columns:1fr"
-                 data-type="online" data-cert="single"
-                 data-search="stitch it international stitchitintl online website">
-          <div class="body" style="padding:14px">
-            <h3 class="h3" style="margin-bottom:6px">Stitch It International, Inc.</h3>
-            <div style="display:grid; gap:4px; font-size:15px">
-              <div><a href="https://www.stitchitintl.com" target="_blank" rel="noopener" style="color:var(--swf-red)">www.stitchitintl.com</a></div>
-              <div>On-line</div>
-              <div>Single Head Certified</div>
-              <!-- <div>Multi-Head Certified</div> -->
-            </div>
-          </div>
-        </article>
+      <div class="locator-actions">
+        <button id="useLocation" class="btn btn-outline" type="button">📍 Use my location</button>
+        <button id="toggleMap" class="btn btn-outline" type="button" aria-pressed="false">🗺️ Show Map</button>
+      </div>
+      <div class="resultbar">
+        <small><span id="dealerCount">0</span> result(s)</small>
+        <button id="dealerClear" class="btn-clear" type="button">Clear filters</button>
       </div>
     </div>
-  </section>
+
+    <!-- Map -->
+    <div id="mapPane" class="mapwrap map-hidden" aria-hidden="true">
+      <div id="dealerMap" role="region" aria-label="Dealer map"></div>
+    </div>
+
+    <!-- Grouped list -->
+    <div id="dealerGroups" class="dealer-grid" style="margin-top:12px"></div>
+  </div>
+</section>
 
   <!-- Contact -->
   <section id="contact" class="section">
