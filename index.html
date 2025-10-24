@@ -295,6 +295,36 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 /* Ensure the injected iframe fills the wrapper */
 .jotform-embed iframe { width: 100% !important; min-height: 980px; border: 0; display: block; }
 @media (max-width: 940px){ .jotform-embed iframe { min-height: 1100px; } }  
+
+/* ---- Contact form expander ---- */
+.form-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem}
+.form-title{margin:0;font-size:1.25rem;color:var(--ink,#0f172a)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;border:0;border-radius:9999px;padding:.7rem 1.1rem;font-weight:700;cursor:pointer}
+.btn-primary{background:#E01A22;color:#fff;box-shadow:0 8px 18px rgba(224,26,34,.22)}
+.btn-primary:hover{background:#C9151C}
+
+/* Collapsible wrapper */
+.jot-wrap{position:relative;background:#fff;border:1px solid var(--line,#e2e8f0);
+  border-radius:18px;box-shadow:0 8px 24px rgba(15,23,42,.06);
+  overflow:hidden;transition:max-height .5s ease}
+.jot-inner iframe{width:100%!important;border:0;display:block}
+
+/* Collapsed preview height */
+.jot-wrap.is-collapsed{max-height:560px}
+@media(max-width:940px){.jot-wrap.is-collapsed{max-height:520px}}
+
+/* Gradient mask hint */
+.jot-mask{position:absolute;inset:auto 0 0 0;height:160px;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(255,255,255,0)0%,rgba(255,255,255,.92)60%,#fff 100%);
+  display:flex;align-items:flex-end;justify-content:center;padding:1rem}
+.jot-hint{font-size:.9rem;color:var(--muted,#64748b);background:#fff;
+  border:1px solid var(--line,#e2e8f0);border-radius:999px;padding:.4rem .8rem;
+  box-shadow:0 6px 14px rgba(15,23,42,.06)}
+
+/* Expanded state */
+.jot-wrap.is-expanded{max-height:4000px}
+.jot-wrap.is-expanded .jot-mask{display:none}
+  
 </style> 
 </head>
 <body>
