@@ -1348,11 +1348,24 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 </div>
 </div>
 <div class="contact-form">
-<!-- Jotform embed -->
-<div class="jotform-embed" aria-label="Contact form">
-<script type="text/javascript" src="https://form.jotform.com/jsform/252964696005162"></script>
-</div>
-</div>
+  <!-- Header + toggle -->
+  <div class="form-head">
+    <h3 class="form-title">Lead Capture Form</h3>
+    <button class="btn btn-primary" id="formToggle" aria-expanded="false" aria-controls="jotWrap">
+      Start the form
+    </button>
+  </div>
+
+  <!-- Collapsible wrapper -->
+  <div class="jot-wrap is-collapsed" id="jotWrap"
+       data-src="https://form.jotform.com/jsform/252964696005162">
+    <div class="jot-inner" id="jotInner"></div>
+
+    <!-- Optional gradient mask + hint (style in your CSS) -->
+    <div class="jot-mask" aria-hidden="true">
+      <div class="jot-hint">This form takes under 2 minutes</div>
+    </div>
+  </div>
 </div>
 </div>
 </section>
