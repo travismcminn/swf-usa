@@ -1359,7 +1359,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
     </div>
   </section>
 
- <!-- Contact -->
+<!-- Contact -->
 <section id="contact" class="contact">
   <div class="container">
     <div class="contact-grid">
@@ -1378,86 +1378,16 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
         </div>
       </div>
 
-      <!-- Expandable Jotform (single source of truth) -->
       <div class="contact-form">
-        <div class="form-head">
-          <h3 class="form-title">Lead Capture Form</h3>
-          <button class="btn btn-primary" id="formToggle" aria-expanded="false" aria-controls="jotWrap">
-            Start the form
-          </button>
-        </div>
-
-        <div
-          class="jot-wrap is-collapsed"
-          id="jotWrap"
-          style="max-height:560px; overflow:hidden;"
-          data-collapsed-height="560"
-          data-src="https://form.jotform.com/jsform/252964696005162">
-          <div class="jot-inner" id="jotInner"></div>
-          <div class="jot-mask" aria-hidden="true">
-            <div class="jot-hint">This form takes under 2 minutes</div>
-          </div>
+        <!-- Jotform embed -->
+        <div class="jotform-embed" aria-label="Contact form">
+          <script type="text/javascript" src="https://form.jotform.com/jsform/252964696005162"></script>
         </div>
       </div>
-    </div> <!-- /.contact-grid -->
-  </div>   <!-- /.container -->
+    </div>
+  </div>
 </section>
 <!-- /Contact -->
-
-<!-- Jotform expand/collapse script -->
-<script>
-(() => {
-  const wrap   = document.getElementById('jotWrap');
-  const inner  = document.getElementById('jotInner');
-  const toggle = document.getElementById('formToggle');
-
-  if (!wrap || !inner || !toggle) return;
-
-  let loaded = false;
-  function loadJotform(){
-    if (loaded) return;
-    const s = document.createElement('script');
-    s.src = wrap.dataset.src;
-    inner.appendChild(s);
-    loaded = true;
-  }
-
-  function setState(open, { scroll = false } = {}){
-    wrap.classList.toggle('is-expanded', open);
-    wrap.classList.toggle('is-collapsed', !open);
-    if (!open) {
-      wrap.style.maxHeight = (wrap.getAttribute('data-collapsed-height') || '560') + 'px';
-      wrap.style.overflow = 'hidden';
-    } else {
-      wrap.style.maxHeight = '4000px';
-      wrap.style.overflow = 'visible';
-      loadJotform();
-      if (scroll) wrap.scrollIntoView({ behavior:'smooth', block:'start' });
-    }
-    toggle.setAttribute('aria-expanded', String(open));
-    toggle.textContent = open ? 'Collapse form' : 'Start the form';
-  }
-
-  // Ensure collapsed on first paint
-  setState(false);
-
-  // Toggle click
-  toggle.addEventListener('click', () => {
-    const isOpen = wrap.classList.contains('is-expanded');
-    setState(!isOpen, { scroll: !isOpen });
-  });
-
-  // Lazy-load (does NOT expand)
-  const io = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting) { loadJotform(); io.disconnect(); }
-  }, { rootMargin:'400px' });
-  io.observe(wrap);
-
-  // Deep link to auto-open
-  if (location.hash === '#start-form') setState(true, { scroll: true });
-})();
-</script>
-
 </main>  
   
 
