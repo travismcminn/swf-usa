@@ -1372,6 +1372,53 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 </main>
   <!-- /Contact -->
 
+<script>
+(() => {
+  const wrap  = document.getElementById('jotWrap');
+  const inner = document.getElementById('jotInner');
+  const toggle = document.getElementById('formToggle');
+
+  let loaded = false;
+  function loadJotform(){
+    if (loaded) return;
+    const s = document.createElement('script');
+    s.src = wrap.dataset.src;
+    inner.appendChild(s);
+    loaded = true;
+  }
+
+  function expand(open){
+    wrap.classList.toggle('is-expanded', open);
+    wrap.classList.toggle('is-collapsed', !open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.textContent = open ? 'Collapse form' : 'Start the form';
+    if (open) {
+      loadJotform();
+      wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  // Toggle click
+  if (toggle) {
+    toggle.addEventListener('click', () => {
+      const isOpen = wrap.classList.contains('is-expanded');
+      expand(!isOpen);
+    });
+  }
+
+  // Lazy load when near viewport (keeps initial page snappy)
+  const io = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) { loadJotform(); io.disconnect(); }
+  }, { rootMargin: '400px' });
+  io.observe(wrap);
+
+  // Deep link support: https://swf-usa.com/#start-form opens expanded
+  if (location.hash === '#start-form') expand(true);
+})();
+</script>
+  
+  
+
 <!-- Footer -->
 <footer>
   <div class="container cols" style="padding:22px 0">
