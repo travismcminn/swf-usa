@@ -1330,47 +1330,90 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
   </section>
 
   <!-- Contact -->
-  <section id="contact" class="contact">
-<div class="container">
-<div class="contact-grid">
-<div class="contact-copy">
-<h2 class="h-xl">Talk to SWF USA</h2>
-<p class="lead">Tell us about your shop and which series you’re considering. A specialist will reach out with pricing, lead time, and embroidery‑specific guidance.</p>
-<ul class="contact-points">
-<li><strong>Email:</strong> sales@stitchitintl.com</li>
-<li><strong>Phone:</strong> (573) 866-3676</li>
-<li><strong>Hours:</strong> Mon–Fri, 8:30–4:30 CT</li>
-</ul>
-<div class="badges">
-<span class="badge">Nationwide support</span>
-<span class="badge">Dealer financing</span>
-<span class="badge">Embroidery training</span>
-</div>
-</div>
-<div class="contact-form">
-  <!-- Header + toggle -->
-  <div class="form-head">
-    <h3 class="form-title">Lead Capture Form</h3>
-    <button class="btn btn-primary" id="formToggle" aria-expanded="false" aria-controls="jotWrap">
-      Start the form
-    </button>
-  </div>
+  <!-- Contact -->
+<section id="contact" class="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-copy">
+        <h2 class="h-xl">Talk to SWF USA</h2>
+        <p class="lead">Tell us about your shop and which series you’re considering. A specialist will reach out with pricing, lead time, and embroidery-specific guidance.</p>
+        <ul class="contact-points">
+          <li><strong>Email:</strong> sales@stitchitintl.com</li>
+          <li><strong>Phone:</strong> (573) 866-3676</li>
+          <li><strong>Hours:</strong> Mon–Fri, 8:30–4:30 CT</li>
+        </ul>
+        <div class="badges">
+          <span class="badge">Nationwide support</span>
+          <span class="badge">Dealer financing</span>
+          <span class="badge">Embroidery training</span>
+        </div>
+      </div>
 
-  <!-- Collapsible wrapper -->
-  <div class="jot-wrap is-collapsed" id="jotWrap"
-       data-src="https://form.jotform.com/jsform/252964696005162">
-    <div class="jot-inner" id="jotInner"></div>
+      <!-- New expandable Jotform block -->
+      <div class="contact-form">
+        <div class="form-head">
+          <h3 class="form-title">Lead Capture Form</h3>
+          <button class="btn btn-primary" id="formToggle" aria-expanded="false" aria-controls="jotWrap">
+            Start the form
+          </button>
+        </div>
 
-    <!-- Optional gradient mask + hint (style in your CSS) -->
-    <div class="jot-mask" aria-hidden="true">
-      <div class="jot-hint">This form takes under 2 minutes</div>
+        <div class="jot-wrap is-collapsed" id="jotWrap"
+             data-src="https://form.jotform.com/jsform/252964696005162">
+          <div class="jot-inner" id="jotInner"></div>
+
+          <div class="jot-mask" aria-hidden="true">
+            <div class="jot-hint">This form takes under 2 minutes</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-</div>
 </section>
-</main>
-  <!-- /Contact -->
+<!-- /Contact -->
+
+<!-- Jotform expand/collapse script -->
+<script>
+(() => {
+  const wrap  = document.getElementById('jotWrap');
+  const inner = document.getElementById('jotInner');
+  const toggle = document.getElementById('formToggle');
+
+  let loaded = false;
+  function loadJotform() {
+    if (loaded) return;
+    const s = document.createElement('script');
+    s.src = wrap.dataset.src;
+    inner.appendChild(s);
+    loaded = true;
+  }
+
+  function expand(open) {
+    wrap.classList.toggle('is-expanded', open);
+    wrap.classList.toggle('is-collapsed', !open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.textContent = open ? 'Collapse form' : 'Start the form';
+    if (open) {
+      loadJotform();
+      wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  if (toggle) {
+    toggle.addEventListener('click', () => {
+      const isOpen = wrap.classList.contains('is-expanded');
+      expand(!isOpen);
+    });
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) { loadJotform(); io.disconnect(); }
+  }, { rootMargin: '400px' });
+  io.observe(wrap);
+
+  if (location.hash === '#start-form') expand(true);
+})();
+</script>
 
 <script>
 (() => {
@@ -1416,7 +1459,8 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
   if (location.hash === '#start-form') expand(true);
 })();
 </script>
-  
+<!-- /Contact --> 
+</main>  
   
 
 <!-- Footer -->
