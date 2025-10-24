@@ -271,6 +271,32 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 /* Small buttons inside cards */
 .dealer-actions .btn{padding:.5rem .7rem;border-radius:10px;font-weight:700}
 </style>
+
+/* Contact layout */
+.contact { padding: 6rem 0; background: var(--bg, #ffffff); }
+.contact .container { max-width: 1200px; margin: 0 auto; padding: 0 1.25rem; }
+.contact-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 2.25rem; align-items: start; }
+@media (max-width: 940px){ .contact-grid { grid-template-columns: 1fr; } }
+
+
+.h-xl { font-size: clamp(1.75rem, 1.6rem + 1.1vw, 2.5rem); line-height: 1.15; color: var(--ink, #0f172a); margin: 0 0 .75rem; }
+.lead { color: var(--muted, #64748b); font-size: 1.05rem; margin: 0 0 1.25rem; }
+.contact-points { list-style: none; padding: 0; margin: 0 0 1rem; color: var(--ink, #0f172a);}
+.contact-points li { margin: .35rem 0; }
+.badge { display: inline-block; padding: .4rem .7rem; border-radius: 999px; background: #f6f7f9; border: 1px solid var(--line, #e2e8f0); font-size: .85rem; margin-right: .5rem; color: var(--ink, #0f172a); }
+
+
+/* Jotform wrapper (iframe is injected by their script) */
+.contact-form { position: relative; }
+.jotform-embed { background: #fff; border: 1px solid var(--line, #e2e8f0); border-radius: 18px; box-shadow: 0 8px 24px rgba(15,23,42,.06); padding: 0; overflow: hidden; }
+/* Let the iframe breathe on mobile */
+@media (max-width: 640px){ .jotform-embed { border-radius: 14px; } }
+
+
+/* Ensure the injected iframe fills the wrapper */
+.jotform-embed iframe { width: 100% !important; min-height: 980px; border: 0; display: block; }
+@media (max-width: 940px){ .jotform-embed iframe { min-height: 1100px; } }  
+  
 </head>
 <body>
 
