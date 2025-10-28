@@ -324,6 +324,19 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 /* Expanded state */
 .jot-wrap.is-expanded{max-height:4000px}
 .jot-wrap.is-expanded .jot-mask{display:none}
+
+.img-lightbox {
+  position: fixed; inset: 0; display: grid; place-items: center;
+  background: rgba(0,0,0,.7);
+  opacity: 0; pointer-events: none; transition: opacity .2s ease;
+  z-index: 1000;
+}
+.img-lightbox.open { opacity: 1; pointer-events: auto; }
+.img-lightbox img { max-width: 92vw; max-height: 90vh; }
+.lb-close {
+  position: absolute; top: 12px; right: 16px; font-size: 32px; line-height: 1;
+  background: transparent; border: 0; color: #fff; cursor: pointer;
+}  
   
 </style> 
 </head>
@@ -1008,9 +1021,36 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
     <p class="p-muted" style="margin:8px 0 10px">Modular automation in compact single-heads—great for names, patches, on-site personalization, and small runs.</p>
 
     <div class="mini-gallery">
-      <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/MAS-12.jpg?v=1759260197" alt="MAS-12"></div>
-      <div class="thumb"><img src="https://cdn.shopify.com/s/files/1/1236/6284/files/Sunny_6.jpg?v=1759260197" alt="MAS-7"></div>
-    </div>
+  <!-- MAS-7 -->
+  <div class="thumb">
+    <img
+      class="zoomable"
+      src="https://cdn.shopify.com/s/files/1/1236/6284/files/Sunny_6.jpg?v=1759260197"
+      data-full="https://cdn.shopify.com/s/files/1/1236/6284/files/Sunny_6.jpg?v=1759260197"
+      alt="MAS-7"
+    >
+  </div>
+
+  <!-- MAS-12 -->
+  <div class="thumb">
+    <img
+      class="zoomable"
+      src="https://cdn.shopify.com/s/files/1/1236/6284/files/MAS-12.jpg?v=1759260197"
+      data-full="https://cdn.shopify.com/s/files/1/1236/6284/files/MAS-12.jpg?v=1759260197"
+      alt="MAS-12"
+    >
+  </div>
+
+  <!-- MAS-15 (NEW) -->
+  <div class="thumb">
+    <img
+      class="zoomable"
+      src="https://cdn.shopify.com/s/files/1/1236/6284/files/es_compact_ce76207c-a665-4f6f-8335-a67fc84e26c4.jpg?v=1759260197"
+      data-full="https://cdn.shopify.com/s/files/1/1236/6284/files/es_compact_ce76207c-a665-4f6f-8335-a67fc84e26c4.jpg?v=1759260197"
+      alt="MAS-15"
+    >
+  </div>
+</div>
 
     <div class="cta-row">
       <a class="btn btn-primary js-view-series" href="#mas" data-target="#mas-details" aria-expanded="false">View MAS Details <span class="chev">▾</span></a>
@@ -1872,6 +1912,51 @@ clearBtn?.addEventListener('click', ()=>{ q.value=''; t.value=''; c.value=''; s.
 /* Init */
 renderList();
 </script>
+
+<script>
+(function(){
+  const lightbox = document.getElementById('imgLightbox');
+  const lbImg    = document.getElementById('lbImg');
+  const closeBtn = lightbox.querySelector('.lb-close');
+
+  function openLightbox(src, alt='') {
+    lbImg.src = src;
+    lbImg.alt = alt || '';
+    lightbox.removeAttribute('aria-hidden');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => lightbox.classList.add('open'), 0);
+  }
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden','true');
+    lbImg.src = '';
+    document.body.style.overflow = '';
+  }
+
+  // Delegate clicks from any .zoomable image
+  document.addEventListener('click', (e) => {
+    const img = e.target.closest('img.zoomable');
+    if (!img) return;
+    const full = img.getAttribute('data-full') || img.src;
+    openLightbox(full, img.alt);
+  });
+
+  // Close interactions
+  closeBtn.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+})();
+</script>  
+
+<!-- Image Lightbox -->
+<div id="imgLightbox" class="img-lightbox" aria-hidden="true" role="dialog">
+  <button class="lb-close" aria-label="Close (Esc)">&times;</button>
+  <img id="lbImg" alt="">
+</div>  
 
 </body>
 </html>
