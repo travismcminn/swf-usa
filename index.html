@@ -1958,8 +1958,271 @@ renderList();
   <img id="lbImg" alt="">
 </div>  
 
+
+<!-- === SWF USA: Interactions & Wiring === -->
+<script>
+(function(){
+  // Helper: qs / qsa
+  const $ = (s,root=document)=>root.querySelector(s);
+  const $$ = (s,root=document)=>Array.from(root.querySelectorAll(s));
+
+  // ===== Header shadow on scroll =====
+  const header = $('#siteHeader');
+  const onScroll = () => {
+    if(!header) return;
+    const sc = window.scrollY || document.documentElement.scrollTop;
+    header.classList.toggle('scrolled', sc > 8);
+  };
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // ===== Mobile menu =====
+  const menuBtn = $('#menuBtn');
+  const mobileMenu = $('#mobileMenu');
+  if(menuBtn && mobileMenu){
+    menuBtn.addEventListener('click', () => {
+      const open = menuBtn.getAttribute('aria-expanded') === 'true';
+      menuBtn.setAttribute('aria-expanded', String(!open));
+      if(open){
+        mobileMenu.setAttribute('hidden', '');
+      }else{
+        mobileMenu.removeAttribute('hidden');
+      }
+    });
+    // Close the mobile menu on nav click
+    $$('.m-link, .m-cta', mobileMenu).forEach(a => a.addEventListener('click', () => {
+      mobileMenu.setAttribute('hidden','');
+      menuBtn.setAttribute('aria-expanded','false');
+    }));
+  }
+
+  // ===== Smooth scroll for internal anchors =====
+  const internalLinks = $$('a[href^="#"]');
+  internalLinks.forEach(a => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href');
+      if(id.length > 1){
+        const el = document.getElementById(id.slice(1));
+        if(el){
+          e.preventDefault();
+          el.scrollIntoView({behavior:'smooth', block:'start'});
+          history.pushState(null, '', id);
+        }
+      }
+    });
+  });
+
+  // ===== Section observer: set aria-current on header nav =====
+  const navLinks = $$('.nav .nav-link');
+  const sections = navLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  if(sections.length){
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const id = '#'+entry.target.id;
+        if(entry.isIntersecting){
+          navLinks.forEach(a => a.removeAttribute('aria-current'));
+          const active = navLinks.find(a => a.getAttribute('href') === id);
+          if(active) active.setAttribute('aria-current','true');
+        }
+      });
+    }, {rootMargin:'-40% 0px -55% 0px', threshold:[0,1]});
+    sections.forEach(sec => io.observe(sec));
+  }
+
+  // ===== Series accordions (.js-view-series) =====
+  function toggleSeries(btn){
+    const targetSel = btn.dataset.target;
+    const panel = targetSel ? $(targetSel) : null;
+    if(!panel) return;
+    const isOpen = panel.classList.contains('open');
+    // close all open siblings in the card
+    const card = btn.closest('.hcard');
+    $$('.series-details', card).forEach(p => {
+      p.classList.remove('open');
+      p.setAttribute('aria-hidden','true');
+    });
+    // toggle this one
+    if(!isOpen){
+      panel.classList.add('open');
+      panel.setAttribute('aria-hidden','false');
+      btn.setAttribute('aria-expanded','true');
+    }else{
+      panel.classList.remove('open');
+      panel.setAttribute('aria-hidden','true');
+      btn.setAttribute('aria-expanded','false');
+    }
+  }
+  $$('.js-view-series').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleSeries(btn);
+    });
+  });
+
+  // ===== Tabs ([data-tabs]) =====
+  $$('.tabs[data-tabs]').forEach(tabs => {
+    const tabButtons = $$('[role="tab"]', tabs);
+    const panels = $$('[role="tabpanel"]', tabs);
+    function activate(id){
+      tabButtons.forEach(tb => {
+        const on = tb.getAttribute('aria-controls') === id;
+        tb.setAttribute('aria-selected', String(on));
+      });
+      panels.forEach(p => {
+        p.classList.toggle('active', p.id === id);
+      });
+    }
+    tabButtons.forEach(tb => tb.addEventListener('click', () => activate(tb.getAttribute('aria-controls'))));
+    // Ensure first panel is active if none
+    if(!panels.some(p => p.classList.contains('active')) && panels.length){
+      activate(panels[0].id);
+    }
+  });
+
+  // ===== Modal for PDFs & web links (pop-up viewer) =====
+  function ensureModal(){
+    let backdrop = $('.modal-backdrop');
+    if(!backdrop){
+      backdrop = document.createElement('div');
+      backdrop.className = 'modal-backdrop';
+      backdrop.innerHTML = '<div class="modal" role="dialog" aria-modal="true" aria-label="Document viewer"><div class="modal-head"><h3>Viewer</h3><button class="modal-close" type="button">Close</button></div><div class="modal-body"><iframe title="Document viewer"></iframe></div></div>';
+      document.body.appendChild(backdrop);
+      // close handlers
+      const close = ()=> backdrop.classList.remove('open');
+      backdrop.addEventListener('click', e => { if(e.target === backdrop) close(); });
+      $('.modal-close', backdrop).addEventListener('click', close);
+      document.addEventListener('keydown', e => { if(e.key === 'Escape') close(); });
+    }
+    return backdrop;
+  }
+  function openModal(url, title){
+    const backdrop = ensureModal();
+    const iframe = $('iframe', backdrop);
+    const h3 = $('.modal-head h3', backdrop);
+    iframe.src = url;
+    h3.textContent = title || 'Viewer';
+    backdrop.classList.add('open');
+  }
+  $$('.js-open-pdf').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const url = btn.dataset.pdf;
+      const title = btn.dataset.title || btn.textContent.trim();
+      if(url) openModal(url, title);
+    });
+  });
+
+  // ===== Image Lightbox for any gallery thumbs =====
+  function ensureLightbox(){
+    let lb = $('.img-lightbox');
+    if(!lb){
+      lb = document.createElement('div');
+      lb.className = 'img-lightbox';
+      lb.innerHTML = '<button class="lb-close" aria-label="Close">×</button><img alt="Preview"/>';
+      document.body.appendChild(lb);
+      const close = ()=> lb.classList.remove('open');
+      lb.addEventListener('click', e => { if(e.target === lb || e.target.classList.contains('lb-close')) close(); });
+      document.addEventListener('keydown', e => { if(e.key === 'Escape') close(); });
+    }
+    return lb;
+  }
+  $$('.gallery-row img, .mini-gallery img, img.zoomable').forEach(img => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', () => {
+      const lb = ensureLightbox();
+      const view = $('img', lb);
+      const full = img.getAttribute('data-full');
+      view.src = full || img.currentSrc || img.src;
+      view.alt = img.alt || 'Preview';
+      lb.classList.add('open');
+    });
+  });
+
+  // ===== Financing / Contact form Jotform expander (if structure present) =====
+  const jotWrap = $('.jot-wrap');
+  if(jotWrap){
+    // If there is a "Show more" hint mask, clicking it expands
+    const mask = $('.jot-mask', jotWrap);
+    if(mask){
+      mask.addEventListener('click', () => jotWrap.classList.add('is-expanded'));
+    }
+    // If a toggle button exists
+    const toggleBtn = $('.form-toggle');
+    if(toggleBtn){
+      toggleBtn.addEventListener('click', () => jotWrap.classList.toggle('is-expanded'));
+    }
+  }
+
+  // ===== Leaflet Map (Dealer Locator) =====
+  const mapEl = $('#dealerMap');
+  let mapInited = false;
+  function initMap(){
+    if(mapInited || !mapEl || typeof L === 'undefined') return;
+    mapInited = true;
+    const map = L.map('dealerMap').setView([39.8283, -98.5795], 4); // USA center
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '&copy; OpenStreetMap'
+    }).addTo(map);
+    // Example placeholder marker for HQ — can be replaced with real dealers
+    const hq = [37.5587, -89.8293]; // Patton, MO approx
+    L.marker(hq).addTo(map).bindPopup('Stitch It International (HQ)').openPopup();
+  }
+  if(mapEl){
+    // Initialize when visible
+    const mo = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if(e.isIntersecting) initMap(); });
+    }, {threshold: 0.1});
+    mo.observe(mapEl);
+  }
+
+  // ===== External links: open in new tab when leaving site =====
+  $$('a[href^="http"]').forEach(a => {
+    try{
+      const url = new URL(a.href);
+      if(location.hostname && url.hostname !== location.hostname){
+        a.setAttribute('target','_blank');
+        a.setAttribute('rel','noopener');
+      }
+    }catch(_e){}
+  });
+
+})();
+</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
