@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://swf-usa.com/sitemap-main.xml
+Sitemap: https://swf-usa.com/sitemaps/sitemap.xml
