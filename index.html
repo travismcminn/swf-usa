@@ -563,13 +563,7 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
               <a class="btn btn-primary" href="https://stitchitintl.com/pages/financing" target="_blank" rel="noopener">Request Pricing</a>
               <a class="btn btn-byld" href="https://byldfinance.com/pages/apply-now" target="_blank" rel="noopener">Get Pre-Approved</a>
               <a class="btn btn-dark" href="https://www.youtube.com/watch?v=qaDz0VXBX3M" target="_blank" rel="noopener">Watch Demo</a>
-              <details class="series-details-toggle">
-  <summary class="btn btn-outline btn-toggle">View Key Specs</summary>
-
-  <div class="series-spec-panel">
-    <!-- your spec content here -->
-  </div>
-</details>
+              <button class="btn btn-outline btn-toggle js-spec-toggle" type="button" data-target="#kx-spec-panel" aria-expanded="false">View Key Specs</button>
             </div>
 
             <div class="series-spec-panel" id="kx-spec-panel" hidden>
@@ -1360,23 +1354,6 @@ links.forEach(a=>{
       }
     });
   });
-
-  <script>
-document.addEventListener('click', function(e){
-  const btn = e.target.closest('.js-spec-toggle');
-  if(!btn) return;
-
-  const target = document.querySelector(btn.dataset.target);
-  if(!target) return;
-
-  const isHidden = target.hasAttribute('hidden');
-
-  target.toggleAttribute('hidden');
-  btn.setAttribute('aria-expanded', String(isHidden));
-  btn.textContent = isHidden ? 'Hide Key Specs' : 'View Key Specs';
-});
-</script>
-
   // Deep link support: #ks, #kx/specs, etc.
   if (location.hash) {
     const [seriesHash, tabId] = location.hash.split('/');
@@ -2326,74 +2303,25 @@ renderList();
     const openBtn = qsa('.js-view-series').find(b => (b.getAttribute('href') === initialHash) || (b.getAttribute('data-target') === initialHash));
     if (openBtn) openBtn.click();
   }
-})();</script></body>
+})();</script>
+<script>
+document.addEventListener('click', function(e){
+  const btn = e.target.closest('.js-spec-toggle');
+  if(!btn) return;
+
+  const target = document.querySelector(btn.dataset.target);
+  if(!target) return;
+
+  const isHidden = target.hasAttribute('hidden');
+  if (isHidden) {
+    target.removeAttribute('hidden');
+  } else {
+    target.setAttribute('hidden', '');
+  }
+  btn.setAttribute('aria-expanded', String(isHidden));
+  btn.textContent = isHidden ? 'Hide Key Specs' : 'View Key Specs';
+});
+</script>
+
+</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
