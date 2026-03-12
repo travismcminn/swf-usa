@@ -414,7 +414,31 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
     grid-template-columns:1fr;
   }
 }  
-  
+.series-details-toggle{
+  margin-top:12px;
+}
+.series-details-toggle summary{
+  list-style:none;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+.series-details-toggle summary::-webkit-details-marker{
+  display:none;
+}
+.series-details-toggle[open] summary{
+  margin-bottom:14px;
+}
+.series-details-toggle summary::after{
+  content:"▾";
+  margin-left:8px;
+  font-size:12px;
+  line-height:1;
+}
+.series-details-toggle[open] summary::after{
+  content:"▴";
+}  
 </style>
 </head>
 <body>
@@ -539,7 +563,13 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
               <a class="btn btn-primary" href="https://stitchitintl.com/pages/financing" target="_blank" rel="noopener">Request Pricing</a>
               <a class="btn btn-byld" href="https://byldfinance.com/pages/apply-now" target="_blank" rel="noopener">Get Pre-Approved</a>
               <a class="btn btn-dark" href="https://www.youtube.com/watch?v=qaDz0VXBX3M" target="_blank" rel="noopener">Watch Demo</a>
-              <button class="btn btn-outline btn-toggle js-spec-toggle" type="button" data-target="#kx-spec-panel" aria-expanded="false">View Key Specs</button>
+              <details class="series-details-toggle">
+  <summary class="btn btn-outline btn-toggle">View Key Specs</summary>
+
+  <div class="series-spec-panel">
+    <!-- your spec content here -->
+  </div>
+</details>
             </div>
 
             <div class="series-spec-panel" id="kx-spec-panel" hidden>
