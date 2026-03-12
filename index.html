@@ -439,6 +439,67 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
 .series-details-toggle[open] summary::after{
   content:"▴";
 }  
+
+
+/* ===== Lead CTA polish ===== */
+.series-stack .hcard .cta-row{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+  align-items:stretch;
+}
+.series-stack .hcard .cta-row .btn{
+  width:100%;
+  justify-content:center;
+  min-height:48px;
+  text-align:center;
+  box-shadow:0 8px 18px rgba(2,6,23,.06);
+  transition:transform .12s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease;
+}
+.series-stack .hcard .cta-row .btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 10px 22px rgba(2,6,23,.10);
+}
+.btn-demo{
+  background:#1e293b;
+  color:#fff;
+  border:1px solid #1e293b;
+}
+.btn-demo:hover{
+  background:#0f172a;
+  border-color:#0f172a;
+  color:#fff;
+}
+.btn-freight{
+  background:#e2e8f0;
+  color:#0f172a;
+  border:1px solid #cbd5e1;
+}
+.btn-freight:hover{
+  background:#cbd5e1;
+  border-color:#cbd5e1;
+  color:#0f172a;
+}
+.btn-specs{
+  background:#fff5f5;
+  color:#b91c1c;
+  border:1px solid #fecdd3;
+}
+.btn-specs:hover{
+  background:#ffe4e6;
+  border-color:#fda4af;
+  color:#991b1b;
+}
+@media (max-width: 900px){
+  .series-stack .hcard .cta-row{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+@media (max-width: 560px){
+  .series-stack .hcard .cta-row{
+    grid-template-columns:1fr;
+  }
+}
 </style>
 </head>
 <body>
@@ -560,10 +621,12 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
             </div>
 
             <div class="cta-row" style="margin-top:12px">
-              <a class="btn btn-primary" href="https://stitchitintl.com/pages/financing" target="_blank" rel="noopener">Request Pricing</a>
+              <a class="btn btn-primary" href="https://form.jotform.com/93356006387158" target="_blank" rel="noopener">Request Pricing</a>
               <a class="btn btn-byld" href="https://byldfinance.com/pages/apply-now" target="_blank" rel="noopener">Get Pre-Approved</a>
               <a class="btn btn-dark" href="https://www.youtube.com/watch?v=qaDz0VXBX3M" target="_blank" rel="noopener">Watch Demo</a>
-              <button class="btn btn-outline btn-toggle js-spec-toggle" type="button" data-target="#kx-spec-panel" aria-expanded="false">View Key Specs</button>
+              <a class="btn btn-demo" href="https://form.jotform.com/260636305618154" target="_blank" rel="noopener">Request Live Demo</a>
+              <a class="btn btn-freight" href="https://form.jotform.com/260635331558054" target="_blank" rel="noopener">Get Freight Quote</a>
+              <button class="btn btn-specs btn-toggle js-spec-toggle" type="button" data-target="#kx-spec-panel" aria-expanded="false">View Key Specs</button>
             </div>
 
             <div class="series-spec-panel" id="kx-spec-panel" hidden>
@@ -627,10 +690,12 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
             </div>
 
             <div class="cta-row" style="margin-top:12px">
-              <a class="btn btn-primary" href="https://stitchitintl.com/pages/financing" target="_blank" rel="noopener">Request Pricing</a>
+              <a class="btn btn-primary" href="https://form.jotform.com/93356006387158" target="_blank" rel="noopener">Request Pricing</a>
               <a class="btn btn-byld" href="https://byldfinance.com/pages/apply-now" target="_blank" rel="noopener">Get Pre-Approved</a>
               <a class="btn btn-dark" href="https://www.youtube.com/watch?v=lMtjbxIf4pw" target="_blank" rel="noopener">Watch Demo</a>
-              <button class="btn btn-outline btn-toggle js-spec-toggle" type="button" data-target="#kx-dual-spec-panel" aria-expanded="false">View Key Specs</button>
+              <a class="btn btn-demo" href="https://form.jotform.com/260636305618154" target="_blank" rel="noopener">Request Live Demo</a>
+              <a class="btn btn-freight" href="https://form.jotform.com/260635331558054" target="_blank" rel="noopener">Get Freight Quote</a>
+              <button class="btn btn-specs btn-toggle js-spec-toggle" type="button" data-target="#kx-dual-spec-panel" aria-expanded="false">View Key Specs</button>
             </div>
 
             <div class="series-spec-panel" id="kx-dual-spec-panel" hidden>
@@ -695,10 +760,12 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
             </div>
 
             <div class="cta-row" style="margin-top:12px">
-              <a class="btn btn-primary" href="https://stitchitintl.com/pages/financing" target="_blank" rel="noopener">Request Pricing</a>
+              <a class="btn btn-primary" href="https://form.jotform.com/93356006387158" target="_blank" rel="noopener">Request Pricing</a>
               <a class="btn btn-byld" href="https://byldfinance.com/pages/apply-now" target="_blank" rel="noopener">Get Pre-Approved</a>
               <a class="btn btn-dark" href="https://www.youtube.com/watch?v=650irwOZM4A" target="_blank" rel="noopener">Watch Demo</a>
-              <button class="btn btn-outline btn-toggle js-spec-toggle" type="button" data-target="#ke-spec-panel" aria-expanded="false">View Key Specs</button>
+              <a class="btn btn-demo" href="https://form.jotform.com/260636305618154" target="_blank" rel="noopener">Request Live Demo</a>
+              <a class="btn btn-freight" href="https://form.jotform.com/260635331558054" target="_blank" rel="noopener">Get Freight Quote</a>
+              <button class="btn btn-specs btn-toggle js-spec-toggle" type="button" data-target="#ke-spec-panel" aria-expanded="false">View Key Specs</button>
             </div>
 
             <div class="series-spec-panel" id="ke-spec-panel" hidden>
@@ -771,10 +838,12 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
             </div>
 
             <div class="cta-row" style="margin-top:12px">
-              <a class="btn btn-primary" href="https://stitchitintl.com/pages/financing" target="_blank" rel="noopener">Request Pricing</a>
+              <a class="btn btn-primary" href="https://form.jotform.com/93356006387158" target="_blank" rel="noopener">Request Pricing</a>
               <a class="btn btn-byld" href="https://byldfinance.com/pages/apply-now" target="_blank" rel="noopener">Get Pre-Approved</a>
               <a class="btn btn-dark" href="https://www.youtube.com/watch?v=SXF3pEDHqn0" target="_blank" rel="noopener">Watch Demo</a>
-              <button class="btn btn-outline btn-toggle js-spec-toggle" type="button" data-target="#es-spec-panel" aria-expanded="false">View Key Specs</button>
+              <a class="btn btn-demo" href="https://form.jotform.com/260636305618154" target="_blank" rel="noopener">Request Live Demo</a>
+              <a class="btn btn-freight" href="https://form.jotform.com/260635331558054" target="_blank" rel="noopener">Get Freight Quote</a>
+              <button class="btn btn-specs btn-toggle js-spec-toggle" type="button" data-target="#es-spec-panel" aria-expanded="false">View Key Specs</button>
             </div>
 
             <div class="series-spec-panel" id="es-spec-panel" hidden>
@@ -837,10 +906,12 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
             </div>
 
             <div class="cta-row" style="margin-top:12px">
-              <a class="btn btn-primary" href="https://stitchitintl.com/pages/financing" target="_blank" rel="noopener">Request Pricing</a>
+              <a class="btn btn-primary" href="https://form.jotform.com/93356006387158" target="_blank" rel="noopener">Request Pricing</a>
               <a class="btn btn-byld" href="https://byldfinance.com/pages/apply-now" target="_blank" rel="noopener">Get Pre-Approved</a>
               <a class="btn btn-dark" href="https://www.youtube.com/watch?v=jMvpN7zj3Vo" target="_blank" rel="noopener">Watch Demo</a>
-              <button class="btn btn-outline btn-toggle js-spec-toggle" type="button" data-target="#mas15-spec-panel" aria-expanded="false">View Key Specs</button>
+              <a class="btn btn-demo" href="https://form.jotform.com/260636305618154" target="_blank" rel="noopener">Request Live Demo</a>
+              <a class="btn btn-freight" href="https://form.jotform.com/260635331558054" target="_blank" rel="noopener">Get Freight Quote</a>
+              <button class="btn btn-specs btn-toggle js-spec-toggle" type="button" data-target="#mas15-spec-panel" aria-expanded="false">View Key Specs</button>
             </div>
 
             <div class="series-spec-panel" id="mas15-spec-panel" hidden>
@@ -903,10 +974,12 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
             </div>
 
             <div class="cta-row" style="margin-top:12px">
-              <a class="btn btn-primary" href="https://stitchitintl.com/pages/financing" target="_blank" rel="noopener">Request Pricing</a>
+              <a class="btn btn-primary" href="https://form.jotform.com/93356006387158" target="_blank" rel="noopener">Request Pricing</a>
               <a class="btn btn-byld" href="https://byldfinance.com/pages/apply-now" target="_blank" rel="noopener">Get Pre-Approved</a>
               <a class="btn btn-dark" href="https://www.youtube.com/watch?v=FXqivUu4cfo" target="_blank" rel="noopener">Watch Demo</a>
-              <button class="btn btn-outline btn-toggle js-spec-toggle" type="button" data-target="#mas12-spec-panel" aria-expanded="false">View Key Specs</button>
+              <a class="btn btn-demo" href="https://form.jotform.com/260636305618154" target="_blank" rel="noopener">Request Live Demo</a>
+              <a class="btn btn-freight" href="https://form.jotform.com/260635331558054" target="_blank" rel="noopener">Get Freight Quote</a>
+              <button class="btn btn-specs btn-toggle js-spec-toggle" type="button" data-target="#mas12-spec-panel" aria-expanded="false">View Key Specs</button>
             </div>
 
             <div class="series-spec-panel" id="mas12-spec-panel" hidden>
@@ -969,10 +1042,12 @@ ul.clean{margin:.5rem 0 0 1.25rem;color:var(--muted);line-height:1.55}
             </div>
 
             <div class="cta-row" style="margin-top:12px">
-              <a class="btn btn-primary" href="https://stitchitintl.com/pages/financing" target="_blank" rel="noopener">Request Pricing</a>
+              <a class="btn btn-primary" href="https://form.jotform.com/93356006387158" target="_blank" rel="noopener">Request Pricing</a>
               <a class="btn btn-byld" href="https://byldfinance.com/pages/apply-now" target="_blank" rel="noopener">Get Pre-Approved</a>
               <a class="btn btn-dark" href="https://www.youtube.com/watch?v=42-Y5YTWTiE" target="_blank" rel="noopener">Watch Demo</a>
-              <button class="btn btn-outline btn-toggle js-spec-toggle" type="button" data-target="#mas7-spec-panel" aria-expanded="false">View Key Specs</button>
+              <a class="btn btn-demo" href="https://form.jotform.com/260636305618154" target="_blank" rel="noopener">Request Live Demo</a>
+              <a class="btn btn-freight" href="https://form.jotform.com/260635331558054" target="_blank" rel="noopener">Get Freight Quote</a>
+              <button class="btn btn-specs btn-toggle js-spec-toggle" type="button" data-target="#mas7-spec-panel" aria-expanded="false">View Key Specs</button>
             </div>
 
             <div class="series-spec-panel" id="mas7-spec-panel" hidden>
