@@ -1331,6 +1331,22 @@ links.forEach(a=>{
     });
   });
 
+  <script>
+document.addEventListener('click', function(e){
+  const btn = e.target.closest('.js-spec-toggle');
+  if(!btn) return;
+
+  const target = document.querySelector(btn.dataset.target);
+  if(!target) return;
+
+  const isHidden = target.hasAttribute('hidden');
+
+  target.toggleAttribute('hidden');
+  btn.setAttribute('aria-expanded', String(isHidden));
+  btn.textContent = isHidden ? 'Hide Key Specs' : 'View Key Specs';
+});
+</script>
+
   // Deep link support: #ks, #kx/specs, etc.
   if (location.hash) {
     const [seriesHash, tabId] = location.hash.split('/');
